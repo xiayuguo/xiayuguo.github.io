@@ -1,0 +1,18 @@
+baseURL = "http://blog.hugoxia.com"
+languageCode = "en-us"
+title = "雨果"
+theme = "slim"
+
+[permalinks]
+  articles = "/:year/:month/:title/"
+
+[params]
+  Subtitle = ""
+  GithubID = "hugoxia"
+  # TwitterID = "Your Twitter ID"
+  # AnalyticsID = "Your Google Analytics tracking code"
+  DisqusShortname = "hugoxia"
+  Summary = false  # takes true or false
+  Content = false  # takes true or false
+  # if both are set to true, summary is shown.
+  FooterMsg = "Copyright@<a href='https://github.com/hugoxia'>Hugoxia</a> 2018. Powered by <a href='https://gohugo.io/'>Hugo</a>. This theme—Slim—is open sourced on <a href='https://github.com/zhe/hugo-theme-slim'>Github</a>."
