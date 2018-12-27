@@ -1,6 +1,6 @@
 ---
 title: Python3正则表达式特殊符号及用法(详细列表) 
-date: 2015-9-26 08:45:41
+date: 2015-09-26 08:45:41
 tags:
 - Python
 - Regex
