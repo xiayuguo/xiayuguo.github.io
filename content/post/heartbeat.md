@@ -27,9 +27,10 @@ categories: 架构
  5. 如果客户端的超时定时器超时，依然没有收到应答包，则说明服务器挂了。
 
 #### Python代码实现心跳检测
-> 具体代码参见[Github](https://github.com/hugoxia/Python/heartbeat)
+> 具体代码参见[Github](https://github.com/hugoxia/Python/tree/master/heartbeat)
 
 - server
+
 ```python
 #!/usr/bin/python
 #encoding:utf-8
@@ -45,6 +46,7 @@ try:
 except socket.error, e:
     print "Error creating socket: %s" % e
     sys.exit()
+
 try:
     server.bind((HOST, PORT))
 except socket.error:
@@ -78,7 +80,9 @@ while True:
 
 server.close()
 ```
+
 - client
+
 ```python
 #!/usr/bin/python
 #encoding:utf-8
