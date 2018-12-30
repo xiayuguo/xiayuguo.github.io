@@ -20,4 +20,4 @@ Using containers, everything required to make a piece of software run is package
 > 使用容器，使一件软件运行所需的一切都被打包成隔离的容器。与虚拟机不同，容器不捆绑完整的操作系统 - 只需要使软件工作所需的库和设置。这使得高效，轻便，自包含的系统，并保证软件将始终运行相同，无论它在哪里部署。
 
 - Linux容器技术 vs 虚拟机
-![](/uploads/vmvsdocker.png)
+![](https://hugo-1256107396.cos.ap-chengdu.myqcloud.com/blog/201704/vmvsdocker.png)
