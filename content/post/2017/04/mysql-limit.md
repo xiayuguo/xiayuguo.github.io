@@ -35,6 +35,7 @@ mysql> SELECT * FROM table LIMIT 100,-1; // 检索记录行 100-last.
 # Why-为什么需要为分页查询做优化?
 + 随着数据量的增加，页数会越来越多，查看后几页的SQL就可能类似下面示例。总而言之，越往后分页，LIMIT语句的偏移量(offset)就会越大，速度也会明显变
 + 随着业务的复杂度越来越高, 查询条件不断增多, 可想而知, 速度也会越来越慢
+
 ```sql
 SELECT * FROM users WHERE age = 12 ORDER BY id LIMIT 10000, 20
 ```
