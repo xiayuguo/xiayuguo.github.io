@@ -3,7 +3,6 @@ title: wkhtmltopdf 中文显示有误, 显示“口”方框的解决方案
 date: 2018-10-15 17:54:24
 tags: 
 - Linux
-categories:
 ---
 
 ## 运行环境

@@ -3,8 +3,8 @@ languageCode = "en-us"
 title = "雨果"
 theme = "slim"
 
-[permalinks]
-  articles = "/:year/:month/:title/"
+# [permalinks]
+#  articles = "/:year/:month/:title/"
 
 [params]
   Subtitle = "Stay hungry. Stay foolish."
