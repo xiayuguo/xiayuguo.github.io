@@ -1,6 +1,6 @@
 baseURL = "https://blog.hugoxia.com/"
 languageCode = "en-us"
-title = "雨果"
+title = "随笔"
 theme = "slim"
 
 # [permalinks]
