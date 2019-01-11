@@ -92,8 +92,8 @@ root@cloud:~# docker retart mysql-1 mysql-2
 ```
 # mysql-1 创建复制账号
 root@cloud:~# mysql -uroot -h127.0.0.1 -p123456 -P10028
-GRANT REPLICATION SLAVE,REPLICATION CLIENT ON *.* TO repl@'%.%.%.%' IDENTIFIED BY '123456';
-mysql> GRANT REPLICATION SLAVE,REPLICATION CLIENT ON *.* TO repl@'%.%.%.%' IDENTIFIED BY '123456';
+GRANT REPLICATION SLAVE,REPLICATION CLIENT ON *.* TO repl@'%' IDENTIFIED BY '123456';
+mysql> GRANT REPLICATION SLAVE,REPLICATION CLIENT ON *.* TO repl@'%' IDENTIFIED BY '123456';
 Query OK, 0 rows affected, 1 warning (0.01 sec)
 mysql> flush privileges;
 Query OK, 0 rows affected (0.00 sec)
