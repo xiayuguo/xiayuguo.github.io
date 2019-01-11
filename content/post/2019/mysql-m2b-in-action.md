@@ -92,7 +92,6 @@ root@cloud:~# docker retart mysql-1 mysql-2
 ```
 # mysql-1 创建复制账号
 root@cloud:~# mysql -uroot -h127.0.0.1 -p123456 -P10028
-GRANT REPLICATION SLAVE,REPLICATION CLIENT ON *.* TO repl@'%' IDENTIFIED BY '123456';
 mysql> GRANT REPLICATION SLAVE,REPLICATION CLIENT ON *.* TO repl@'%' IDENTIFIED BY '123456';
 Query OK, 0 rows affected, 1 warning (0.01 sec)
 mysql> flush privileges;
@@ -198,8 +197,8 @@ mysql> select * from sync;
 |  4 | b     | B       |
 +----+-------+---------+
 3 rows in set (0.01 sec)
-# 此处有掌声！！！
-mysql>
+
+mysql> 此处应该有掌声！！！
 ```
 
 注: mysql 的镜像中没有 vim , 遇到 vim 不存在时， 需要安装一下
