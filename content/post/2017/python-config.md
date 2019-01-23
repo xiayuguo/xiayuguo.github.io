@@ -3,7 +3,7 @@ title: configparser(PY3) VS ConfigParser(PY2)
 date: 2017-04-26 18:25:23
 tags:
 - Python
-- configparser
+- Py2 vs Py3
 ---
 
 > 关于使用ConfigParser,我的小伙伴想实现特殊的需求: 1.配置中的参数均大写; 2.配置文件中"="等号两侧无空格, 于是摸索中写下这篇文章, 方便有缘人
