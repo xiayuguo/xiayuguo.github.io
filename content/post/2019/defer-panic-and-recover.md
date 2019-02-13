@@ -55,6 +55,7 @@ func CopyFile(dstName, srcName string) (written int64, err error) {
 **Defer** 语句允许我们考虑在打开它之后立即关闭每个文件，保证无论函数中的返回语句数量如何，文件都将被关闭。
 
 **Defer** 语句的行为是直截了当且可预测的。有三个简单的规则：
+
 1.在评估 defer 语句时，将评估 defer 函数的参数。 
 
 在此示例中，在延迟Println调用时计算表达式“i”。 函数返回后，延迟调用将打印“0”。
