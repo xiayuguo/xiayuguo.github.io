@@ -2,7 +2,7 @@
 title: Defer, Panic and Recover
 date: 2019-02-13T12:14:17+08:00
 draft: false
-comments: false
+comments: true
 tags: 
 - Golang
 ---
