@@ -1,4 +1,4 @@
-baseURL = "https://blog.hugoxia.com/"
+baseURL = "https://yuguo.im/"
 languageCode = "en-us"
 title = "随笔"
 theme = "slim"
@@ -16,4 +16,4 @@ theme = "slim"
   Content = false  # takes true or false
   # if both are set to true, summary is shown.
   # FooterMsg = "Copyright@<a href='http://localhost:1313/about'>Hugoxia</a> 2018. Powered by <a href='https://gohugo.io/'>Hugo</a>. This theme—Slim—is open sourced on <a href='https://github.com/zhe/hugo-theme-slim'>Github</a>."
-  FooterMsg = "Copyright@<a href='https://blog.hugoxia.com/about'>Hugoxia</a> 2018. Powered by <a href='https://gohugo.io/'>Hugo</a>. This theme—Slim—is open sourced on <a href='https://github.com/zhe/hugo-theme-slim'>Github</a>."
+  FooterMsg = "Copyright@<a href='https://yuguo.im/about'>Hugoxia</a> 2018. Powered by <a href='https://gohugo.io/'>Hugo</a>. This theme—Slim—is open sourced on <a href='https://github.com/zhe/hugo-theme-slim'>Github</a>."
