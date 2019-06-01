@@ -8,7 +8,7 @@ tags:
 - Python
 ---
 
-![flask disk](https://hugo-1256107396.cos.ap-chengdu.myqcloud.com/blog/2019/06/uflashdisk.webp?q-sign-algorithm=sha1&q-ak=AKIDU1piBG6dEhJE1i0nSW7PKxZU1PFe0GXq&q-sign-time=1559382903;1559386503&q-key-time=1559382903;1559386503&q-header-list=&q-url-param-list=&q-signature=845a2edf8a8524f36adea6c59da5ff4ae7540f98&x-cos-security-token=d1eda615123ee5845a52f41e96457e22dfdf3d0e10001)
+
 最近有同事问我，有没有U盘，她要给别人拷下文件，或者是从别人那拷贝下文件。
 
 这些文件普遍有个特点就是体积大（超出微信客户端中的上限 100M）
@@ -23,8 +23,10 @@ tags:
 
 # 开始我的表演
 > 以 Win10 系统演示，其他系统方法类似
+
 ## Step.1
-发送方进入要传递文件的目录 
+发送方进入要传递文件的目录
+
 ## Step.2
 地址栏输入`cmd`
 
@@ -40,7 +42,6 @@ python -m SimpleHTTPServer
 ```
 
 - python3
-
 ```
 python -m http.server
 ```
