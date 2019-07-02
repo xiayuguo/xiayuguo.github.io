@@ -45,6 +45,7 @@ python -m SimpleHTTPServer
 ```
 python -m http.server
 ```
+
 ## Step.5
 此时防火墙会有提示，选择`允许访问`
 
