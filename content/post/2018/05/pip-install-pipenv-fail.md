@@ -1,6 +1,6 @@
 ---
 title: Pip Install Pipenv Fail
-date: 2019-07-04T21:15:15+08:00
+date: 2018-05-21T21:15:15+08:00
 draft: false
 comments: true
 tags: 
