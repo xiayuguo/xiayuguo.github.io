@@ -70,3 +70,17 @@ total 875M
 |xz|17m22.529s|49|
 
 总体来说: gzip性价比最高，bz2和xz可以把文件压得更小，但是耗时太长。
+
+### 问题小结
+#### 问题一：`tar: Removing leading '/' from member names`
+##### 原因: tar 在压缩文件时，默认会取相对路径，无法处理绝对路径，需要使用参数`P`来指定。
+通过`tar --help|grep leading`，可以查到下面的提示信息：
+```
+-P, --absolute-names       don't strip leading '/'s from file names
+    --strip-components=NUMBER   strip NUMBER leading components from file
+
+```
+##### 示例：
+```
+tar czf target.tgz -P /a/b/source
+```
