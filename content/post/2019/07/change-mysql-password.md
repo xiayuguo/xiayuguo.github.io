@@ -25,6 +25,7 @@ mysql> select host,user,password from mysql.user where user="root";
 
 ```
 
+
 # 方式一
 ```
 mysqladmin -uroot -p666 flush-privileges password "999"
@@ -41,7 +42,7 @@ mysql> select host,user,password from mysql.user where user="root";
 | host      | user | password                                  |
 +-----------+------+-------------------------------------------+
 | localhost | root | *627B3E4116939F447D767EECFB048F52DFBF73A7 |
-| parkw     | root | *007D50CA06F69776D307B1BEC71CD73D0EA0999C |
+| hugo      | root | *007D50CA06F69776D307B1BEC71CD73D0EA0999C |
 | 127.0.0.1 | root | *007D50CA06F69776D307B1BEC71CD73D0EA0999C |
 | ::1       | root | *007D50CA06F69776D307B1BEC71CD73D0EA0999C |
 | %         | root | *007D50CA06F69776D307B1BEC71CD73D0EA0999C |
