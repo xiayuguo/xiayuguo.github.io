@@ -1,8 +1,8 @@
 ---
 title: Change Redis Password
 date: 2019-07-22T18:36:32+08:00
-draft: true
-comments: false
+draft: false
+comments: true
 tags: 
 - Redis
 ---
