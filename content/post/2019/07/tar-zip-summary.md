@@ -24,21 +24,31 @@ total 705M
 - `-z` 以gzip方式压缩
 - `-j` 以bzip2方式压缩
 - `-J` 以xz方式压缩
+- `-t` list 简写, 列出压缩的内容
+- `-v` verbose 简写, 详细列出已处理的文件
 
 ### 示例
 
-- Tar压缩
+- Tar 压缩
 ```
 tar -czf a.tar.gz a.sql
 tar -cjf a.tar.bz2 a.sql
 tar -cJf a.tar.xz a.sql
 ```
 
-- Tar解压缩
+- Tar 解压缩
 ```
 tar -xzf a.tar.gz
 tar -xjf a.tar.bz2
 tar -xJf a.tar.xz
+```
+
+- Tar 解压指定文件
+```
+1. 查找指定文件是否存在
+tar -ztvf a.tar.gz | grep "keyword"
+2. 解压时增加完整文件名(含路径)
+tar -zxvf a.tar.gz a/keyword
 ```
 
 ### 压缩算法效率对比
