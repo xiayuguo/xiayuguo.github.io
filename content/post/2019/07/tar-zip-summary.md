@@ -44,10 +44,12 @@ tar -xJf a.tar.xz
 ```
 
 - Tar 解压指定文件
-```
 1. 查找指定文件是否存在
+```
 tar -ztvf a.tar.gz | grep "keyword"
+```
 2. 解压时增加完整文件名(含路径)
+```
 tar -zxvf a.tar.gz a/keyword
 ```
 
