@@ -3,15 +3,15 @@ languageCode = "en-us"
 title = "随笔"
 theme = "slim"
 
-# [permalinks]
-#   post = "/:year/:month/:title/"
+[permalinks]
+  posts = "/:year/:month/:title/"
 
 [params]
   Subtitle = "Stay hungry. Stay foolish."
   GithubID = "xiayuguo"
   # TwitterID = "Your Twitter ID"
   # AnalyticsID = "Your Google Analytics tracking code"
-  DisqusShortname = "hugoxia"
+  DisqusShortname = "yuguo"
   Summary = false  # takes true or false
   Content = false  # takes true or false
   # if both are set to true, summary is shown.
