@@ -1,4 +1,4 @@
-baseURL = "https://yuguo.im"
+baseURL = "https://yuguo.im/"
 languageCode = "en-us"
 title = "随笔"
 theme = "slim"
