@@ -1,15 +1,15 @@
 ---
 title: 关于我
-date: 2018-10-12 11:25:35
+date: 2020-02-15 21:25:35
 tags:
 ---
 
 # 个人信息
-+ Hugo Xia / 男 / 1993
++ 雨果 / 男 / 1993
 + 本科
 + 2015.5 上线
-+ 博客: https://blog.hugoxia.com
-+ Github: https://github.com/hugoxia
++ 博客: https://xiayuguo.com
++ Github: https://github.com/xiayuguo
 
 
 # 技能清单
