@@ -2,7 +2,9 @@
 title: "如何在 Go 中使用 JSON【最佳实践】（译文）"
 date: 2020-03-03T10:42:18+08:00
 draft: false
-comment: true
+comments: true
+tags: 
+- Golang
 ---
 
 JSON 数据交换格式对人类来说很容易读写，对机器进行解析和生成也非常有效。
