@@ -7,6 +7,10 @@ tags:
 - Golang
 ---
 
+> 作者：Stefan Nilsson
+> 
+> 原文网址：https://yourbasic.org/golang/rune
+
 ![Runic letters encoded in stone, Ballstorp 1900](http://oss.xiayuguo.com/blog/202003/rune-stone-ballstorp-1900.jpg)
 
 ## 字符，ASCII 和 Unicode
