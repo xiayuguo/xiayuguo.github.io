@@ -1,5 +1,5 @@
 ---
-title: Golang 中字节切片/数组和字符串互转
+title: Golang 中字节切片/数组和字符串互转（译文）
 date: 2020-03-11T18:20:48+08:00
 draft: false
 comments: true
