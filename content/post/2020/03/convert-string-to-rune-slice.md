@@ -1,5 +1,5 @@
 ---
-title: Convert between rune array/slice and string（译文）
+title: Golang 中 runes 和 字符串互转（译文）
 date: 2020-03-11T08:26:57+08:00
 draft: false
 comments: true
