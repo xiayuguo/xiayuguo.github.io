@@ -4,8 +4,10 @@ date: {{ .Date }}
 draft: true
 comments: false
 tags: 
-- Life
-- Python
 - Golang
 ---
+
+> 作者：Stefan Nilsson
+> 
+> 原文网址：https://yourbasic.org/golang/{{ .Name }}/
 

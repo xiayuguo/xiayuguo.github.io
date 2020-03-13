@@ -1,8 +1,8 @@
 ---
 title: Convert String to Float
 date: 2020-03-11T19:33:24+08:00
-draft: true
-comments: false
+draft: false
+comments: true
 tags: 
 - Golang
 ---
@@ -57,12 +57,15 @@ if s, err := strconv.ParseFloat(f, 64); err == nil {
 s := fmt.Sprintf("%f", 123.456) // s == "123.456000"
 ```
 
-|Formatting|	Description	|Verb|
+|格式化输出|	说明	|占位符|
 |:-|:-|:-|
 |1.234560e+02|科学计数法|	%e|
-|123.456000|	Decimal point, no exponent|	%f|
+|123.456000|有小数点而无指数|   %f|
 |123.46|	默认宽度，精度 2	|%.2f|
 |␣␣123.46|	宽度 8, 精度 2	|%8.2f|
-|123.456|	Exponent as needed, necessary digits only	|%g|
+|123.456|	(根据情况选择 %e 或 %f 以产生更紧凑的（无末尾的0）输出)	|%g|
 
 
+## Fmt 备忘单
+![](http://oss.xiayuguo.com/blog/202003/format-thumb.jpg)
+[How to format with fmt](https://yourbasic.org/golang/fmt-printf-reference-cheat-sheet/ "How to format with fmt")
