@@ -1,5 +1,5 @@
 ---
-title: Convert String to Float
+title: Golang 中字符串和浮点数互转（译文）
 date: 2020-03-11T19:33:24+08:00
 draft: false
 comments: true
@@ -68,4 +68,5 @@ s := fmt.Sprintf("%f", 123.456) // s == "123.456000"
 
 ## Fmt 备忘单
 ![](http://oss.xiayuguo.com/blog/202003/format-thumb.jpg)
+
 [How to format with fmt](https://yourbasic.org/golang/fmt-printf-reference-cheat-sheet/ "How to format with fmt")
