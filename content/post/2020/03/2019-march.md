@@ -9,7 +9,7 @@ tags:
 
 去年的三月份，算是踏入初春，天气微微热，百花盛开，正是踏青的好时节。我们一起去“杀”草莓。
 
- # First blood 
+# First blood 
 ![](http://oss.xiayuguo.com/blog/202003/one-strawberry.jpg)
 
 # Double kill 
