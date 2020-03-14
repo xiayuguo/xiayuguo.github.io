@@ -1,7 +1,7 @@
 ---
 title: 生成随机数，字符和切片元素（译文）
 date: 2020-03-13T09:19:52+08:00
-draft: false
+draft: true
 comments: true
 tags: 
 - Golang
