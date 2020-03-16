@@ -1,8 +1,8 @@
 ---
-title: Interface to String
+title: Golang 中将接口转换为字符串（译文）
 date: 2020-03-15T20:33:15+08:00
-draft: true
-comments: false
+draft: false
+comments: true
 tags: 
 - Golang
 ---
