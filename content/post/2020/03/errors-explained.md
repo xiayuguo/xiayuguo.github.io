@@ -14,6 +14,7 @@ tags:
 ![](http://oss.xiayuguo.com/blog/202003/errors.png)
 
 Go 具有两种不同的错误处理机制：
+
 - 大多数函数返回 errors；
 - 只有真正无法恢复的条件（例如超出范围的索引）才会产生运行时异常，我们称之为 panic
 
