@@ -1,5 +1,5 @@
 ---
-title: Golang 错误处理最佳实践
+title: Golang 错误处理最佳实践（译文）
 date: 2020-03-19T08:49:59+08:00
 draft: false
 comments: true
@@ -51,7 +51,7 @@ err := errors.New("Houston, we have a problem")
 #### 学到更多
 ![](http://oss.xiayuguo.com/blog/202003/bug-small.png)
 
-有关更多示例，请参见 [3种创建错误的简单方法](https://yourbasic.org/golang/create-error/ "3 simple ways to create an error")。
+有关更多示例，请参见 [3种创建错误的简单方法](https://xiayuguo.com/post/2020/03/create-error/ "3 simple ways to create an error")。
 
 ## Panic
 Panics 类似于 C++ 和 Java 异常，但仅适用于运行时错误，例如跟随一个 nil 指针或试图对数组访问超出范围的索引。
@@ -59,4 +59,4 @@ Panics 类似于 C++ 和 Java 异常，但仅适用于运行时错误，例如�
 #### 学到更多
 ![](http://oss.xiayuguo.com/blog/202003/panic-thumb.jpg)
 
-有关如何从 panics 中恢复和测试 panics 的教程，请参见 [从 panic 中恢复](https://yourbasic.org/golang/recover-from-panic/ "Recover from a panic")。
+有关如何从 panics 中恢复和测试 panics 的教程，请参见 [从 panic 中恢复](https://xiayuguo.com/post/2020/03/recover-from-panic/ "Recover from a panic")。
