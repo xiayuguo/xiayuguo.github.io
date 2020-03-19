@@ -48,7 +48,8 @@ err := errors.New("Houston, we have a problem")
 `error` 接口仅需要一个 `Error` 方法，但是特定的 `error` 实现通常具有其他方法，从而允许调用方检查错误的详细信息。
 
 #### 学到更多
-![](http://oss.xiayuguo.com/blog/202003/errors.png)
+![](http://oss.xiayuguo.com/blog/202003/bug-small.png)
+
 有关更多示例，请参见 [3种创建错误的简单方法](https://yourbasic.org/golang/create-error/ "3 simple ways to create an error")。
 
 ## Panic
@@ -56,4 +57,5 @@ Panics 类似于 C++ 和 Java 异常，但仅适用于运行时错误，例如�
 
 #### 学到更多
 ![](http://oss.xiayuguo.com/blog/202003/panic-thumb.jpg)
+
 有关如何从 panics 中恢复和测试 panics 的教程，请参见 [从 panic 中恢复](https://yourbasic.org/golang/recover-from-panic/ "Recover from a panic")。
