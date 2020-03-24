@@ -325,7 +325,7 @@ $ ps -U root -u root u
 
 ![显示真实有效的用户ID](http://oss.xiayuguo.com/blog/202003/ps_root_real_effective_ID.webp)
 
-## 14. 在实时流程查看器中使用 PS
+## 14. 在实时进程查看器中使用 PS
 
 ps 将显示有关系统中发生的情况的报告。结果将是静态报告。
 假设我们要像上面第 4 点那样按CPU和内存使用情况筛选进程。我们希望报告每1秒更新一次。我们可以组合 `watch` 命令在  Linux 上做到这一点。
