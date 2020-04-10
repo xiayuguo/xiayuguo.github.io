@@ -11,6 +11,8 @@ tags:
 > 
 > 原文网址：https://yourbasic.org/golang/generate-uuid-guid/
 
+![](http://oss.xiayuguo.com/blog/202003/fingerprint-keyboard.jpg)
+
 通用唯一标识符 UUID（universally unique identifier）或全局唯一标识符 GUID （globally unique identifier）是用于标识信息的 128 位数字。
 - UUID 是唯一的(出于实用目的)：它重复的概率非常接近零。
 - UUID 不依赖中央机构的注册和分配。
