@@ -1,5 +1,5 @@
 ---
-title: Shuffle Slice Array
+title: Golang 中对切片或数组洗牌（译文）
 date: 2020-04-10T16:08:23+08:00
 draft: false
 comments: true

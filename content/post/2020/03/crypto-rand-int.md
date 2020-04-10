@@ -1,5 +1,5 @@
 ---
-title: Crypto Rand Int
+title: Golang 中 crypto/rand（译文）
 date: 2020-03-15T16:08:45+08:00
 draft: false
 comments: true
