@@ -56,7 +56,7 @@ err := errors.New("Houston, we have a problem")
 ## Panic
 Panics 类似于 C++ 和 Java 异常，但仅适用于运行时错误，例如跟随一个 nil 指针或试图对数组访问超出范围的索引。
 
-#### 学到更多
+#### 延伸阅读
 ![](http://oss.xiayuguo.com/blog/202003/panic-thumb.jpg)
 
 有关如何从 panics 中恢复和测试 panics 的教程，请参见 [从 panic 中恢复](https://xiayuguo.com/post/2020/03/recover-from-panic/ "Recover from a panic")。
