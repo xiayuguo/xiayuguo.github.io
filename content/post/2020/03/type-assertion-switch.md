@@ -1,5 +1,5 @@
 ---
-title: 类型断言和类型切换（译文）
+title: Golang 中类型断言和类型切换（译文）
 date: 2020-03-10T07:55:40+08:00
 draft: false
 comments: true
