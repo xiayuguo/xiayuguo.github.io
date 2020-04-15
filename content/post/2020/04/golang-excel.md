@@ -10,7 +10,7 @@ Microsoft Excel™ (XLSX) 是广泛使用的一种电子表格格式。
 
 ![](http://oss.xiayuguo.com/blog/202004/golang-excel.png)
 
-Github 上有两个 Golang 包可以方便独写 Excel 文件。
+Github 上有两个 Golang 包可以方便读写 Excel 文件。
 
 ||[360EntSecGroup-Skylar/excelize](https://github.com/360EntSecGroup-Skylar/excelize "360EntSecGroup-Skylar/excelize")|[tealeg/xlsx](https://github.com/tealeg/xlsx "tealeg/xlsx")|
 |:-|:-|:-|
