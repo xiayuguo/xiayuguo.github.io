@@ -1,10 +1,10 @@
-baseURL = "https://xiayuguo.com/"
+baseURL = "https://yuguo.im/"
 languageCode = "en-us"
 title = "随笔"
 theme = "slim"
 
-[permalinks]
-  posts = "/:year/:month/:title/"
+#[permalinks]
+#  posts = "/:year/:month/:title"
 
 [params]
   Subtitle = "Stay hungry. Stay foolish."
@@ -16,7 +16,7 @@ theme = "slim"
   Content = false  # takes true or false
   # if both are set to true, summary is shown.
   # FooterMsg = "Copyright@<a href='http://localhost:1313/about'>Yuguo</a> 2018. Powered by <a href='https://gohugo.io/'>Hugo</a>. This theme—Slim—is open sourced on <a href='https://github.com/zhe/hugo-theme-slim'>Github</a>."
-  FooterMsg = "Copyright@<a href='https://xiayuguo.com/about'>Yuguo</a> 2019. Powered by <a href='https://gohugo.io/'>Hugo</a>. This theme—Slim—is open sourced on <a href='https://github.com/zhe/hugo-theme-slim'>Github</a>."
+  FooterMsg = "Copyright@<a href='https://yuguo.im/about'>Yuguo</a> 2019. Powered by <a href='https://gohugo.io/'>Hugo</a>. This theme—Slim—is open sourced on <a href='https://github.com/zhe/hugo-theme-slim'>Github</a>."
   mainSections = ["post"]
 
 [outputs]
