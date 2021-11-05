@@ -1,0 +1,152 @@
+<!doctype html><html>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<title> Tar压缩命令小结 &#183; 随笔 </title>
+<link rel=stylesheet href=http://yuguo.im/css/slim.css>
+<link rel=stylesheet href=http://yuguo.im/css/highlight.min.css>
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro" rel=stylesheet type=text/css>
+<link rel=apple-touch-icon-precomposed sizes=144x144 href=/apple-touch-icon-144-precomposed.png>
+<link rel="shortcut icon" href=/favicon.ico>
+<link href rel=alternate type=application/rss+xml title=随笔>
+</head>
+<body>
+<div class=container>
+<div class=header>
+<h1 class=site-title><a href=http://yuguo.im/>随笔</a></h1>
+<p class=site-tagline>Stay hungry. Stay foolish.</p>
+<div class=nav>
+<a class=nav-btn href=#>
+<span class="ci ci-burger"></span>
+</a>
+<ul class=nav-list>
+<li class=spacer>&ac;</li>
+<li><a href=https://github.com/xiayuguo>Github</a></li>
+</ul>
+</div>
+</div>
+<div class=content>
+<div class=posts>
+<div class=post>
+<h2 class=post-title><a href=http://yuguo.im/post/2019/07/tar-zip-summary/>Tar压缩命令小结</a></h2>
+<span class=post-date>Jul 2, 2019 </span>
+<div class=post-content>
+<blockquote>
+<p>今天遇到一个麻烦，从生产环境备份的一个<code>SQL</code>脚本，体积是<code>705M</code>，希望下载到本地做测试，由于网络不稳定、带宽有限等问题，无法下载成功，于是怎么办？压缩！</p>
+</blockquote>
+<pre tabindex=0><code>root@localhost:/home/test# ls -lh
+total 705M
+-rw-r--r-- 1 root root 705M 7月   2 09:48 bf_2019_07-02.sql
+</code></pre><p>我们先来回顾下压缩/解压缩相关常用命令</p>
+<h2 id=tar>Tar</h2>
+<ul>
+<li><code>-c</code> create 简写, 创建压缩</li>
+<li><code>-x</code> extract 简写, 提取压缩</li>
+<li><code>-f</code> 生成的文件名</li>
+<li><code>-z</code> 以gzip方式压缩</li>
+<li><code>-j</code> 以bzip2方式压缩</li>
+<li><code>-J</code> 以xz方式压缩</li>
+<li><code>-t</code> list 简写, 列出压缩的内容</li>
+<li><code>-v</code> verbose 简写, 详细列出已处理的文件</li>
+</ul>
+<h3 id=示例>示例</h3>
+<ul>
+<li>Tar 压缩</li>
+</ul>
+<pre tabindex=0><code>tar -czf a.tar.gz a.sql
+tar -cjf a.tar.bz2 a.sql
+tar -cJf a.tar.xz a.sql
+</code></pre><ul>
+<li>Tar 解压缩</li>
+</ul>
+<pre tabindex=0><code>tar -xzf a.tar.gz
+tar -xjf a.tar.bz2
+tar -xJf a.tar.xz
+</code></pre><ul>
+<li>Tar 解压指定文件</li>
+</ul>
+<ol>
+<li>查找指定文件是否存在</li>
+</ol>
+<pre tabindex=0><code>tar -ztvf a.tar.gz | grep &quot;keyword&quot;
+</code></pre><ol start=2>
+<li>解压时增加完整文件名(含路径)</li>
+</ol>
+<pre tabindex=0><code>tar -zxvf a.tar.gz a/keyword
+</code></pre><h3 id=压缩算法效率对比>压缩算法效率对比</h3>
+<pre tabindex=0><code>root@localhost:/home/test# time tar czf backup.tar.gz bf_2019_07-02.sql
+real    0m36.603s
+user    0m35.226s
+sys     0m4.191s
+root@localhost:/home/test# time tar cjf backup.tar.bz2 bf_2019_07-02.sql
+real    7m57.828s
+user    7m55.994s
+sys     0m4.707s
+root@localhost:/home/test# time tar cJf backup.tar.xz bf_2019_07-02.sql
+real    17m22.529s
+user    17m19.340s
+sys     0m24.694s
+root@localhost:/home/test# ls -lh
+total 875M
+-rw-r--r-- 1 root root  54M 7月   2 16:08 backup.tar.bz2
+-rw-r--r-- 1 root root  69M 7月   2 15:59 backup.tar.gz
+-rw-r--r-- 1 root root  49M 7月   2 18:19 backup.tar.xz
+-rw-r--r-- 1 root root 705M 7月   2 09:48 bf_2019_07-02.sql
+</code></pre><table>
+<thead>
+<tr>
+<th style=text-align:left>压缩方式</th>
+<th style=text-align:left>压缩耗时</th>
+<th style=text-align:left>压缩后大小(M)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style=text-align:left>gzip</td>
+<td style=text-align:left>36.603s</td>
+<td style=text-align:left>69</td>
+</tr>
+<tr>
+<td style=text-align:left>bz2</td>
+<td style=text-align:left>7m57.828s</td>
+<td style=text-align:left>54</td>
+</tr>
+<tr>
+<td style=text-align:left>xz</td>
+<td style=text-align:left>17m22.529s</td>
+<td style=text-align:left>49</td>
+</tr>
+</tbody>
+</table>
+<p>总体来说: gzip性价比最高，bz2和xz可以把文件压得更小，但是耗时太长。</p>
+<h3 id=问题小结>问题小结</h3>
+<h4 id=问题一tar-removing-leading--from-member-names>问题一：<code>tar: Removing leading '/' from member names</code></h4>
+<h5 id=原因-tar-在压缩文件时默认会取相对路径无法处理绝对路径需要使用参数p来指定>原因: tar 在压缩文件时，默认会取相对路径，无法处理绝对路径，需要使用参数<code>P</code>来指定。</h5>
+<p>通过<code>tar --help|grep leading</code>，可以查到下面的提示信息：</p>
+<pre tabindex=0><code>-P, --absolute-names       don't strip leading '/'s from file names
+    --strip-components=NUMBER   strip NUMBER leading components from file
+
+</code></pre><h5 id=示例-1>示例：</h5>
+<pre tabindex=0><code>tar czf target.tgz -P /a/b/source
+</code></pre>
+</div>
+</div>
+<div class=pagination>
+<a class="btn previous" href=http://yuguo.im/post/2019/07/export-mysql-table-to-excel/> Prev</a>
+<a class="btn next" href=http://yuguo.im/post/2019/07/history-usage/> Next</a>
+</div>
+</div>
+</div>
+<div id=disqus_thread></div>
+<script>var disqus_config=function(){this.page.url="http://yuguo.im/post/2019/07/tar-zip-summary/"};(function(){var a=document,b=a.createElement('script');b.src='//yuguo.disqus.com/embed.js',b.setAttribute('data-timestamp',+new Date),(a.head||a.body).appendChild(b)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments powered by Disqus.</a></noscript>
+<div class=footer>
+<p>Copyright@<a href=http://yuguo.im/about>Yuguo</a> 2019. Powered by <a href=https://gohugo.io/>Hugo</a>. This theme—Slim—is open sourced on <a href=https://github.com/zhe/hugo-theme-slim>Github</a>.</p>
+</div>
+</div>
+<script src=http://yuguo.im/js/slim.js></script>
+<script src=http://yuguo.im/js/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script>
+<script>(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)})(window,document,'script','//www.google-analytics.com/analytics.js','ga'),ga('create','UA-161689466-1','auto'),ga('send','pageview')</script>
+</body>
+</html>

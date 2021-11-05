@@ -1,0 +1,71 @@
+<!doctype html><html>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<title> 通过命令行激活Win10 &#183; 随笔 </title>
+<link rel=stylesheet href=http://yuguo.im/css/slim.css>
+<link rel=stylesheet href=http://yuguo.im/css/highlight.min.css>
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro" rel=stylesheet type=text/css>
+<link rel=apple-touch-icon-precomposed sizes=144x144 href=/apple-touch-icon-144-precomposed.png>
+<link rel="shortcut icon" href=/favicon.ico>
+<link href rel=alternate type=application/rss+xml title=随笔>
+</head>
+<body>
+<div class=container>
+<div class=header>
+<h1 class=site-title><a href=http://yuguo.im/>随笔</a></h1>
+<p class=site-tagline>Stay hungry. Stay foolish.</p>
+<div class=nav>
+<a class=nav-btn href=#>
+<span class="ci ci-burger"></span>
+</a>
+<ul class=nav-list>
+<li class=spacer>&ac;</li>
+<li><a href=https://github.com/xiayuguo>Github</a></li>
+</ul>
+</div>
+</div>
+<div class=content>
+<div class=posts>
+<div class=post>
+<h2 class=post-title><a href=http://yuguo.im/post/2019/cmd-activate-win10/>通过命令行激活Win10</a></h2>
+<span class=post-date>Jan 6, 2019 </span>
+<div class=post-content>
+<blockquote>
+<p>一直以来，网上各种激活工具，层出不穷，但是更多的是病毒和垃圾广告，
+费心寻找之下，终于找到这种简单、免安装的方式来激活。 缺点是只有 <code>180</code> 天有效期。</p>
+</blockquote>
+<h3 id=方法>方法</h3>
+<h4 id=1-通过-slmgr>1. 通过 slmgr</h4>
+<p><a href=https://blog.csdn.net/yongyong169/article/details/79086382>slmgr</a>(Software LiscenceManager)</p>
+<pre tabindex=0><code>// 1.检查是VL版本
+slmgr /dlv
+// 产品密钥通道: 包含VL的字符串 如果不包含则终止此方法
+// 2.激活系统
+slmgr /skms kms.03k.org
+slmgr /ato
+</code></pre><h4 id=2-一键激活>2. 一键激活</h4>
+<p>参考这篇文章: <a href=http://kms.cangshui.net/>http://kms.cangshui.net/</a></p>
+<h3 id=参考文章>参考文章</h3>
+<ul>
+<li><a href=https://www.jianshu.com/p/5886e8cbbaf3>https://www.jianshu.com/p/5886e8cbbaf3</a></li>
+<li><a href=https://03k.org/kms.html>https://03k.org/kms.html</a></li>
+</ul>
+</div>
+</div>
+<div class=pagination>
+<a class="btn previous" href=http://yuguo.im/post/2019/plugin-statistic/> Prev</a>
+<a class="btn next" href=http://yuguo.im/post/2019/docker-run-mysql-error/> Next</a>
+</div>
+</div>
+</div>
+<div class=footer>
+<p>Copyright@<a href=http://yuguo.im/about>Yuguo</a> 2019. Powered by <a href=https://gohugo.io/>Hugo</a>. This theme—Slim—is open sourced on <a href=https://github.com/zhe/hugo-theme-slim>Github</a>.</p>
+</div>
+</div>
+<script src=http://yuguo.im/js/slim.js></script>
+<script src=http://yuguo.im/js/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script>
+<script>(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)})(window,document,'script','//www.google-analytics.com/analytics.js','ga'),ga('create','UA-161689466-1','auto'),ga('send','pageview')</script>
+</body>
+</html>

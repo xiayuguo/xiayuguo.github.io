@@ -1,0 +1,110 @@
+<!doctype html><html>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<title> Golang 中 int，int64 和字符串互转（译文） &#183; 随笔 </title>
+<link rel=stylesheet href=http://yuguo.im/css/slim.css>
+<link rel=stylesheet href=http://yuguo.im/css/highlight.min.css>
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro" rel=stylesheet type=text/css>
+<link rel=apple-touch-icon-precomposed sizes=144x144 href=/apple-touch-icon-144-precomposed.png>
+<link rel="shortcut icon" href=/favicon.ico>
+<link href rel=alternate type=application/rss+xml title=随笔>
+</head>
+<body>
+<div class=container>
+<div class=header>
+<h1 class=site-title><a href=http://yuguo.im/>随笔</a></h1>
+<p class=site-tagline>Stay hungry. Stay foolish.</p>
+<div class=nav>
+<a class=nav-btn href=#>
+<span class="ci ci-burger"></span>
+</a>
+<ul class=nav-list>
+<li class=spacer>&ac;</li>
+<li><a href=https://github.com/xiayuguo>Github</a></li>
+</ul>
+</div>
+</div>
+<div class=content>
+<div class=posts>
+<div class=post>
+<h2 class=post-title><a href=http://yuguo.im/post/2020/03/convert-int-to-string/>Golang 中 int，int64 和字符串互转（译文）</a></h2>
+<span class=post-date>Mar 11, 2020 </span>
+<div class=post-content>
+<blockquote>
+<p>作者：Stefan Nilsson</p>
+<p>原文网址：https://yourbasic.org/golang/convert-int-to-string/</p>
+</blockquote>
+<p><img src=http://oss.xiayuguo.com/blog/202003/numbers-1-2-3.jpg alt></p>
+<h2 id=intint64-转字符串>int/int64 转字符串</h2>
+<p>使用 <a href=https://golang.org/pkg/strconv/#Itoa title=strconv.Itoa>strconv.Itoa</a> 将 int 转换为十进制字符串。</p>
+<pre tabindex=0><code>s := strconv.Itoa(97) // s == &quot;97&quot;
+</code></pre><blockquote>
+<p>警告：在普通转换中，该值将解释为 Unicode 码位，并且生成的字符串将包含该码位表示的字符，并以 UTF-8 编码。</p>
+<p><code>s := string(97) // s == "a"</code></p>
+</blockquote>
+<p>使用 <a href=https://golang.org/pkg/strconv/#FormatInt title=strconv.FormatInt>strconv.FormatInt</a> 以给定的进制数（十进制、十六进制）格式化 int64。</p>
+<pre tabindex=0><code>var n int64 = 97
+s := strconv.FormatInt(n, 10) // s == &quot;97&quot; (十进制)
+</code></pre><pre tabindex=0><code>var n int64 = 97
+s := strconv.FormatInt(n, 16) // s == &quot;61&quot; (十六进制)
+</code></pre><h2 id=字符串转-intint64>字符串转 int/int64</h2>
+<p>使用 <a href=https://golang.org/pkg/strconv/#Atoi title=strconv.Atoi>strconv.Atoi</a> 将十进制字符串解析为 int 。</p>
+<pre tabindex=0><code>s := &quot;97&quot;
+if n, err := strconv.Atoi(s); err == nil {
+    fmt.Println(n+1)
+} else {
+    fmt.Println(s, &quot;is not an integer.&quot;)
+}
+// Output: 98
+</code></pre><p>使用 <a href=https://golang.org/pkg/strconv/#ParseInt title=strconv.ParseInt>strconv.ParseInt</a> 解析一个十进制字符串（以10为基数），并检查其是否适合 int64。</p>
+<pre tabindex=0><code>s := &quot;97&quot;
+n, err := strconv.ParseInt(s, 10, 64)
+if err == nil {
+    fmt.Printf(&quot;%d of type %T&quot;, n, n)
+}
+// Output: 97 of type int64
+</code></pre><pre tabindex=0><code>func ParseInt(s string, base int, bitSize int) (i int64, err error)
+</code></pre><p>两个数字参数表示一个基数（0、2 到 36）和一个占位大小（0 到 64）。</p>
+<p>如果第一个参数为 0，则字符串的前缀隐含基数：<code>0b</code>的基数为 2，<code>0</code> 或 <code>0o</code> 的基数是 8，<code>0x</code> 的基数为 16，否则为 10。</p>
+<p>第二个参数指定结果必须适合的整数类型。占位大小 0、8、16、32 和 64 对应于 int，int8，int16，int32 和 int64。</p>
+<h2 id=int-和-int64-互转>int 和 int64 互转</h2>
+<p>一个 int 的大小是基于操作系统特定实现的，它可能是 32 位，也可能是 64 位，因此从 int 转换为 int64 时，您不会丢失任何信息。</p>
+<pre tabindex=0><code>var n int = 97
+m := int64(n) // safe
+</code></pre><blockquote>
+<p>但是，当转换为较短的整数类型时，该值将被<strong>截断</strong>以适合结果类型的大小。</p>
+</blockquote>
+<pre tabindex=0><code>var m int64 = 2 &lt;&lt; 32
+n := int(m)    // truncated on machines with 32-bit ints
+fmt.Println(n) // either 0 or 4,294,967,296
+</code></pre><ul>
+<li>有关计算 int 大小的代码，请参见 <a href=https://yourbasic.org/golang/max-min-int-uint/ title>Maximum value of an int</a>。</li>
+<li>最佳实践 <a href=https://yourbasic.org/golang/int-vs-int64/ title="Pick the right one: int vs. int64">Pick the right one: int vs. int64</a>。</li>
+</ul>
+<h2 id=通用格式化宽度缩进符号>通用格式化（宽度，缩进，符号）</h2>
+<p><a href=https://golang.org/pkg/fmt/#Sprintf title=fmt.Sprintf>fmt.Sprintf</a> 函数是将数据转换为字符串的好用工具：</p>
+<pre tabindex=0><code>s := fmt.Sprintf(&quot;%+8d&quot;, 97)
+// s == &quot;     +97&quot; (width 8, right justify, always show sign)
+</code></pre>
+</div>
+</div>
+<div class=pagination>
+<a class="btn previous" href=http://yuguo.im/post/2020/03/convert-string-to-float/> Prev</a>
+<a class="btn next" href=http://yuguo.im/post/2020/03/generate-random-string/> Next</a>
+</div>
+</div>
+</div>
+<div id=disqus_thread></div>
+<script>var disqus_config=function(){this.page.url="http://yuguo.im/post/2020/03/convert-int-to-string/"};(function(){var a=document,b=a.createElement('script');b.src='//yuguo.disqus.com/embed.js',b.setAttribute('data-timestamp',+new Date),(a.head||a.body).appendChild(b)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments powered by Disqus.</a></noscript>
+<div class=footer>
+<p>Copyright@<a href=http://yuguo.im/about>Yuguo</a> 2019. Powered by <a href=https://gohugo.io/>Hugo</a>. This theme—Slim—is open sourced on <a href=https://github.com/zhe/hugo-theme-slim>Github</a>.</p>
+</div>
+</div>
+<script src=http://yuguo.im/js/slim.js></script>
+<script src=http://yuguo.im/js/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script>
+<script>(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)})(window,document,'script','//www.google-analytics.com/analytics.js','ga'),ga('create','UA-161689466-1','auto'),ga('send','pageview')</script>
+</body>
+</html>

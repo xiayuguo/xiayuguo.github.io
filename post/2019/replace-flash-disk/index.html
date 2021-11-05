@@ -1,0 +1,89 @@
+<!doctype html><html>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<title> 还在找U盘？别找了，我教你一招！ &#183; 随笔 </title>
+<link rel=stylesheet href=http://yuguo.im/css/slim.css>
+<link rel=stylesheet href=http://yuguo.im/css/highlight.min.css>
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro" rel=stylesheet type=text/css>
+<link rel=apple-touch-icon-precomposed sizes=144x144 href=/apple-touch-icon-144-precomposed.png>
+<link rel="shortcut icon" href=/favicon.ico>
+<link href rel=alternate type=application/rss+xml title=随笔>
+</head>
+<body>
+<div class=container>
+<div class=header>
+<h1 class=site-title><a href=http://yuguo.im/>随笔</a></h1>
+<p class=site-tagline>Stay hungry. Stay foolish.</p>
+<div class=nav>
+<a class=nav-btn href=#>
+<span class="ci ci-burger"></span>
+</a>
+<ul class=nav-list>
+<li class=spacer>&ac;</li>
+<li><a href=https://github.com/xiayuguo>Github</a></li>
+</ul>
+</div>
+</div>
+<div class=content>
+<div class=posts>
+<div class=post>
+<h2 class=post-title><a href=http://yuguo.im/post/2019/replace-flash-disk/>还在找U盘？别找了，我教你一招！</a></h2>
+<span class=post-date>Jun 1, 2019 </span>
+<div class=post-content>
+<p>最近有同事问我，有没有U盘，她要给别人拷下文件，或者是从别人那拷贝下文件。</p>
+<p>这些文件普遍有个特点就是体积大（超出微信客户端中的上限 100M）</p>
+<p>办公室里这种小事时常发生，时间就在指缝间悄悄流逝。</p>
+<p>作为一名 “懒人”，这种事要是发生在身上，我会这么解决：</p>
+<h1 id=准备工作>准备工作</h1>
+<ul>
+<li>发送方和接收方在一个局域网内</li>
+<li>发送方的 PC 上有 <code>python</code> 环境</li>
+</ul>
+<h1 id=开始我的表演>开始我的表演</h1>
+<blockquote>
+<p>以 Win10 系统演示，其他系统方法类似</p>
+</blockquote>
+<h2 id=step1>Step.1</h2>
+<p>发送方进入要传递文件的目录</p>
+<h2 id=step2>Step.2</h2>
+<p>地址栏输入<code>cmd</code></p>
+<h2 id=step3>Step.3</h2>
+<p>输入指令<code>ipconfig</code>，获得<code>ipv4</code>地址，假设你获得的是<code>192.168.1.10</code></p>
+<h2 id=step4>Step.4</h2>
+<p>确认系统环境的<code>python</code>版本，不同版本输入不同的指令，请对号入座。</p>
+<ul>
+<li>python2</li>
+</ul>
+<pre tabindex=0><code>python -m SimpleHTTPServer
+</code></pre><ul>
+<li>python3</li>
+</ul>
+<pre tabindex=0><code>python -m http.server
+</code></pre><h2 id=step5>Step.5</h2>
+<p>此时防火墙会有提示，选择<code>允许访问</code></p>
+<h2 id=step6>Step.6</h2>
+<p>接收方打开任意浏览器，输入<code>http:192.168.1.10:8000</code>，页面上立马会返回<code>Step.1</code>中看到的目录，此时就已经大功告成了。</p>
+<h1 id=新的旅程>新的旅程</h1>
+<p>技术的诞生是因为问题需要得到解决，然而解决问题的方案永远不止一种，此时应在特定的场景下寻求最优解，不局限某种方法，不固步自封，勇于尝试各种思路。从这周开始，每一周的周末，我都会和大家分享，日常工作生活学习中遇到的各种问题，以及我是怎么解决的，不求给大家多大的帮助，但求拓宽解决问题的思路。</p>
+</div>
+</div>
+<div class=pagination>
+<a class="btn previous" href=http://yuguo.im/post/2019/03/view-mem-info-in-win10/> Prev</a>
+<a class="btn next" href=http://yuguo.im/post/2019/extra-mac-address-using-python/> Next</a>
+</div>
+</div>
+</div>
+<div id=disqus_thread></div>
+<script>var disqus_config=function(){this.page.url="http://yuguo.im/post/2019/replace-flash-disk/"};(function(){var a=document,b=a.createElement('script');b.src='//yuguo.disqus.com/embed.js',b.setAttribute('data-timestamp',+new Date),(a.head||a.body).appendChild(b)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments powered by Disqus.</a></noscript>
+<div class=footer>
+<p>Copyright@<a href=http://yuguo.im/about>Yuguo</a> 2019. Powered by <a href=https://gohugo.io/>Hugo</a>. This theme—Slim—is open sourced on <a href=https://github.com/zhe/hugo-theme-slim>Github</a>.</p>
+</div>
+</div>
+<script src=http://yuguo.im/js/slim.js></script>
+<script src=http://yuguo.im/js/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script>
+<script>(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)})(window,document,'script','//www.google-analytics.com/analytics.js','ga'),ga('create','UA-161689466-1','auto'),ga('send','pageview')</script>
+</body>
+</html>

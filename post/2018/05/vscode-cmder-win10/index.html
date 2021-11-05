@@ -1,0 +1,79 @@
+<!doctype html><html>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<title> VSCode配置Cmder作为默认的终端(Shell) &#183; 随笔 </title>
+<link rel=stylesheet href=http://yuguo.im/css/slim.css>
+<link rel=stylesheet href=http://yuguo.im/css/highlight.min.css>
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro" rel=stylesheet type=text/css>
+<link rel=apple-touch-icon-precomposed sizes=144x144 href=/apple-touch-icon-144-precomposed.png>
+<link rel="shortcut icon" href=/favicon.ico>
+<link href rel=alternate type=application/rss+xml title=随笔>
+</head>
+<body>
+<div class=container>
+<div class=header>
+<h1 class=site-title><a href=http://yuguo.im/>随笔</a></h1>
+<p class=site-tagline>Stay hungry. Stay foolish.</p>
+<div class=nav>
+<a class=nav-btn href=#>
+<span class="ci ci-burger"></span>
+</a>
+<ul class=nav-list>
+<li class=spacer>&ac;</li>
+<li><a href=https://github.com/xiayuguo>Github</a></li>
+</ul>
+</div>
+</div>
+<div class=content>
+<div class=posts>
+<div class=post>
+<h2 class=post-title><a href=http://yuguo.im/post/2018/05/vscode-cmder-win10/>VSCode配置Cmder作为默认的终端(Shell)</a></h2>
+<span class=post-date>May 4, 2018 </span>
+<div class=post-content>
+<blockquote>
+<p>Windows系统中的默认终端不好用，于是使用了<a href=https://cmder.net/>Cmder</a>。与此同时, VSCode中的默认终端也不招人喜欢，我要Cmder移植到VSCode中怎么做呢？</p>
+</blockquote>
+<h2 id=环境>环境</h2>
+<ul>
+<li>Cmder 安装目录 <code>C:\Software\cmder</code></li>
+<li>Win10</li>
+</ul>
+<h2 id=配置>配置</h2>
+<h3 id=第一步-准备启动脚本>第一步: 准备启动脚本</h3>
+<p><code>cmder</code>安装目录下新建文件<code>vscmd.bat</code></p>
+<p>使用<code>VSCode</code>打开<code>vscmd.bat</code>，写入下面代码</p>
+<pre tabindex=0><code>@echo off
+&quot;C:\Software\cmder\vendor\init.bat&quot;
+</code></pre><h3 id=第二步-vscode中配置启动项和参数>第二步: <code>VSCode</code>中配置启动项和参数</h3>
+<p><code>VSCode</code>找到用户设置(使用快捷键Ctrl+,) 打开<code>settings.json</code> 添加下面配置</p>
+<pre tabindex=0><code>{
+    &quot;terminal.integrated.shell.windows&quot;: &quot;cmd.exe&quot;,
+    &quot;terminal.integrated.shellArgs.windows&quot;: [
+        &quot;/K&quot;,
+        &quot;C:/Software/cmder/vscmd.bat&quot;
+    ],
+}
+</code></pre><h3 id=第三步-重新启动检验成果>第三步: 重新启动，检验成果</h3>
+<p>关闭<code>VSCode</code>，再重新打开，使用 Ctrl + 反引号(`) ，见证奇迹的时刻。</p>
+</div>
+</div>
+<div class=pagination>
+<a class="btn previous" href=http://yuguo.im/post/2017/docker-for-win10/> Prev</a>
+<a class="btn next" href=http://yuguo.im/post/2018/05/invisible-postman/> Next</a>
+</div>
+</div>
+</div>
+<div id=disqus_thread></div>
+<script>var disqus_config=function(){this.page.url="http://yuguo.im/post/2018/05/vscode-cmder-win10/"};(function(){var a=document,b=a.createElement('script');b.src='//yuguo.disqus.com/embed.js',b.setAttribute('data-timestamp',+new Date),(a.head||a.body).appendChild(b)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments powered by Disqus.</a></noscript>
+<div class=footer>
+<p>Copyright@<a href=http://yuguo.im/about>Yuguo</a> 2019. Powered by <a href=https://gohugo.io/>Hugo</a>. This theme—Slim—is open sourced on <a href=https://github.com/zhe/hugo-theme-slim>Github</a>.</p>
+</div>
+</div>
+<script src=http://yuguo.im/js/slim.js></script>
+<script src=http://yuguo.im/js/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script>
+<script>(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)})(window,document,'script','//www.google-analytics.com/analytics.js','ga'),ga('create','UA-161689466-1','auto'),ga('send','pageview')</script>
+</body>
+</html>

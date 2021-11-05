@@ -1,0 +1,92 @@
+<!doctype html><html>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<title> History Usage &#183; 随笔 </title>
+<link rel=stylesheet href=http://yuguo.im/css/slim.css>
+<link rel=stylesheet href=http://yuguo.im/css/highlight.min.css>
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro" rel=stylesheet type=text/css>
+<link rel=apple-touch-icon-precomposed sizes=144x144 href=/apple-touch-icon-144-precomposed.png>
+<link rel="shortcut icon" href=/favicon.ico>
+<link href rel=alternate type=application/rss+xml title=随笔>
+</head>
+<body>
+<div class=container>
+<div class=header>
+<h1 class=site-title><a href=http://yuguo.im/>随笔</a></h1>
+<p class=site-tagline>Stay hungry. Stay foolish.</p>
+<div class=nav>
+<a class=nav-btn href=#>
+<span class="ci ci-burger"></span>
+</a>
+<ul class=nav-list>
+<li class=spacer>&ac;</li>
+<li><a href=https://github.com/xiayuguo>Github</a></li>
+</ul>
+</div>
+</div>
+<div class=content>
+<div class=posts>
+<div class=post>
+<h2 class=post-title><a href=http://yuguo.im/post/2019/07/history-usage/>History Usage</a></h2>
+<span class=post-date>Jul 4, 2019 </span>
+<div class=post-content>
+<blockquote>
+<p><code>history</code> 命令用于显示指定数目的指令命令，读取历史命令文件中的目录到历史命令缓冲区和将历史命令缓冲区中的目录写入命令文件。</p>
+</blockquote>
+<blockquote>
+<p>该命令单独使用时，仅显示历史命令，在命令行中，可以使用符号!执行指定序号的历史命令。例如，要执行第2个历史命令，则输入 <code>!2</code>。</p>
+</blockquote>
+<blockquote>
+<p>历史命令是被保存在内存中的，当退出或者登录<code>shell</code>时，会自动保存或读取。在内存中，历史命令仅能够存储1000条历史命令，该数量是由环境变量<code>HISTSIZE</code>进行控制。</p>
+</blockquote>
+<h2 id=语法>语法</h2>
+<pre tabindex=0><code>history(选项)(参数)
+</code></pre><h2 id=选项>选项</h2>
+<pre tabindex=0><code>-c：清空当前历史命令；
+-a：将历史命令缓冲区中命令写入历史命令文件中；
+-r：将历史命令文件中的命令读入当前历史命令缓冲区；
+-w：将当前历史命令缓冲区命令写入历史命令文件中。
+</code></pre><h2 id=参数>参数</h2>
+<pre tabindex=0><code>n：打印最近的n条历史命令。
+</code></pre><h2 id=实例>实例</h2>
+<p>使用history命令显示最近使用的10条历史命令，输入如下命令：</p>
+<pre tabindex=0><code>[root@localhost ~]# history 10
+   92  ls
+   93  cd ..
+   94  ls
+   95  exit
+   96  ls -a
+   97  cd .ssh/
+   98  ls
+   99  cat known_hosts
+  100  exit
+  101  history 10
+</code></pre><h2 id=其他特殊技巧>其他特殊技巧</h2>
+<h3 id=使用-histtimeformat-显示时间戳>使用 HISTTIMEFORMAT 显示时间戳</h3>
+<pre tabindex=0><code>export HISTTIMEFORMAT='%F %T '
+</code></pre><p>注意：这个功能只能用在当 HISTTIMEFORMAT 这个环境变量被设置之后，之后的那些新执行的 bash 命令才会被打上正确的时间戳。在此之前的所有命令，都将会显示成设置 HISTTIMEFORMAT 变量的时间。可以在 <code>.bash_profile</code> 中把这条设置指令添加进去，后面就可以一直使用了。</p>
+<h3 id=使用-ctrl--r-查询历史记录>使用 Ctrl + R 查询历史记录</h3>
+<p>动手试试，超级便利。</p>
+<h3 id=更多关于history和bash_history的内幕可以看下我整理的这篇博客httpsbloghugoxiacompost201907history-and-history-file>更多关于<code>history</code>和<code>.bash_history</code>的内幕可以看下我整理的这篇<a href=https://blog.hugoxia.com/post/2019/07/history-and-history-file/>博客</a></h3>
+</div>
+</div>
+<div class=pagination>
+<a class="btn previous" href=http://yuguo.im/post/2019/07/tar-zip-summary/> Prev</a>
+<a class="btn next" href=http://yuguo.im/post/2019/07/history-and-history-file/> Next</a>
+</div>
+</div>
+</div>
+<div id=disqus_thread></div>
+<script>var disqus_config=function(){this.page.url="http://yuguo.im/post/2019/07/history-usage/"};(function(){var a=document,b=a.createElement('script');b.src='//yuguo.disqus.com/embed.js',b.setAttribute('data-timestamp',+new Date),(a.head||a.body).appendChild(b)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments powered by Disqus.</a></noscript>
+<div class=footer>
+<p>Copyright@<a href=http://yuguo.im/about>Yuguo</a> 2019. Powered by <a href=https://gohugo.io/>Hugo</a>. This theme—Slim—is open sourced on <a href=https://github.com/zhe/hugo-theme-slim>Github</a>.</p>
+</div>
+</div>
+<script src=http://yuguo.im/js/slim.js></script>
+<script src=http://yuguo.im/js/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script>
+<script>(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)})(window,document,'script','//www.google-analytics.com/analytics.js','ga'),ga('create','UA-161689466-1','auto'),ga('send','pageview')</script>
+</body>
+</html>

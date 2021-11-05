@@ -1,0 +1,102 @@
+<!doctype html><html>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<title> Golang 中生成密码（译文） &#183; 随笔 </title>
+<link rel=stylesheet href=http://yuguo.im/css/slim.css>
+<link rel=stylesheet href=http://yuguo.im/css/highlight.min.css>
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro" rel=stylesheet type=text/css>
+<link rel=apple-touch-icon-precomposed sizes=144x144 href=/apple-touch-icon-144-precomposed.png>
+<link rel="shortcut icon" href=/favicon.ico>
+<link href rel=alternate type=application/rss+xml title=随笔>
+</head>
+<body>
+<div class=container>
+<div class=header>
+<h1 class=site-title><a href=http://yuguo.im/>随笔</a></h1>
+<p class=site-tagline>Stay hungry. Stay foolish.</p>
+<div class=nav>
+<a class=nav-btn href=#>
+<span class="ci ci-burger"></span>
+</a>
+<ul class=nav-list>
+<li class=spacer>&ac;</li>
+<li><a href=https://github.com/xiayuguo>Github</a></li>
+</ul>
+</div>
+</div>
+<div class=content>
+<div class=posts>
+<div class=post>
+<h2 class=post-title><a href=http://yuguo.im/post/2020/03/generate-random-string/>Golang 中生成密码（译文）</a></h2>
+<span class=post-date>Mar 12, 2020 </span>
+<div class=post-content>
+<blockquote>
+<p>作者：Stefan Nilsson</p>
+<p>原文网址：https://yourbasic.org/golang/generate-random-string/</p>
+</blockquote>
+<p><img src=http://oss.xiayuguo.com/blog/202003/password-generator.jpg alt></p>
+<h2 id=随机字符串>随机字符串</h2>
+<p>该代码从瑞典语字母（包括非 ASCII 字符 å， ä 和 ö ）中生成一个随机的数字和字符字符串。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-golang data-lang=golang><span style=color:#a6e22e>rand</span>.<span style=color:#a6e22e>Seed</span>(<span style=color:#a6e22e>time</span>.<span style=color:#a6e22e>Now</span>().<span style=color:#a6e22e>UnixNano</span>())
+<span style=color:#a6e22e>chars</span> <span style=color:#f92672>:=</span> []rune(<span style=color:#e6db74>&#34;ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖ&#34;</span> <span style=color:#f92672>+</span>
+    <span style=color:#e6db74>&#34;abcdefghijklmnopqrstuvwxyzåäö&#34;</span> <span style=color:#f92672>+</span>
+    <span style=color:#e6db74>&#34;0123456789&#34;</span>)
+<span style=color:#a6e22e>length</span> <span style=color:#f92672>:=</span> <span style=color:#ae81ff>8</span>
+<span style=color:#66d9ef>var</span> <span style=color:#a6e22e>b</span> <span style=color:#a6e22e>strings</span>.<span style=color:#a6e22e>Builder</span>
+<span style=color:#66d9ef>for</span> <span style=color:#a6e22e>i</span> <span style=color:#f92672>:=</span> <span style=color:#ae81ff>0</span>; <span style=color:#a6e22e>i</span> &lt; <span style=color:#a6e22e>length</span>; <span style=color:#a6e22e>i</span><span style=color:#f92672>++</span> {
+    <span style=color:#a6e22e>b</span>.<span style=color:#a6e22e>WriteRune</span>(<span style=color:#a6e22e>chars</span>[<span style=color:#a6e22e>rand</span>.<span style=color:#a6e22e>Intn</span>(len(<span style=color:#a6e22e>chars</span>))])
+}
+<span style=color:#a6e22e>str</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>b</span>.<span style=color:#a6e22e>String</span>() <span style=color:#75715e>// E.g. &#34;ExcbsVQs&#34;
+</span></code></pre></div><blockquote>
+<p>警告：要生成密码，应使用加密安全的伪随机数。请参阅 <a href=https://xiayuguo.com/post/2020/03/crypto-rand-int title="User-friendly access to crypto/rand">User-friendly access to crypto/rand</a>。</p>
+</blockquote>
+<h2 id=有限制的随机字符串>有限制的随机字符串</h2>
+<p>此代码生成一个随机的 ASCII 字符串，该字符串至少包含一个数字和一个特殊字符。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-golang data-lang=golang><span style=color:#a6e22e>rand</span>.<span style=color:#a6e22e>Seed</span>(<span style=color:#a6e22e>time</span>.<span style=color:#a6e22e>Now</span>().<span style=color:#a6e22e>UnixNano</span>())
+<span style=color:#a6e22e>digits</span> <span style=color:#f92672>:=</span> <span style=color:#e6db74>&#34;0123456789&#34;</span>
+<span style=color:#a6e22e>specials</span> <span style=color:#f92672>:=</span> <span style=color:#e6db74>&#34;~=+%^*/()[]{}/!@#$?|&#34;</span>
+<span style=color:#a6e22e>all</span> <span style=color:#f92672>:=</span> <span style=color:#e6db74>&#34;ABCDEFGHIJKLMNOPQRSTUVWXYZ&#34;</span> <span style=color:#f92672>+</span>
+    <span style=color:#e6db74>&#34;abcdefghijklmnopqrstuvwxyz&#34;</span> <span style=color:#f92672>+</span>
+    <span style=color:#a6e22e>digits</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>specials</span>
+<span style=color:#a6e22e>length</span> <span style=color:#f92672>:=</span> <span style=color:#ae81ff>8</span>
+<span style=color:#a6e22e>buf</span> <span style=color:#f92672>:=</span> make([]<span style=color:#66d9ef>byte</span>, <span style=color:#a6e22e>length</span>)
+<span style=color:#a6e22e>buf</span>[<span style=color:#ae81ff>0</span>] = <span style=color:#a6e22e>digits</span>[<span style=color:#a6e22e>rand</span>.<span style=color:#a6e22e>Intn</span>(len(<span style=color:#a6e22e>digits</span>))]
+<span style=color:#a6e22e>buf</span>[<span style=color:#ae81ff>1</span>] = <span style=color:#a6e22e>specials</span>[<span style=color:#a6e22e>rand</span>.<span style=color:#a6e22e>Intn</span>(len(<span style=color:#a6e22e>specials</span>))]
+<span style=color:#66d9ef>for</span> <span style=color:#a6e22e>i</span> <span style=color:#f92672>:=</span> <span style=color:#ae81ff>2</span>; <span style=color:#a6e22e>i</span> &lt; <span style=color:#a6e22e>length</span>; <span style=color:#a6e22e>i</span><span style=color:#f92672>++</span> {
+    <span style=color:#a6e22e>buf</span>[<span style=color:#a6e22e>i</span>] = <span style=color:#a6e22e>all</span>[<span style=color:#a6e22e>rand</span>.<span style=color:#a6e22e>Intn</span>(len(<span style=color:#a6e22e>all</span>))]
+}
+<span style=color:#a6e22e>rand</span>.<span style=color:#a6e22e>Shuffle</span>(len(<span style=color:#a6e22e>buf</span>), <span style=color:#66d9ef>func</span>(<span style=color:#a6e22e>i</span>, <span style=color:#a6e22e>j</span> <span style=color:#66d9ef>int</span>) {
+    <span style=color:#a6e22e>buf</span>[<span style=color:#a6e22e>i</span>], <span style=color:#a6e22e>buf</span>[<span style=color:#a6e22e>j</span>] = <span style=color:#a6e22e>buf</span>[<span style=color:#a6e22e>j</span>], <span style=color:#a6e22e>buf</span>[<span style=color:#a6e22e>i</span>]
+})
+<span style=color:#a6e22e>str</span> <span style=color:#f92672>:=</span> string(<span style=color:#a6e22e>buf</span>) <span style=color:#75715e>// E.g. &#34;3i[g0|)z&#34;
+</span></code></pre></div><h4 id=go-110-之前>Go 1.10 之前</h4>
+<p>在 Go 1.10 之前的代码中，用以下代码替换对rand.Shuffle的调用：</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-golang data-lang=golang><span style=color:#66d9ef>for</span> <span style=color:#a6e22e>i</span> <span style=color:#f92672>:=</span> len(<span style=color:#a6e22e>buf</span>) <span style=color:#f92672>-</span> <span style=color:#ae81ff>1</span>; <span style=color:#a6e22e>i</span> &gt; <span style=color:#ae81ff>0</span>; <span style=color:#a6e22e>i</span><span style=color:#f92672>--</span> { <span style=color:#75715e>// Fisher–Yates shuffle
+</span><span style=color:#75715e></span>    <span style=color:#a6e22e>j</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>rand</span>.<span style=color:#a6e22e>Intn</span>(<span style=color:#a6e22e>i</span> <span style=color:#f92672>+</span> <span style=color:#ae81ff>1</span>)
+    <span style=color:#a6e22e>buf</span>[<span style=color:#a6e22e>i</span>], <span style=color:#a6e22e>buf</span>[<span style=color:#a6e22e>j</span>] = <span style=color:#a6e22e>buf</span>[<span style=color:#a6e22e>j</span>], <span style=color:#a6e22e>buf</span>[<span style=color:#a6e22e>i</span>]
+}
+</code></pre></div><h2 id=延伸阅读>延伸阅读</h2>
+<p><img src=http://oss.xiayuguo.com/blog/202003/dart.jpg alt>
+<a href=https://xiayuguo.com/post/2020/03/generate-number-random-range title="Golang 中生成随机数，字符和切片元素（译文）">Golang 中生成随机数，字符和切片元素（译文）</a></p>
+</div>
+</div>
+<div class=pagination>
+<a class="btn previous" href=http://yuguo.im/post/2020/03/convert-int-to-string/> Prev</a>
+<a class="btn next" href=http://yuguo.im/post/2020/03/generate-number-random-range/> Next</a>
+</div>
+</div>
+</div>
+<div id=disqus_thread></div>
+<script>var disqus_config=function(){this.page.url="http://yuguo.im/post/2020/03/generate-random-string/"};(function(){var a=document,b=a.createElement('script');b.src='//yuguo.disqus.com/embed.js',b.setAttribute('data-timestamp',+new Date),(a.head||a.body).appendChild(b)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments powered by Disqus.</a></noscript>
+<div class=footer>
+<p>Copyright@<a href=http://yuguo.im/about>Yuguo</a> 2019. Powered by <a href=https://gohugo.io/>Hugo</a>. This theme—Slim—is open sourced on <a href=https://github.com/zhe/hugo-theme-slim>Github</a>.</p>
+</div>
+</div>
+<script src=http://yuguo.im/js/slim.js></script>
+<script src=http://yuguo.im/js/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script>
+<script>(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)})(window,document,'script','//www.google-analytics.com/analytics.js','ga'),ga('create','UA-161689466-1','auto'),ga('send','pageview')</script>
+</body>
+</html>

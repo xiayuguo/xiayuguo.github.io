@@ -1,0 +1,62 @@
+<!doctype html><html>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<title> 阿里云ECS无法访问 &#183; 随笔 </title>
+<link rel=stylesheet href=http://yuguo.im/css/slim.css>
+<link rel=stylesheet href=http://yuguo.im/css/highlight.min.css>
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro" rel=stylesheet type=text/css>
+<link rel=apple-touch-icon-precomposed sizes=144x144 href=/apple-touch-icon-144-precomposed.png>
+<link rel="shortcut icon" href=/favicon.ico>
+<link href rel=alternate type=application/rss+xml title=随笔>
+</head>
+<body>
+<div class=container>
+<div class=header>
+<h1 class=site-title><a href=http://yuguo.im/>随笔</a></h1>
+<p class=site-tagline>Stay hungry. Stay foolish.</p>
+<div class=nav>
+<a class=nav-btn href=#>
+<span class="ci ci-burger"></span>
+</a>
+<ul class=nav-list>
+<li class=spacer>&ac;</li>
+<li><a href=https://github.com/xiayuguo>Github</a></li>
+</ul>
+</div>
+</div>
+<div class=content>
+<div class=posts>
+<div class=post>
+<h2 class=post-title><a href=http://yuguo.im/post/2018/05/aliyun-ecs-connect-error/>阿里云ECS无法访问</a></h2>
+<span class=post-date>May 23, 2018 </span>
+<div class=post-content>
+<blockquote>
+<p>今天有一朋友让我帮忙看下他的云服务器，他说服务器无法远程访问，即使重启了也不行。说来挺惭愧，我也搞了半天没查出来问题在哪！于是我帮他申请工单，没想到阿里云工程师反馈很快，给了他最大权限，三下五除二，问题被解决了。</p>
+</blockquote>
+<pre tabindex=0><code>工程师 XXXXX 号: 因为您服务器的网络是专有网络，专有网络服务器的 公网ip 是通过 nat 映射到 内网网卡的，所以您服务器内是无法直接监听 公网ip 的。还请您知晓，谢谢  
+</code></pre><pre tabindex=0><code>服务器sshd服务无法启动，报错: error: Bind to port 22 on 101.132.36.203 failed: Cannot assign requested address. fatal: Cannot bind any address.
+</code></pre><p>其实他说的这个原因，我也查到了，但是我误解了<code>assign</code>的意思。<code>assign</code> 此处的含义是“指定”, 而不是“分配”。</p>
+<p>解决方案:
+编辑 <code>/etc/ssh/sshd_config</code> 注释 <code>#ListenAddress 101.132.36.203</code></p>
+</div>
+</div>
+<div class=pagination>
+<a class="btn previous" href=http://yuguo.im/post/2018/05/clean-up-disk-space-on-win10/> Prev</a>
+<a class="btn next" href=http://yuguo.im/post/2018/wkhtmltopdf-zh-display-error/> Next</a>
+</div>
+</div>
+</div>
+<div id=disqus_thread></div>
+<script>var disqus_config=function(){this.page.url="http://yuguo.im/post/2018/05/aliyun-ecs-connect-error/"};(function(){var a=document,b=a.createElement('script');b.src='//yuguo.disqus.com/embed.js',b.setAttribute('data-timestamp',+new Date),(a.head||a.body).appendChild(b)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments powered by Disqus.</a></noscript>
+<div class=footer>
+<p>Copyright@<a href=http://yuguo.im/about>Yuguo</a> 2019. Powered by <a href=https://gohugo.io/>Hugo</a>. This theme—Slim—is open sourced on <a href=https://github.com/zhe/hugo-theme-slim>Github</a>.</p>
+</div>
+</div>
+<script src=http://yuguo.im/js/slim.js></script>
+<script src=http://yuguo.im/js/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script>
+<script>(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)})(window,document,'script','//www.google-analytics.com/analytics.js','ga'),ga('create','UA-161689466-1','auto'),ga('send','pageview')</script>
+</body>
+</html>

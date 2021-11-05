@@ -1,0 +1,85 @@
+<!doctype html><html>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<title> 无法将所做的改动保存到 chrome lnk &#183; 随笔 </title>
+<link rel=stylesheet href=http://yuguo.im/css/slim.css>
+<link rel=stylesheet href=http://yuguo.im/css/highlight.min.css>
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro" rel=stylesheet type=text/css>
+<link rel=apple-touch-icon-precomposed sizes=144x144 href=/apple-touch-icon-144-precomposed.png>
+<link rel="shortcut icon" href=/favicon.ico>
+<link href rel=alternate type=application/rss+xml title=随笔>
+</head>
+<body>
+<div class=container>
+<div class=header>
+<h1 class=site-title><a href=http://yuguo.im/>随笔</a></h1>
+<p class=site-tagline>Stay hungry. Stay foolish.</p>
+<div class=nav>
+<a class=nav-btn href=#>
+<span class="ci ci-burger"></span>
+</a>
+<ul class=nav-list>
+<li class=spacer>&ac;</li>
+<li><a href=https://github.com/xiayuguo>Github</a></li>
+</ul>
+</div>
+</div>
+<div class=content>
+<div class=posts>
+<div class=post>
+<h2 class=post-title><a href=http://yuguo.im/post/2019/chrome-startup-auto-redirect-hao123/>无法将所做的改动保存到 chrome lnk</a></h2>
+<span class=post-date>Jun 30, 2019 </span>
+<div class=post-content>
+<blockquote>
+<p>昨天把旧电脑取出来，给它充放电。恰巧要查点资料，顺手打开谷歌浏览器，我去，怎么一上来就是hao123？</p>
+</blockquote>
+<p>我的第一反应就是某个软件改写了<code>Chrome</code>的设置。</p>
+<h2 id=1-查询设置>1. 查询设置</h2>
+<h4 id=启动时>启动时</h4>
+<ul>
+<li>打开新标签页</li>
+<li>从上次停下的地方继续</li>
+<li>打开特定网页或一组网页
+<ul>
+<li>添加新网页</li>
+<li>使用当前网页</li>
+</ul>
+</li>
+</ul>
+<p>没有任何异常，没有植入<code>hao123</code>网址</p>
+<h2 id=2-右键chrome快捷方式查看属性>2. 右键<code>Chrome</code>快捷方式查看属性</h2>
+<pre tabindex=0><code>目标(T): 
+&quot;C:\Program Files (x86)\Google\Chrome\Application\chrome.exe&quot; http://www.hao123.com
+
+
+起始位置(S): 
+&quot;C:\Program Files (x86)\Google\Chrome\Application&quot;
+</code></pre><p>果然罪魁祸首在这里，把后面的网址删除后，提示: <code>无法将所做的改动保存到 chrome lnk</code></p>
+<h2 id=3-解决方案>3. 解决方案</h2>
+<ol>
+<li>删除<code>Chrome</code>快捷方式</li>
+<li>拷贝 <code>起始位置(S)</code> 到地址栏</li>
+<li>找到 <code>chrome.exe</code>, 重新创建快捷方式</li>
+</ol>
+</div>
+</div>
+<div class=pagination>
+<a class="btn previous" href=http://yuguo.im/post/2019/extra-mac-address-using-python/> Prev</a>
+<a class="btn next" href=http://yuguo.im/post/2019/linux-shell-shortcut/> Next</a>
+</div>
+</div>
+</div>
+<div id=disqus_thread></div>
+<script>var disqus_config=function(){this.page.url="http://yuguo.im/post/2019/chrome-startup-auto-redirect-hao123/"};(function(){var a=document,b=a.createElement('script');b.src='//yuguo.disqus.com/embed.js',b.setAttribute('data-timestamp',+new Date),(a.head||a.body).appendChild(b)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments powered by Disqus.</a></noscript>
+<div class=footer>
+<p>Copyright@<a href=http://yuguo.im/about>Yuguo</a> 2019. Powered by <a href=https://gohugo.io/>Hugo</a>. This theme—Slim—is open sourced on <a href=https://github.com/zhe/hugo-theme-slim>Github</a>.</p>
+</div>
+</div>
+<script src=http://yuguo.im/js/slim.js></script>
+<script src=http://yuguo.im/js/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script>
+<script>(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)})(window,document,'script','//www.google-analytics.com/analytics.js','ga'),ga('create','UA-161689466-1','auto'),ga('send','pageview')</script>
+</body>
+</html>

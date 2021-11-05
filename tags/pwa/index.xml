@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>PWA on 随笔</title><link>http://yuguo.im/tags/pwa/</link><description>Recent content in PWA on 随笔</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Tue, 14 Apr 2020 07:58:05 +0800</lastBuildDate><atom:link href="http://yuguo.im/tags/pwa/index.xml" rel="self" type="application/rss+xml"/><item><title>实现 PWA “可安装” 需要什么？</title><link>http://yuguo.im/post/2020/04/pwa-install/</link><pubDate>Tue, 14 Apr 2020 07:58:05 +0800</pubDate><guid>http://yuguo.im/post/2020/04/pwa-install/</guid><description>2020年2月14日发布 · 2020年2月24日更新
+原文作者：Pete LePage
+原文地址：https://web.dev/install-criteria/
+许多浏览器会向用户表明，当您的渐进式 Web 应用程序（PWA）满足特定条件时，可以安装该程序。示例包括地址栏中的“安装”按钮或弹出菜单中的“安装”菜单项。另外，满足条件时，许多浏览器都会触发 beforeinstallprompt 事件，使您可以直接从 PWA 启用安装流程。
+在 Chrome 浏览器中，您的 Progressive Web App 必须满足以下条件，才能触发 beforeinstallprompt 事件并显示浏览器内安装提示：
+该 web app 尚未安装 满足用户启发式行为(引导页) 通过 HTTPS 提供服务 包括一个 Web App Manifest，其中包括 short_name 或 name icons - 必须包含 192px 和 512px 图标 start_url display - 必须是指定选项 fullscreen, standalone 或 minimal-ui 中的一个 注: prefer_related_applications 要么不存在，要么值为 false Registers a service worker with a functional fetch handler 其他浏览器具有类似的安装标准，尽管可能会有细微的差异。检查各个站点以获取完整详细信息：</description></item></channel></rss>

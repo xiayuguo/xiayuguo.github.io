@@ -1,0 +1,77 @@
+<!doctype html><html>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<title> Python 中的 exit()、sys.exit() 和 os._exit()的区别 &#183; 随笔 </title>
+<link rel=stylesheet href=http://yuguo.im/css/slim.css>
+<link rel=stylesheet href=http://yuguo.im/css/highlight.min.css>
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro" rel=stylesheet type=text/css>
+<link rel=apple-touch-icon-precomposed sizes=144x144 href=/apple-touch-icon-144-precomposed.png>
+<link rel="shortcut icon" href=/favicon.ico>
+<link href rel=alternate type=application/rss+xml title=随笔>
+</head>
+<body>
+<div class=container>
+<div class=header>
+<h1 class=site-title><a href=http://yuguo.im/>随笔</a></h1>
+<p class=site-tagline>Stay hungry. Stay foolish.</p>
+<div class=nav>
+<a class=nav-btn href=#>
+<span class="ci ci-burger"></span>
+</a>
+<ul class=nav-list>
+<li class=spacer>&ac;</li>
+<li><a href=https://github.com/xiayuguo>Github</a></li>
+</ul>
+</div>
+</div>
+<div class=content>
+<div class=posts>
+<div class=post>
+<h2 class=post-title><a href=http://yuguo.im/post/2017/python-exit/>Python 中的 exit()、sys.exit() 和 os._exit()的区别</a></h2>
+<span class=post-date>Apr 24, 2017 </span>
+<div class=post-content>
+<h2 id=python官方解释>Python官方解释</h2>
+<h3 id=exit>exit()</h3>
+<blockquote>
+<p><a href=https://docs.python.org/2/library/constants.html#exit>exit</a></p>
+</blockquote>
+<p>Objects that when printed, print a message like “Use quit() or Ctrl-D (i.e. EOF) to exit”, and when called, raise SystemExit with the specified exit code.</p>
+<p>简言之: 抛出 SystemExit 异常. 用于给交互式Shell退出.</p>
+<h3 id=sysexit>sys.exit()</h3>
+<blockquote>
+<p><a href=https://docs.python.org/2/library/sys.html#sys.exit>sys.exit</a></p>
+</blockquote>
+<p>Exit from Python. This is implemented by raising the SystemExit exception, so cleanup actions specified by finally clauses of try statements are honored, and it is possible to intercept the exit attempt at an outer level.</p>
+<p>简言之: 抛出 SystemExit 异常, 可以用try捕获异常执行清理工作. 用于程序内部.</p>
+<h3 id=os_exit>os._exit()</h3>
+<blockquote>
+<p><a href="https://docs.python.org/2/library/os.html?highlight=os#os._exit">os._exit(n)</a></p>
+</blockquote>
+<p>Exit the process with status n, without calling cleanup handlers, flushing stdio buffers, etc.
+Note: The standard way to exit is <a href=https://docs.python.org/2/library/sys.html#sys.exit>sys.exit(n)</a>. _exit() should normally only be used in the child process after a fork().</p>
+<p>简言之: 直接退出, 不抛出异常. 用于子进程的退出.</p>
+<h2 id=参考文档>参考文档</h2>
+<ul>
+<li><a href=https://www.zhihu.com/question/21187839>python 中 os._exit()， sys.exit()， exit() 的区别是什么(知乎)</a></li>
+<li><a href=http://stackoverflow.com/questions/6501121/difference-between-exit-and-sys-exit-in-python>The difference between exit() and sys.exit() in Python?(stackoverflow)</a></li>
+<li><a href=http://jaminzhang.github.io/python/exit-and-sys-exit-in-python/>Python 中的 exit() 和 sys.exit()(jaminzhang&rsquo;s blog)</a></li>
+</ul>
+</div>
+</div>
+<div class=pagination>
+<a class="btn previous" href=http://yuguo.im/post/2017/docker-note/> Prev</a>
+<a class="btn next" href=http://yuguo.im/post/2017/github-pages-https/> Next</a>
+</div>
+</div>
+</div>
+<div class=footer>
+<p>Copyright@<a href=http://yuguo.im/about>Yuguo</a> 2019. Powered by <a href=https://gohugo.io/>Hugo</a>. This theme—Slim—is open sourced on <a href=https://github.com/zhe/hugo-theme-slim>Github</a>.</p>
+</div>
+</div>
+<script src=http://yuguo.im/js/slim.js></script>
+<script src=http://yuguo.im/js/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script>
+<script>(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)})(window,document,'script','//www.google-analytics.com/analytics.js','ga'),ga('create','UA-161689466-1','auto'),ga('send','pageview')</script>
+</body>
+</html>

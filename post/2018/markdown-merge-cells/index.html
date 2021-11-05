@@ -1,0 +1,70 @@
+<!doctype html><html>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<title> Markdown中实现合并单元格 &#183; 随笔 </title>
+<link rel=stylesheet href=http://yuguo.im/css/slim.css>
+<link rel=stylesheet href=http://yuguo.im/css/highlight.min.css>
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro" rel=stylesheet type=text/css>
+<link rel=apple-touch-icon-precomposed sizes=144x144 href=/apple-touch-icon-144-precomposed.png>
+<link rel="shortcut icon" href=/favicon.ico>
+<link href rel=alternate type=application/rss+xml title=随笔>
+</head>
+<body>
+<div class=container>
+<div class=header>
+<h1 class=site-title><a href=http://yuguo.im/>随笔</a></h1>
+<p class=site-tagline>Stay hungry. Stay foolish.</p>
+<div class=nav>
+<a class=nav-btn href=#>
+<span class="ci ci-burger"></span>
+</a>
+<ul class=nav-list>
+<li class=spacer>&ac;</li>
+<li><a href=https://github.com/xiayuguo>Github</a></li>
+</ul>
+</div>
+</div>
+<div class=content>
+<div class=posts>
+<div class=post>
+<h2 class=post-title><a href=http://yuguo.im/post/2018/markdown-merge-cells/>Markdown中实现合并单元格</a></h2>
+<span class=post-date>Dec 10, 2018 </span>
+<div class=post-content>
+<h3 id=method>Method</h3>
+<ul>
+<li>使用 <code>&lt;br></code> 换行符(隐性换行)</li>
+<li>使用 <code>html</code> 标签 <code>rowspan</code> 和 <code>colspan</code> <a href=http://pressbin.com/tools/excel_to_html_table/index.html>excel 转 html</a></li>
+</ul>
+<h3 id=raw>Raw</h3>
+<pre tabindex=0><code>&lt;table&gt;
+    &lt;tr&gt;
+        &lt;th rowspan=&quot;2&quot;&gt;值班人员&lt;/th&gt;
+        &lt;th colspan=&quot;2&quot;&gt;星期一&lt;/th&gt;
+        &lt;th&gt;星期二&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;李强&lt;/td&gt;
+        &lt;td&gt;张明&lt;/td&gt;
+        &lt;td&gt;王平&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+</code></pre><h3 id=preview>Preview</h3>
+</div>
+</div>
+<div class=pagination>
+<a class="btn previous" href=http://yuguo.im/post/2018/wkhtmltopdf-zh-display-error/> Prev</a>
+<a class="btn next" href=http://yuguo.im/post/2018/golang-pointers/> Next</a>
+</div>
+</div>
+</div>
+<div class=footer>
+<p>Copyright@<a href=http://yuguo.im/about>Yuguo</a> 2019. Powered by <a href=https://gohugo.io/>Hugo</a>. This theme—Slim—is open sourced on <a href=https://github.com/zhe/hugo-theme-slim>Github</a>.</p>
+</div>
+</div>
+<script src=http://yuguo.im/js/slim.js></script>
+<script src=http://yuguo.im/js/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script>
+<script>(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)})(window,document,'script','//www.google-analytics.com/analytics.js','ga'),ga('create','UA-161689466-1','auto'),ga('send','pageview')</script>
+</body>
+</html>

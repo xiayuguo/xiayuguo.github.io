@@ -1,0 +1,280 @@
+<!doctype html><html>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<title> 如何在 Go 中使用 JSON【最佳实践】（译文） &#183; 随笔 </title>
+<link rel=stylesheet href=http://yuguo.im/css/slim.css>
+<link rel=stylesheet href=http://yuguo.im/css/highlight.min.css>
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro" rel=stylesheet type=text/css>
+<link rel=apple-touch-icon-precomposed sizes=144x144 href=/apple-touch-icon-144-precomposed.png>
+<link rel="shortcut icon" href=/favicon.ico>
+<link href rel=alternate type=application/rss+xml title=随笔>
+</head>
+<body>
+<div class=container>
+<div class=header>
+<h1 class=site-title><a href=http://yuguo.im/>随笔</a></h1>
+<p class=site-tagline>Stay hungry. Stay foolish.</p>
+<div class=nav>
+<a class=nav-btn href=#>
+<span class="ci ci-burger"></span>
+</a>
+<ul class=nav-list>
+<li class=spacer>&ac;</li>
+<li><a href=https://github.com/xiayuguo>Github</a></li>
+</ul>
+</div>
+</div>
+<div class=content>
+<div class=posts>
+<div class=post>
+<h2 class=post-title><a href=http://yuguo.im/post/2020/03/go-json/>如何在 Go 中使用 JSON【最佳实践】（译文）</a></h2>
+<span class=post-date>Mar 3, 2020 </span>
+<div class=post-content>
+<p>JSON 数据交换格式对人类来说很容易读写，对机器进行解析和生成也非常有效。</p>
+<blockquote>
+<p>作者：Stefan Nilsson</p>
+<p>原文网址：https://yourbasic.org/golang/json-example/</p>
+</blockquote>
+<p><img src=http://q6gt3ane0.bkt.clouddn.com/bits-man.jpg alt=bits-man></p>
+<h2 id=默认类型>默认类型</h2>
+<p>用于解码和编码 JSON 的默认 Go 类型是</p>
+<table>
+<thead>
+<tr>
+<th style=text-align:left>Go</th>
+<th style=text-align:left>JSON</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style=text-align:left>bool</td>
+<td style=text-align:left>booleans</td>
+</tr>
+<tr>
+<td style=text-align:left>float64</td>
+<td style=text-align:left>numbers</td>
+</tr>
+<tr>
+<td style=text-align:left>string</td>
+<td style=text-align:left>strings</td>
+</tr>
+<tr>
+<td style=text-align:left>nil</td>
+<td style=text-align:left>null</td>
+</tr>
+</tbody>
+</table>
+<p>另外，可以将 <a href=https://golang.org/pkg/math/big/ title=math.big>math.big</a> 包中的 <a href=https://golang.org/pkg/time/#Time title=time.Time>time.Time</a> 和数字类型自动编码为JSON字符串。</p>
+<p>请注意，JSON不支持基本整数类型。它们通常可以用浮点数来近似。</p>
+<blockquote>
+<p>由于实现 IEEE 754-2008 binary64（双精度）数字的软件普遍可用并得到广泛使用，因此，期望其精度或范围不超过其提供的精度的实现可以实现良好的互操作性。</p>
+<p>请注意，使用此类软件时，在实现将完全一致于其数值的意义上，整数（整数）且在 $\ce{[-2^53 + 1, 2^53 - 1]}$ 范围内是可以互操作的。</p>
+<p><a href=https://tools.ietf.org/html/rfc7159#section-6 title=JSON数据交换格式>RFC 7159: JSON数据交换格式</a></p>
+</blockquote>
+<h2 id=编码marshal-struct-转-json>编码(marshal) struct 转 JSON</h2>
+<p>包 <a href=https://golang.org/pkg/encoding/json/ title=encoding/json>encoding/json</a> 中的 <a href=https://golang.org/pkg/encoding/json/#Marshal title=json.Marshal>json.Marshal</a> 函数生成JSON数据。</p>
+<pre tabindex=0><code>type FruitBasket struct {
+    Name    string
+    Fruit   []string
+    Id      int64  `json:&quot;ref&quot;`
+    private string // 私有字段不会被编码
+    Created time.Time
+}
+
+basket := FruitBasket{
+    Name:    &quot;Standard&quot;,
+    Fruit:   []string{&quot;Apple&quot;, &quot;Banana&quot;, &quot;Orange&quot;},
+    Id:      999,
+    private: &quot;Second-rate&quot;,
+    Created: time.Now(),
+}
+
+var jsonData []byte
+jsonData, err := json.Marshal(basket)
+if err != nil {
+    log.Println(err)
+}
+fmt.Println(string(jsonData))
+</code></pre><p>输出：</p>
+<pre tabindex=0><code>{&quot;Name&quot;:&quot;Standard&quot;,&quot;Fruit&quot;:[&quot;Apple&quot;,&quot;Banana&quot;,&quot;Orange&quot;],&quot;ref&quot;:999,&quot;Created&quot;:&quot;2018-04-09T23:00:00Z&quot;}
+</code></pre><p>只有可以表示为JSON的数据才会被编码；有关完整规则，请参阅 <code>json.Marshal</code>。</p>
+<ul>
+<li>一个结构体中，只有可导出(公有)的字段可以在 JSON 中输出。<strong>其他字段将被忽略</strong>。</li>
+<li>具有<code>json</code>标签的字段：结构体中声明的字段以其标签后名称存储, 而不是其变量名称。</li>
+<li>指针将被编码为它们指向的值，如果指针为nil，则值为null。</li>
+</ul>
+<h2 id=漂亮的输出格式化输出>漂亮的输出(格式化输出)</h2>
+<p>在上面的示例中，将 json.Marshal 替换为 <a href=https://golang.org/pkg/encoding/json/#MarshalIndent title=json.MarshalIndent>json.MarshalIndent</a> 以缩进JSON输出。</p>
+<pre tabindex=0><code>jsonData, err := json.MarshalIndent(basket, &quot;&quot;, &quot;    &quot;)
+</code></pre><p>输出：</p>
+<pre tabindex=0><code>{
+    &quot;Name&quot;: &quot;Standard&quot;,
+    &quot;Fruit&quot;: [
+        &quot;Apple&quot;,
+        &quot;Banana&quot;,
+        &quot;Orange&quot;
+    ],
+    &quot;ref&quot;: 999,
+    &quot;Created&quot;: &quot;2018-04-09T23:00:00Z&quot;
+}
+</code></pre><h2 id=解码unmarshal-json-转-struct>解码(unmarshal) JSON 转 struct</h2>
+<p>包 <code>encoding/json</code> 中的 <a href=https://golang.org/pkg/encoding/json/#Unmarshal title=json.Unmarshal>json.Unmarshal</a>函数解析JSON数据。</p>
+<pre tabindex=0><code>type FruitBasket struct {
+    Name    string
+    Fruit   []string
+    Id      int64 `json:&quot;ref&quot;`
+    Created time.Time
+}
+
+jsonData := []byte(`
+{
+    &quot;Name&quot;: &quot;Standard&quot;,
+    &quot;Fruit&quot;: [
+        &quot;Apple&quot;,
+        &quot;Banana&quot;,
+        &quot;Orange&quot;
+    ],
+    &quot;ref&quot;: 999,
+    &quot;Created&quot;: &quot;2018-04-09T23:00:00Z&quot;
+}`)
+
+var basket FruitBasket
+err := json.Unmarshal(jsonData, &amp;basket)
+if err != nil {
+    log.Println(err)Todo
+}
+fmt.Println(basket.Name, basket.Fruit, basket.Id)
+fmt.Println(basket.Created)
+</code></pre><p>输出：</p>
+<pre tabindex=0><code>Standard [Apple Banana Orange] 999
+2018-04-09 23:00:00 +0000 UTC
+</code></pre><p>请注意，Unmarshal自行分配了一个新的切片。这就是切片, Map 和指针的解码工作的方式。</p>
+<p>对于给定的 JSON 键名 Foo，Unmarshal将尝试按以下顺序匹配结构体中的字段：</p>
+<ol>
+<li>结构体中具有标签<code>json："Foo"</code>的可导出（公有）字段</li>
+<li>结构体中命名为 Foo 的字段</li>
+<li>一个名为 FOO，FoO 或其他不区分大小写的匹配项的可导出（公有）字段</li>
+</ol>
+<p>只有在目标类型中找到的字段才会被解码：</p>
+<ul>
+<li>当您只希望选择几个特定字段时，这很有用。</li>
+<li>特别是，目标结构中任何未导出（私有）的字段都不会受到影响。</li>
+</ul>
+<h2 id=任意对象和数组>任意对象和数组</h2>
+<p><strong>encoding/json</strong> 包使用</p>
+<ul>
+<li><code>map[string]interface{}</code> 以存储任意 JSON 对象</li>
+<li><code>[]interface {}</code> 用于存储任意 JSON 数组</li>
+</ul>
+<p>它将把任何有效的 JSON 数据解析到 <code>interface{}</code> 值中</p>
+<p>考虑以下 JSON 数据：</p>
+<pre tabindex=0><code>{
+    &quot;Name&quot;: &quot;Eve&quot;,
+    &quot;Age&quot;: 6,
+    &quot;Parents&quot;: [
+        &quot;Alice&quot;,
+        &quot;Bob&quot;
+    ]
+}
+</code></pre><p>json.Unmarshal 函数会将其解析为一个映射，该映射的键为字符串，其值本身存储为空接口值：</p>
+<pre tabindex=0><code>map[string]interface{}{
+    &quot;Name&quot;: &quot;Eve&quot;,
+    &quot;Age&quot;:  6.0,
+    &quot;Parents&quot;: []interface{}{
+        &quot;Alice&quot;,
+        &quot;Bob&quot;,
+    },
+}
+</code></pre><p>我们可以使用 range 语句遍历 Map，并使用类型转换访问其值。</p>
+<pre tabindex=0><code>jsonData := []byte(`{&quot;Name&quot;:&quot;Eve&quot;,&quot;Age&quot;:6,&quot;Parents&quot;:[&quot;Alice&quot;,&quot;Bob&quot;]}`)
+
+var v interface{}
+json.Unmarshal(jsonData, &amp;v)
+data := v.(map[string]interface{})
+
+for k, v := range data {
+    switch v := v.(type) {
+    case string:
+        fmt.Println(k, v, &quot;(string)&quot;)
+    case float64:
+        fmt.Println(k, v, &quot;(float64)&quot;)
+    case []interface{}:
+        fmt.Println(k, &quot;(array):&quot;)
+        for i, u := range v {
+            fmt.Println(&quot;    &quot;, i, u)
+        }
+    default:
+        fmt.Println(k, v, &quot;(unknown)&quot;)
+    }
+}
+</code></pre><p>输出：</p>
+<pre tabindex=0><code>Name Eve (string)
+Age 6 (float64)
+Parents (array):
+     0 Alice
+     1 Bob
+</code></pre><h2 id=json-文件示例>JSON 文件示例</h2>
+<p>包 <code>encoding/json</code> 中的 <a href=https://golang.org/pkg/encoding/json/#Decoder title=json.Decoder>json.Decoder</a> 和 <a href=https://golang.org/pkg/encoding/json/#Encoder title=json.Encoder>json.Encoder</a> 类型支持读取和写入流，例如文件，JSON数据。</p>
+<p>代码演示如下功能：</p>
+<ul>
+<li>从 Reader（<a href=https://golang.org/pkg/strings/#Reader title=strings.Reader>strings.Reader</a>）读取 JSON 对象流</li>
+<li>从每个对象中移除字段 Age</li>
+<li>然后将对象写入 Writer（<a href=https://golang.org/pkg/os/#pkg-variables title=os.Stdout>os.Stdout</a>）</li>
+</ul>
+<pre tabindex=0><code>const jsonData = `
+    {&quot;Name&quot;: &quot;Alice&quot;, &quot;Age&quot;: 25}
+    {&quot;Name&quot;: &quot;Bob&quot;, &quot;Age&quot;: 22}
+`
+reader := strings.NewReader(jsonData)
+writer := os.Stdout
+
+dec := json.NewDecoder(reader)
+enc := json.NewEncoder(writer)
+
+for {
+    // 读取一个 JSON 对象, 并把它存入 Map 类型中
+    var m map[string]interface{}
+    if err := dec.Decode(&amp;m); err == io.EOF {
+        break
+    } else if err != nil {
+        log.Fatal(err)
+    }
+
+    // 移除所有键值对中键名为 Age 的数据
+    for k := range m {
+        if k == &quot;Age&quot; {
+            delete(m, k)
+        }
+    }
+
+    // 将 Map 数据写为 JSON 对象
+    if err := enc.Encode(&amp;m); err != nil {
+        log.Println(err)
+    }
+}
+</code></pre><p>输出：</p>
+<pre tabindex=0><code>{&quot;Name&quot;:&quot;Alice&quot;}
+{&quot;Name&quot;:&quot;Bob&quot;}
+</code></pre>
+</div>
+</div>
+<div class=pagination>
+<a class="btn previous" href=http://yuguo.im/about/> Prev</a>
+<a class="btn next" href=http://yuguo.im/post/2020/03/type-assertion-switch/> Next</a>
+</div>
+</div>
+</div>
+<div id=disqus_thread></div>
+<script>var disqus_config=function(){this.page.url="http://yuguo.im/post/2020/03/go-json/"};(function(){var a=document,b=a.createElement('script');b.src='//yuguo.disqus.com/embed.js',b.setAttribute('data-timestamp',+new Date),(a.head||a.body).appendChild(b)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments powered by Disqus.</a></noscript>
+<div class=footer>
+<p>Copyright@<a href=http://yuguo.im/about>Yuguo</a> 2019. Powered by <a href=https://gohugo.io/>Hugo</a>. This theme—Slim—is open sourced on <a href=https://github.com/zhe/hugo-theme-slim>Github</a>.</p>
+</div>
+</div>
+<script src=http://yuguo.im/js/slim.js></script>
+<script src=http://yuguo.im/js/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script>
+<script>(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)})(window,document,'script','//www.google-analytics.com/analytics.js','ga'),ga('create','UA-161689466-1','auto'),ga('send','pageview')</script>
+</body>
+</html>

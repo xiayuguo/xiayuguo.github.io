@@ -1,0 +1,98 @@
+<!doctype html><html>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<title> Golang 中类型断言和类型切换（译文） &#183; 随笔 </title>
+<link rel=stylesheet href=http://yuguo.im/css/slim.css>
+<link rel=stylesheet href=http://yuguo.im/css/highlight.min.css>
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro" rel=stylesheet type=text/css>
+<link rel=apple-touch-icon-precomposed sizes=144x144 href=/apple-touch-icon-144-precomposed.png>
+<link rel="shortcut icon" href=/favicon.ico>
+<link href rel=alternate type=application/rss+xml title=随笔>
+</head>
+<body>
+<div class=container>
+<div class=header>
+<h1 class=site-title><a href=http://yuguo.im/>随笔</a></h1>
+<p class=site-tagline>Stay hungry. Stay foolish.</p>
+<div class=nav>
+<a class=nav-btn href=#>
+<span class="ci ci-burger"></span>
+</a>
+<ul class=nav-list>
+<li class=spacer>&ac;</li>
+<li><a href=https://github.com/xiayuguo>Github</a></li>
+</ul>
+</div>
+</div>
+<div class=content>
+<div class=posts>
+<div class=post>
+<h2 class=post-title><a href=http://yuguo.im/post/2020/03/type-assertion-switch/>Golang 中类型断言和类型切换（译文）</a></h2>
+<span class=post-date>Mar 10, 2020 </span>
+<div class=post-content>
+<p>类型断言提供对接口具体值的访问。</p>
+<blockquote>
+<p>作者：Stefan Nilsson</p>
+<p>原文网址：https://yourbasic.org/golang/type-assertion-switch/</p>
+</blockquote>
+<p><img src=http://oss.xiayuguo.com/blog/202003/thumbs-up.jpg alt></p>
+<h2 id=类型断言>类型断言</h2>
+<p>类型断言并不能真正将 <code>interface</code> 转换为另一种数据类型，但是可以访问 <code>interface</code> 的具体值，而这正是您所希望的。</p>
+<p>类型断言 <code>x.(T)</code> 断言 <code>x</code> 中存储的具体值是 <code>T</code> 类型，并且 <code>x</code> 不为 <code>nil</code></p>
+<ul>
+<li>如果 <code>T</code> 不是 <code>interface</code>，则断言 <code>x</code> 的动态类型与 <code>T</code> 相同</li>
+<li>如果 <code>T</code> 是 <code>interface</code>，则断言 <code>x</code> 的动态类型实现了 <code>T</code></li>
+</ul>
+<pre tabindex=0><code>var x interface{} = &quot;foo&quot;
+
+var s string = x.(string)
+fmt.Println(s)     // &quot;foo&quot;
+
+s, ok := x.(string)
+fmt.Println(s, ok) // &quot;foo true&quot;
+
+n, ok := x.(int)
+fmt.Println(n, ok) // &quot;0 false&quot;
+
+n = x.(int)        // ILLEGAL
+</code></pre><p>输出：</p>
+<pre tabindex=0><code>panic: interface conversion: interface {} is string, not int
+</code></pre><h2 id=类型切换>类型切换</h2>
+<p>类型切换顺序执行多个类型声明，并使用匹配的类型运行第一种情况。</p>
+<pre tabindex=0><code>var x interface{} = &quot;foo&quot;
+
+switch v := x.(type) {
+case nil:
+    fmt.Println(&quot;x is nil&quot;)            // here v has type interface{}
+case int: 
+    fmt.Println(&quot;x is&quot;, v)             // here v has type int
+case bool, string:
+    fmt.Println(&quot;x is bool or string&quot;) // here v has type interface{}
+default:
+    fmt.Println(&quot;type unknown&quot;)        // here v has type interface{}
+}
+</code></pre><p>输出：</p>
+<pre tabindex=0><code>x is bool or string
+</code></pre>
+</div>
+</div>
+<div class=pagination>
+<a class="btn previous" href=http://yuguo.im/post/2020/03/go-json/> Prev</a>
+<a class="btn next" href=http://yuguo.im/post/2020/03/rune/> Next</a>
+</div>
+</div>
+</div>
+<div id=disqus_thread></div>
+<script>var disqus_config=function(){this.page.url="http://yuguo.im/post/2020/03/type-assertion-switch/"};(function(){var a=document,b=a.createElement('script');b.src='//yuguo.disqus.com/embed.js',b.setAttribute('data-timestamp',+new Date),(a.head||a.body).appendChild(b)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments powered by Disqus.</a></noscript>
+<div class=footer>
+<p>Copyright@<a href=http://yuguo.im/about>Yuguo</a> 2019. Powered by <a href=https://gohugo.io/>Hugo</a>. This theme—Slim—is open sourced on <a href=https://github.com/zhe/hugo-theme-slim>Github</a>.</p>
+</div>
+</div>
+<script src=http://yuguo.im/js/slim.js></script>
+<script src=http://yuguo.im/js/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script>
+<script>(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)})(window,document,'script','//www.google-analytics.com/analytics.js','ga'),ga('create','UA-161689466-1','auto'),ga('send','pageview')</script>
+</body>
+</html>

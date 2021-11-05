@@ -1,0 +1,87 @@
+<!doctype html><html>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<title> Pycharm配置autopep8到菜单 &#183; 随笔 </title>
+<link rel=stylesheet href=http://yuguo.im/css/slim.css>
+<link rel=stylesheet href=http://yuguo.im/css/highlight.min.css>
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro" rel=stylesheet type=text/css>
+<link rel=apple-touch-icon-precomposed sizes=144x144 href=/apple-touch-icon-144-precomposed.png>
+<link rel="shortcut icon" href=/favicon.ico>
+<link href rel=alternate type=application/rss+xml title=随笔>
+</head>
+<body>
+<div class=container>
+<div class=header>
+<h1 class=site-title><a href=http://yuguo.im/>随笔</a></h1>
+<p class=site-tagline>Stay hungry. Stay foolish.</p>
+<div class=nav>
+<a class=nav-btn href=#>
+<span class="ci ci-burger"></span>
+</a>
+<ul class=nav-list>
+<li class=spacer>&ac;</li>
+<li><a href=https://github.com/xiayuguo>Github</a></li>
+</ul>
+</div>
+</div>
+<div class=content>
+<div class=posts>
+<div class=post>
+<h2 class=post-title><a href=http://yuguo.im/post/2017/pycharm-autopep8/>Pycharm配置autopep8到菜单</a></h2>
+<span class=post-date>Apr 12, 2017 </span>
+<div class=post-content>
+<p>{% note success %}
+Pycharm可以自动检测PEP8规范, 菜单<code>Code</code>–><code>Reformat Code</code>可以自动调整代码,但是效果一般,只能实现简单的规范代码; 为了满足需要, 可以安装autopep8来自动修改文件实现PEP8规范.
+{% endnote %}</p>
+<h3 id=安装autopep8>安装autopep8</h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>pip install autopep8
+</code></pre></div><h3 id=pycharm中进行设置>Pycharm中进行设置</h3>
+<ul>
+<li><code>Settings</code>–><code>Tools</code>–><code>External Tools</code>, 点击<code>+</code>按钮
+<ul>
+<li>Name: autopep8 (可以自定义)</li>
+<li>Tools settings:
+<ul>
+<li>Programs: autopep8(<a href=#%E6%B3%A8>Ubuntu</a>和<a href=#%E6%B3%A8>Windows</a>)</li>
+<li>Parameters: <code>--in-place --aggressive --aggressive $FilePath$</code></li>
+<li>Working directory: <code>$ProjectFileDir$</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>点击<code>Output Filters...</code>
+<ul>
+<li>点击<code>+</code>，名称可以任意填写</li>
+<li>Regular expression to match output: <code>$FILE_PATH$\:$LINE$\:$COLUMN$\:.*</code></li>
+</ul>
+</li>
+</ul>
+<h3 id=使用>使用</h3>
+<ul>
+<li>方法一: 代码上右击–><code>External Tool</code>–><code>autopep8</code></li>
+<li>方法二: <code>Tools</code>-><code>External</code>-><code>autopep8</code></li>
+</ul>
+<h3 id=注>注</h3>
+<ul>
+<li>Ubuntu: 示例绝对路径(/home/hugo/.virtualenvs/test/bin/autopep8)</li>
+<li>Windows: 示例绝对路径(C:\Users\hugo\AppData\Local\Programs\Python\Python35\Scripts\autopep8.exe)</li>
+</ul>
+</div>
+</div>
+<div class=pagination>
+<a class="btn previous" href=http://yuguo.im/post/2017/python-format/> Prev</a>
+<a class="btn next" href=http://yuguo.im/post/2017/pnvssn/> Next</a>
+</div>
+</div>
+</div>
+<div class=footer>
+<p>Copyright@<a href=http://yuguo.im/about>Yuguo</a> 2019. Powered by <a href=https://gohugo.io/>Hugo</a>. This theme—Slim—is open sourced on <a href=https://github.com/zhe/hugo-theme-slim>Github</a>.</p>
+</div>
+</div>
+<script src=http://yuguo.im/js/slim.js></script>
+<script src=http://yuguo.im/js/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script>
+<script>(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)})(window,document,'script','//www.google-analytics.com/analytics.js','ga'),ga('create','UA-161689466-1','auto'),ga('send','pageview')</script>
+</body>
+</html>

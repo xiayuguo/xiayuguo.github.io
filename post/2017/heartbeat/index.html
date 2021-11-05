@@ -1,0 +1,177 @@
+<!doctype html><html>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<title> 玩的就是“心跳” &#183; 随笔 </title>
+<link rel=stylesheet href=http://yuguo.im/css/slim.css>
+<link rel=stylesheet href=http://yuguo.im/css/highlight.min.css>
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro" rel=stylesheet type=text/css>
+<link rel=apple-touch-icon-precomposed sizes=144x144 href=/apple-touch-icon-144-precomposed.png>
+<link rel="shortcut icon" href=/favicon.ico>
+<link href rel=alternate type=application/rss+xml title=随笔>
+</head>
+<body>
+<div class=container>
+<div class=header>
+<h1 class=site-title><a href=http://yuguo.im/>随笔</a></h1>
+<p class=site-tagline>Stay hungry. Stay foolish.</p>
+<div class=nav>
+<a class=nav-btn href=#>
+<span class="ci ci-burger"></span>
+</a>
+<ul class=nav-list>
+<li class=spacer>&ac;</li>
+<li><a href=https://github.com/xiayuguo>Github</a></li>
+</ul>
+</div>
+</div>
+<div class=content>
+<div class=posts>
+<div class=post>
+<h2 class=post-title><a href=http://yuguo.im/post/2017/heartbeat/>玩的就是“心跳”</a></h2>
+<span class=post-date>Apr 18, 2017 </span>
+<div class=post-content>
+<h3 id=心跳检测是什么>心跳检测是什么？</h3>
+<p>这里的“心跳”，可不是男女之间心动啥的“砰砰砰”。</p>
+<ul>
+<li>心跳检测是判断对方(设备，进程或其它网元)是否正常进行，一般采用定时发送简单的通讯包，如果长时间未收到对方响应，则判断对方已经挂掉。</li>
+<li><a href=http://www.baike.com/wiki/%E5%BF%83%E8%B7%B3%E6%9C%BA%E5%88%B6>心跳机制</a>是服务端和客户端检测对方是否在线的一种方式。</li>
+<li>心跳包就是客户端定时发送简单的信息给服务端告诉它我还在，服务端视情况而定给客户单返回合适信息，一般情况下是客户端给服务端发心跳包。</li>
+</ul>
+<h3 id=为什么要用心跳机制>为什么要用心跳机制？</h3>
+<ul>
+<li>服务端不能有效判断客户端是否在线。</li>
+<li>心跳包可以用于长连接的保活和断线处理。</li>
+</ul>
+<h3 id=怎么代码实现心跳机制>怎么代码实现心跳机制？</h3>
+<ol>
+<li>客户端每隔一个时间间隔发生一个探测包给服务器。</li>
+<li>客户端发包时启动一个超时定时器。</li>
+<li>服务器端接收到检测包，应该回应一个包。</li>
+<li>如果客户机收到服务器的应答包，则说明服务器正常，删除超时定时器。</li>
+<li>如果客户端的超时定时器超时，依然没有收到应答包，则说明服务器挂了。</li>
+</ol>
+<h4 id=python代码实现心跳检测>Python代码实现心跳检测</h4>
+<blockquote>
+<p>具体代码参见<a href=https://github.com/hugoxia/Python/tree/master/heartbeat>Github</a></p>
+</blockquote>
+<ul>
+<li>server</li>
+</ul>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#75715e>#!/usr/bin/python</span>
+<span style=color:#75715e>#encoding:utf-8</span>
+
+<span style=color:#f92672>import</span> socket<span style=color:#f92672>,</span> sys<span style=color:#f92672>,</span> json
+<span style=color:#f92672>from</span> thread <span style=color:#f92672>import</span> <span style=color:#f92672>*</span>
+BUF_SIZE <span style=color:#f92672>=</span> <span style=color:#ae81ff>4096</span>
+
+HOST <span style=color:#f92672>=</span> socket<span style=color:#f92672>.</span>gethostname()
+PORT <span style=color:#f92672>=</span> <span style=color:#ae81ff>7878</span>
+<span style=color:#66d9ef>try</span>:
+    server <span style=color:#f92672>=</span> socket<span style=color:#f92672>.</span>socket(socket<span style=color:#f92672>.</span>AF_INET, socket<span style=color:#f92672>.</span>SOCK_STREAM)
+<span style=color:#66d9ef>except</span> socket<span style=color:#f92672>.</span>error, e:
+    print <span style=color:#e6db74>&#34;Error creating socket: </span><span style=color:#e6db74>%s</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>%</span> e
+    sys<span style=color:#f92672>.</span>exit()
+
+<span style=color:#66d9ef>try</span>:
+    server<span style=color:#f92672>.</span>bind((HOST, PORT))
+<span style=color:#66d9ef>except</span> socket<span style=color:#f92672>.</span>error:
+    print <span style=color:#e6db74>&#34;Bind failed!&#34;</span>
+    sys<span style=color:#f92672>.</span>exit()
+print <span style=color:#e6db74>&#34;Socket bind complete&#34;</span>
+
+server<span style=color:#f92672>.</span>listen(<span style=color:#ae81ff>10</span>)
+print <span style=color:#e6db74>&#34;Socket now listening&#34;</span>
+
+
+<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>clientthread</span>(coon):
+    coon<span style=color:#f92672>.</span>send(<span style=color:#e6db74>&#34;Welcome to the server!&#34;</span>)
+    <span style=color:#66d9ef>while</span> <span style=color:#66d9ef>True</span>:
+        <span style=color:#66d9ef>try</span>:
+            data <span style=color:#f92672>=</span> coon<span style=color:#f92672>.</span>recv(BUF_SIZE)
+            data_loaded <span style=color:#f92672>=</span> json<span style=color:#f92672>.</span>loads(data)
+            print <span style=color:#e6db74>&#34;ip: </span><span style=color:#e6db74>{}</span><span style=color:#e6db74>|status: </span><span style=color:#e6db74>{}</span><span style=color:#e6db74>|pid: </span><span style=color:#e6db74>{}</span><span style=color:#e6db74>&#34;</span><span style=color:#f92672>.</span>format(
+                str(data_loaded[<span style=color:#e6db74>&#39;ip&#39;</span>]), data_loaded[<span style=color:#e6db74>&#39;status&#39;</span>], str(data_loaded[<span style=color:#e6db74>&#39;pid&#39;</span>]
+            )
+        <span style=color:#66d9ef>except</span> socket<span style=color:#f92672>.</span>error:
+            print <span style=color:#e6db74>&#34;One Client (IP: </span><span style=color:#e6db74>%s</span><span style=color:#e6db74>) Connected over!&#34;</span> <span style=color:#f92672>%</span> data_loaded[<span style=color:#e6db74>&#39;ip&#39;</span>]
+            <span style=color:#66d9ef>break</span>
+    coon<span style=color:#f92672>.</span>close()
+
+
+<span style=color:#66d9ef>while</span> <span style=color:#66d9ef>True</span>:
+    coon, addr <span style=color:#f92672>=</span> server<span style=color:#f92672>.</span>accept()
+    print <span style=color:#e6db74>&#34;Connected with </span><span style=color:#e6db74>%s</span><span style=color:#e6db74>: </span><span style=color:#e6db74>%s</span><span style=color:#e6db74> &#34;</span> <span style=color:#f92672>%</span> (addr[<span style=color:#ae81ff>0</span>], str(addr[<span style=color:#ae81ff>1</span>]))
+    start_new_thread(clientthread, (coon,))
+
+server<span style=color:#f92672>.</span>close()
+</code></pre></div><ul>
+<li>client</li>
+</ul>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#75715e>#!/usr/bin/python</span>
+<span style=color:#75715e>#encoding:utf-8</span>
+
+<span style=color:#f92672>import</span> socket<span style=color:#f92672>,</span> sys<span style=color:#f92672>,</span> os
+<span style=color:#f92672>import</span> time<span style=color:#f92672>,</span> json
+
+host <span style=color:#f92672>=</span> socket<span style=color:#f92672>.</span>gethostname()  <span style=color:#75715e># 这里获得的是本地，视情况而定</span>
+port <span style=color:#f92672>=</span> <span style=color:#ae81ff>7878</span>
+BUF_SIZE <span style=color:#f92672>=</span> <span style=color:#ae81ff>4096</span>
+
+<span style=color:#66d9ef>try</span>:
+    client <span style=color:#f92672>=</span> socket<span style=color:#f92672>.</span>socket(socket<span style=color:#f92672>.</span>AF_INET, socket<span style=color:#f92672>.</span>SOCK_STREAM)
+<span style=color:#66d9ef>except</span> socket<span style=color:#f92672>.</span>error, e:
+    print <span style=color:#e6db74>&#34;Error creating socket: </span><span style=color:#e6db74>%s</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>%</span> e
+    sys<span style=color:#f92672>.</span>exit()
+
+<span style=color:#66d9ef>try</span>:
+    remote_ip <span style=color:#f92672>=</span> socket<span style=color:#f92672>.</span>gethostbyname(host)
+<span style=color:#66d9ef>except</span> socket<span style=color:#f92672>.</span>gaierror:
+    print <span style=color:#e6db74>&#34;Hostname couldn&#39;t be resolved. Exciting&#34;</span>
+
+    sys<span style=color:#f92672>.</span>exit()
+
+<span style=color:#66d9ef>try</span>:
+    client<span style=color:#f92672>.</span>connect((remote_ip, port))
+    client<span style=color:#f92672>.</span>setblocking(<span style=color:#ae81ff>0</span>)   <span style=color:#75715e># set the socket is not blocking</span>
+    print <span style=color:#e6db74>&#34;Socket connected to </span><span style=color:#e6db74>%s</span><span style=color:#e6db74> on ip </span><span style=color:#e6db74>%s</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>%</span> (host, remote_ip)
+<span style=color:#66d9ef>except</span> socket<span style=color:#f92672>.</span>gaierror, e:  <span style=color:#75715e>#address related error</span>
+    print <span style=color:#e6db74>&#34;connected to server error</span><span style=color:#e6db74>%s</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>%</span> e
+    sys<span style=color:#f92672>.</span>exit()
+
+<span style=color:#75715e>#send heart_beat</span>
+<span style=color:#66d9ef>while</span> <span style=color:#66d9ef>True</span>:
+    host_name <span style=color:#f92672>=</span> socket<span style=color:#f92672>.</span>gethostname()
+    data_to_server <span style=color:#f92672>=</span> {
+        <span style=color:#e6db74>&#39;ip&#39;</span>: socket<span style=color:#f92672>.</span>gethostbyname(host_name), 
+        <span style=color:#e6db74>&#39;status&#39;</span>: <span style=color:#e6db74>&#39;alive&#39;</span>, <span style=color:#e6db74>&#39;pid&#39;</span>: os<span style=color:#f92672>.</span>getpid()
+    }
+    data_dumped <span style=color:#f92672>=</span> json<span style=color:#f92672>.</span>dumps(data_to_server)
+    <span style=color:#66d9ef>try</span>:
+        client<span style=color:#f92672>.</span>sendall(data_dumped)
+    <span style=color:#66d9ef>except</span> socket<span style=color:#f92672>.</span>error:
+        print <span style=color:#e6db74>&#34;Send failed!!&#34;</span>
+        sys<span style=color:#f92672>.</span>exit()
+
+    print <span style=color:#e6db74>&#39;I - &#39;</span>, os<span style=color:#f92672>.</span>getpid(), <span style=color:#e6db74>&#39;- am alive.&#39;</span>
+    time<span style=color:#f92672>.</span>sleep(<span style=color:#ae81ff>50</span>)
+client<span style=color:#f92672>.</span>close()
+</code></pre></div>
+</div>
+</div>
+<div class=pagination>
+<a class="btn previous" href=http://yuguo.im/post/2017/pnvssn/> Prev</a>
+<a class="btn next" href=http://yuguo.im/post/2017/pycharm-jump/> Next</a>
+</div>
+</div>
+</div>
+<div class=footer>
+<p>Copyright@<a href=http://yuguo.im/about>Yuguo</a> 2019. Powered by <a href=https://gohugo.io/>Hugo</a>. This theme—Slim—is open sourced on <a href=https://github.com/zhe/hugo-theme-slim>Github</a>.</p>
+</div>
+</div>
+<script src=http://yuguo.im/js/slim.js></script>
+<script src=http://yuguo.im/js/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script>
+<script>(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)})(window,document,'script','//www.google-analytics.com/analytics.js','ga'),ga('create','UA-161689466-1','auto'),ga('send','pageview')</script>
+</body>
+</html>

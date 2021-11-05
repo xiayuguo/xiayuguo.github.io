@@ -1,0 +1,75 @@
+<!doctype html><html>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<title> wkhtmltopdf 中文显示有误, 显示“口”方框的解决方案 &#183; 随笔 </title>
+<link rel=stylesheet href=http://yuguo.im/css/slim.css>
+<link rel=stylesheet href=http://yuguo.im/css/highlight.min.css>
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro" rel=stylesheet type=text/css>
+<link rel=apple-touch-icon-precomposed sizes=144x144 href=/apple-touch-icon-144-precomposed.png>
+<link rel="shortcut icon" href=/favicon.ico>
+<link href rel=alternate type=application/rss+xml title=随笔>
+</head>
+<body>
+<div class=container>
+<div class=header>
+<h1 class=site-title><a href=http://yuguo.im/>随笔</a></h1>
+<p class=site-tagline>Stay hungry. Stay foolish.</p>
+<div class=nav>
+<a class=nav-btn href=#>
+<span class="ci ci-burger"></span>
+</a>
+<ul class=nav-list>
+<li class=spacer>&ac;</li>
+<li><a href=https://github.com/xiayuguo>Github</a></li>
+</ul>
+</div>
+</div>
+<div class=content>
+<div class=posts>
+<div class=post>
+<h2 class=post-title><a href=http://yuguo.im/post/2018/wkhtmltopdf-zh-display-error/>wkhtmltopdf 中文显示有误, 显示“口”方框的解决方案</a></h2>
+<span class=post-date>Oct 15, 2018 </span>
+<div class=post-content>
+<h2 id=运行环境>运行环境</h2>
+<ul>
+<li>Ubuntu 14.04.2 LTS</li>
+<li>wkhtmltopdf 0.9.9</li>
+<li>test.html 测试文件的编码为 UTF-8，文件内部标记编码也是UTF-8，如下所示：</li>
+</ul>
+<pre tabindex=0><code>&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot;&gt;
+</code></pre><h2 id=执行过程>执行过程</h2>
+<pre tabindex=0><code>$ wkhtmltopdf test.html test.pdf
+Loading page (1/2)
+Printing pages (2/2)
+Done
+</code></pre><p>检查转化后的 pdf 文件，中文显示有问题</p>
+<h2 id=解决方案>解决方案</h2>
+<ul>
+<li>在 Windows 目录( <code>C:\WINDOWS\Fonts\</code> )中找到文件 simsun.ttc 大概 17M 左右</li>
+<li>拷贝至 <code>/usr/share/fonts/chinese/TrueType/simsun.ttc</code>，如果目录 <code>chinese/TrueType</code> 不存在，则手动创建</li>
+<li>加载缓存 <code>fc-cache -fv</code></li>
+<li>再次执行 <code>wkhtmltopdf test.html test.pdf</code></li>
+<li>检查显示，完美。</li>
+</ul>
+<blockquote>
+<p>有些博客中会建议拷贝 <code>*.ttf</code> 之类的文件，目前我没有亲测通过，暂不加入此。</p>
+</blockquote>
+</div>
+</div>
+<div class=pagination>
+<a class="btn previous" href=http://yuguo.im/post/2018/05/aliyun-ecs-connect-error/> Prev</a>
+<a class="btn next" href=http://yuguo.im/post/2018/markdown-merge-cells/> Next</a>
+</div>
+</div>
+</div>
+<div class=footer>
+<p>Copyright@<a href=http://yuguo.im/about>Yuguo</a> 2019. Powered by <a href=https://gohugo.io/>Hugo</a>. This theme—Slim—is open sourced on <a href=https://github.com/zhe/hugo-theme-slim>Github</a>.</p>
+</div>
+</div>
+<script src=http://yuguo.im/js/slim.js></script>
+<script src=http://yuguo.im/js/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script>
+<script>(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)})(window,document,'script','//www.google-analytics.com/analytics.js','ga'),ga('create','UA-161689466-1','auto'),ga('send','pageview')</script>
+</body>
+</html>

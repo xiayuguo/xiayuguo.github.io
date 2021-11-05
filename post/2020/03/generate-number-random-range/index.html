@@ -1,0 +1,88 @@
+<!doctype html><html>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<title> Golang 中生成随机数，字符和切片元素（译文） &#183; 随笔 </title>
+<link rel=stylesheet href=http://yuguo.im/css/slim.css>
+<link rel=stylesheet href=http://yuguo.im/css/highlight.min.css>
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro" rel=stylesheet type=text/css>
+<link rel=apple-touch-icon-precomposed sizes=144x144 href=/apple-touch-icon-144-precomposed.png>
+<link rel="shortcut icon" href=/favicon.ico>
+<link href rel=alternate type=application/rss+xml title=随笔>
+</head>
+<body>
+<div class=container>
+<div class=header>
+<h1 class=site-title><a href=http://yuguo.im/>随笔</a></h1>
+<p class=site-tagline>Stay hungry. Stay foolish.</p>
+<div class=nav>
+<a class=nav-btn href=#>
+<span class="ci ci-burger"></span>
+</a>
+<ul class=nav-list>
+<li class=spacer>&ac;</li>
+<li><a href=https://github.com/xiayuguo>Github</a></li>
+</ul>
+</div>
+</div>
+<div class=content>
+<div class=posts>
+<div class=post>
+<h2 class=post-title><a href=http://yuguo.im/post/2020/03/generate-number-random-range/>Golang 中生成随机数，字符和切片元素（译文）</a></h2>
+<span class=post-date>Mar 13, 2020 </span>
+<div class=post-content>
+<blockquote>
+<p>作者：Stefan Nilsson</p>
+<p>原文网址：https://yourbasic.org/golang/generate-number-random-range/</p>
+</blockquote>
+<p><img src=http://oss.xiayuguo.com/blog/202003/dart.jpg alt></p>
+<h2 id=go-伪随机数基础知识>Go 伪随机数基础知识</h2>
+<p>使用包 <a href=https://golang.org/pkg/math/rand/ title=math/rand>math/rand</a> 中的 <a href=https://golang.org/pkg/math/rand/#Seed title=rand.Seed>rand.Seed</a> 和 <a href=https://golang.org/pkg/math/rand/#Int63 title=rand.Int63>rand.Int63</a> 函数生成 int64 类型的非负伪随机数：</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-golang data-lang=golang><span style=color:#a6e22e>rand</span>.<span style=color:#a6e22e>Seed</span>(<span style=color:#a6e22e>time</span>.<span style=color:#a6e22e>Now</span>().<span style=color:#a6e22e>UnixNano</span>())
+<span style=color:#a6e22e>n</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>rand</span>.<span style=color:#a6e22e>Int63</span>() <span style=color:#75715e>// for example 4601851300195147788
+</span></code></pre></div><p>同样，<a href=https://golang.org/pkg/math/rand/#Float64 title=rand.Float64>rand.Float64</a> 生成伪随机浮点数 x，其中 0 ≤ x &lt; 1：</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-golang data-lang=golang><span style=color:#a6e22e>x</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>rand</span>.<span style=color:#a6e22e>Float64</span>() <span style=color:#75715e>// for example 0.49893371771268225
+</span></code></pre></div><blockquote>
+<p>警告：如果不先调用 <code>rand.Seed</code>，则每次运行该程序时，都会得到相同的数字序列。</p>
+</blockquote>
+<p>请参阅<a href=https://yourbasic.org/algorithms/random-number-generator-seed/ title=随机数生成器中的种子是什么?>随机数生成器中的种子是什么?</a>, 解释伪随机数生成器的原理。</p>
+<h3 id=几个随机源>几个随机源</h3>
+<p><code>math/rand</code> 包中的函数全部使用单个随机源。</p>
+<p>如果需要，您可以使用自己的源创建一个新的 <code>Rand</code> 类型的随机生成器，然后使用其方法生成随机数：</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-golang data-lang=golang><span style=color:#a6e22e>generator</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>rand</span>.<span style=color:#a6e22e>New</span>(<span style=color:#a6e22e>rand</span>.<span style=color:#a6e22e>NewSource</span>(<span style=color:#a6e22e>time</span>.<span style=color:#a6e22e>Now</span>().<span style=color:#a6e22e>UnixNano</span>()))
+<span style=color:#a6e22e>n</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>generator</span>.<span style=color:#a6e22e>Int63</span>()
+<span style=color:#a6e22e>x</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>generator</span>.<span style=color:#a6e22e>Float64</span>()
+</code></pre></div><h2 id=给定范围内的整数和字符>给定范围内的整数和字符</h2>
+<h3 id=a-和-b-之间的数字>a 和 b 之间的数字</h3>
+<p>使用 <a href=https://golang.org/pkg/math/rand/#Intn title=rand.Intn>rand.Intn(m)</a>，它返回一个伪随机数 n，其中 0 ≤ n &lt; m。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-golang data-lang=golang><span style=color:#a6e22e>n</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>a</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>rand</span>.<span style=color:#a6e22e>Intn</span>(<span style=color:#a6e22e>b</span><span style=color:#f92672>-</span><span style=color:#a6e22e>a</span><span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>) <span style=color:#75715e>// a ≤ n ≤ b
+</span></code></pre></div><h3 id=a-和-z-之间的字符>&lsquo;a&rsquo; 和 &lsquo;z&rsquo; 之间的字符</h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-golang data-lang=golang><span style=color:#a6e22e>c</span> <span style=color:#f92672>:=</span> <span style=color:#e6db74>&#39;a&#39;</span> <span style=color:#f92672>+</span> rune(<span style=color:#a6e22e>rand</span>.<span style=color:#a6e22e>Intn</span>(<span style=color:#e6db74>&#39;z&#39;</span><span style=color:#f92672>-</span><span style=color:#e6db74>&#39;a&#39;</span><span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>)) <span style=color:#75715e>// &#39;a&#39; ≤ c ≤ &#39;z&#39;
+</span></code></pre></div><h2 id=切片中的随机元素>切片中的随机元素</h2>
+<p>要从任意集合生成字符，请从字符切片中选择一个随机索引：</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-golang data-lang=golang><span style=color:#a6e22e>chars</span> <span style=color:#f92672>:=</span> []rune(<span style=color:#e6db74>&#34;AB⌘&#34;</span>)
+<span style=color:#a6e22e>c</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>chars</span>[<span style=color:#a6e22e>rand</span>.<span style=color:#a6e22e>Intn</span>(len(<span style=color:#a6e22e>chars</span>))] <span style=color:#75715e>// for example &#39;⌘&#39;
+</span></code></pre></div><h4 id=延伸阅读>延伸阅读</h4>
+<p><img src=http://oss.xiayuguo.com/blog/202003/rune-stone-ballstorp-1900.jpg alt="Runic letters encoded in stone, Ballstorp 1900">
+<a href=https://xiayuguo.com/post/2020/03/rune/ title="Runes 和字符编码（译文）">Runes 和字符编码（译文）</a></p>
+</div>
+</div>
+<div class=pagination>
+<a class="btn previous" href=http://yuguo.im/post/2020/03/generate-random-string/> Prev</a>
+<a class="btn next" href=http://yuguo.im/post/2020/03/2019-march/> Next</a>
+</div>
+</div>
+</div>
+<div id=disqus_thread></div>
+<script>var disqus_config=function(){this.page.url="http://yuguo.im/post/2020/03/generate-number-random-range/"};(function(){var a=document,b=a.createElement('script');b.src='//yuguo.disqus.com/embed.js',b.setAttribute('data-timestamp',+new Date),(a.head||a.body).appendChild(b)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments powered by Disqus.</a></noscript>
+<div class=footer>
+<p>Copyright@<a href=http://yuguo.im/about>Yuguo</a> 2019. Powered by <a href=https://gohugo.io/>Hugo</a>. This theme—Slim—is open sourced on <a href=https://github.com/zhe/hugo-theme-slim>Github</a>.</p>
+</div>
+</div>
+<script src=http://yuguo.im/js/slim.js></script>
+<script src=http://yuguo.im/js/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script>
+<script>(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)})(window,document,'script','//www.google-analytics.com/analytics.js','ga'),ga('create','UA-161689466-1','auto'),ga('send','pageview')</script>
+</body>
+</html>

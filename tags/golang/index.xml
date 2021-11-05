@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Golang on 随笔</title><link>http://yuguo.im/tags/golang/</link><description>Recent content in Golang on 随笔</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 16 Apr 2020 07:15:40 +0800</lastBuildDate><atom:link href="http://yuguo.im/tags/golang/index.xml" rel="self" type="application/rss+xml"/><item><title>Golang 中关于 iota 的 4 个例子</title><link>http://yuguo.im/post/2020/04/iota/</link><pubDate>Thu, 16 Apr 2020 07:15:40 +0800</pubDate><guid>http://yuguo.im/post/2020/04/iota/</guid><description>作者：Stefan Nilsson
+原文网址：https://yourbasic.org/golang/iota/
+iota 基本示例 iota 关键字表示连续的整数常量0、1、2，&amp;hellip; 每当源代码中出现 const 关键字时，它将重置为 0， 并在每个 const 后按规范递增。 const ( C0 = iota C1 = iota C2 = iota ) fmt.Println(C0, C1, C2) // &amp;#34;0 1 2&amp;#34; 这可以简写为
+const ( C0 = iota C1 C2 ) 这里我们依靠这样的事实，即表达式是在经过简化的 const 声明中隐式重复的 —— 这表示前面的表达式及其类型的重复。
+从 1 开始 要以 1 而不是 0 开头的常量列表，可以在算术表达式中使用 iota。
+const ( C1 = iota + 1 C2 C3 ) fmt.</description></item><item><title>How to use Excel with Go</title><link>http://yuguo.im/post/2020/04/golang-excel/</link><pubDate>Wed, 15 Apr 2020 18:52:12 +0800</pubDate><guid>http://yuguo.im/post/2020/04/golang-excel/</guid><description>Microsoft Excel™ (XLSX) 是广泛使用的一种电子表格格式。
+Github 上有两个 Golang 包可以方便读写 Excel 文件。
+360EntSecGroup-Skylar/excelize tealeg/xlsx Watch 170 180 Star 6k 4k Fork 652 657 包 360EntSecGroup-Skylar/excelize 比 tealeg/xlsx 关注度更高，并且 README.md 中有很多示例代码，下面就来看看这个包。
+360EntSecGroup-Skylar/excelize 安装 go get github.com/360EntSecGroup-Skylar/excelize 创建 Excel 文档 官方示例 package main import ( &amp;quot;fmt&amp;quot; &amp;quot;github.com/360EntSecGroup-Skylar/excelize&amp;quot; ) func main() { f := excelize.NewFile() // 创建一个工作表 index := f.NewSheet(&amp;quot;Sheet2&amp;quot;) // 设置单元格的值 f.</description></item><item><title>Golang 中格式化时间或日期[完整指南]</title><link>http://yuguo.im/post/2020/04/format-parse-string-time-date-example/</link><pubDate>Mon, 13 Apr 2020 06:16:30 +0800</pubDate><guid>http://yuguo.im/post/2020/04/format-parse-string-time-date-example/</guid><description>作者：Stefan Nilsson
+原文网址：https://yourbasic.org/golang/format-parse-string-time-date-example/
+基本例子 Go 不使用 yyyy-mm-dd 模式来格式化时间。而是，格式化一个特殊的参数
+Mon Jan 2 15:04:05 MST 2006
+与指定的时间或日期格式相同。(当写为 01/02 03:04:05 PM 06 -0700 时，这个日期更容易记住。美式的时间格式 月，日，时，分，秒，年排列起来依次是 1 2 3 4 5 6)
+const ( layoutISO = &amp;quot;2006-01-02&amp;quot; layoutUS = &amp;quot;January 2, 2006&amp;quot; ) date := &amp;quot;1999-12-31&amp;quot; t, _ := time.Parse(layoutISO, date) fmt.Println(t) // 1999-12-31 00:00:00 +0000 UTC fmt.Println(t.Format(layoutUS)) // December 31, 1999 标准时间和日期格式 Go 格式模板 注释 January 2, 2006 Date 01/02/06 Jan-02-06 15:04:05 Time 3:04:05 PM Jan _2 15:04:05 Timestamp Jan _2 15:04:05.</description></item><item><title>Golang 中对切片或数组洗牌（译文）</title><link>http://yuguo.im/post/2020/03/shuffle-slice-array/</link><pubDate>Fri, 10 Apr 2020 16:08:23 +0800</pubDate><guid>http://yuguo.im/post/2020/03/shuffle-slice-array/</guid><description>作者：Stefan Nilsson
+原文网址：https://yourbasic.org/golang/shuffle-slice-array/
+包 math/rand 中的 rand.Shuffle 函数使用给定的交换函数对输入序列进行混洗。
+a := []int{1, 2, 3, 4, 5, 6, 7, 8} rand.Seed(time.Now().UnixNano()) rand.Shuffle(len(a), func(i, j int) { a[i], a[j] = a[j], a[i] }) 输出：
+[5 8 6 4 3 7 2 1] 警告：如果不调用 rand.Seed，则每次运行程序时，您都会获得相同的伪随机数序列。
+延伸阅读 Golang 中生成随机数，字符和切片元素（译文）
+Go 1.10 之前 在包 math/rand 中使用 rand.Seed 和 rand.Intn 函数。
+a := []int{1, 2, 3, 4, 5, 6, 7, 8} rand.Seed(time.Now().UnixNano()) for i := len(a) - 1; i &amp;gt; 0; i-- { // Fisher–Yates shuffle j := rand.</description></item><item><title>Golang 中的 3 种排序方式（译文）</title><link>http://yuguo.im/post/2020/04/how-to-sort-in-go/</link><pubDate>Wed, 08 Apr 2020 07:57:31 +0800</pubDate><guid>http://yuguo.im/post/2020/04/how-to-sort-in-go/</guid><description>作者：Stefan Nilsson
+原文网址：https://yourbasic.org/golang/how-to-sort-in-go/
+对整数，浮点数或字符串的切片进行排序 使用下面与其类型对应的方法
+sort.Ints sort.Float64s sort.Strings s := []int{4, 2, 3, 1} sort.Ints(s) fmt.Println(s) // [1 2 3 4] 包 radix 是对 sort.Strings 的一种替代方案。在某些情况, 它可以快两倍以上。
+用自定义比较器排序 使用函数 sort.Slice。它使用提供的功能 less(i, j int) bool 对切片进行排序。 要在保留相等元素的原始顺序的同时对切片进行排序，请改用 sort.SliceStable。 family := []struct { Name string Age int }{ {&amp;quot;Alice&amp;quot;, 23}, {&amp;quot;David&amp;quot;, 2}, {&amp;quot;Eve&amp;quot;, 2}, {&amp;quot;Bob&amp;quot;, 25}, } // Sort by age, keeping original order or equal elements.</description></item><item><title>Golang 错误处理最佳实践（译文）</title><link>http://yuguo.im/post/2020/03/errors-explained/</link><pubDate>Thu, 19 Mar 2020 08:49:59 +0800</pubDate><guid>http://yuguo.im/post/2020/03/errors-explained/</guid><description>作者：Stefan Nilsson
+原文网址：https://yourbasic.org/golang/errors-explained/
+Go 具有两种不同的错误处理机制：
+大多数函数返回 errors； 只有真正无法恢复的条件（例如超出范围的索引）才会产生运行时异常，我们称之为 panic Go 的多值返回值使您可以轻松地在正常返回值旁边返回详细的错误消息。按照惯例，此类消息具有类型 error，这是一个简单的内置 interface：
+type error interface { Error() string } 错误处理示例 os.Open 函数无法打开文件时返回一个非 nil 错误值。
+func Open(name string) (file *File, err error) 以下代码使用 os.Open 打开文件。如果发生错误，它将调用 log.Fatal 打印错误消息并停止。
+f, err := os.Open(&amp;quot;filename.ext&amp;quot;) if err != nil { log.Fatal(err) } // do something with the open *File f 自定义错误 要创建简单的仅字符串 error，可以使用 errors.New：
+err := errors.New(&amp;quot;Houston, we have a problem&amp;quot;) error 接口仅需要一个 Error 方法，但是特定的 error 实现通常具有其他方法，从而允许调用方检查错误的详细信息。</description></item><item><title>Panic,堆栈跟踪以及如何恢复【最佳实践】（译文）</title><link>http://yuguo.im/post/2020/03/recover-from-panic/</link><pubDate>Thu, 19 Mar 2020 08:47:34 +0800</pubDate><guid>http://yuguo.im/post/2020/03/recover-from-panic/</guid><description>作者：Stefan Nilsson
+原文网址：https://yourbasic.org/golang/recover-from-panic/
+Panic 是 Go 中的一个异常 Panics 类似于 C++ 和 Java 异常，但仅适用于运行时错误，例如跟随一个 nil 指针或试图对数组访问超出范围的索引。为了表示诸如文件结束之类的事件，Go 程序使用内置 error 类型。有关错误的更多信息，请参见 错误处理最佳实践 和 3种创建错误的简单方法。
+Panic 停止 goroutine 的正常执行
+程序出现 panic 时，它将立即开始展开调用堆栈。 一直持续到程序崩溃并打印堆栈跟踪, 或直到调用内置的恢复功能。 panic 是由运行时错误或对内置函数 panic 的显式调用引起的。
+堆栈跟踪记录 堆栈跟踪记录 —— 所有活动堆栈帧的报告 —— 通常在 panic 发生时将其打印到控制台。堆栈跟踪对于调试非常有用：
+您不仅可以看到错误发生的地方， 而且可以看到程序是如何到达这个地方的。 解释堆栈跟踪 这是一个堆栈跟踪的示例：
+goroutine 11 [running]: testing.tRunner.func1(0xc420092690) /usr/local/go/src/testing/testing.go:711 +0x2d2 panic(0x53f820, 0x594da0) /usr/local/go/src/runtime/panic.go:491 +0x283 github.com/yourbasic/bit.(*Set).Max(0xc42000a940, 0x0) ../src/github.com/bit/set_math_bits.go:137 +0x89 github.com/yourbasic/bit.TestMax(0xc420092690) ../src/github.com/bit/set_test.go:165 +0x337 testing.tRunner(0xc420092690, 0x57f5e8) /usr/local/go/src/testing/testing.</description></item><item><title>Golang 中 3 种简单的方法来创建错误（译文）</title><link>http://yuguo.im/post/2020/03/create-error/</link><pubDate>Thu, 19 Mar 2020 08:28:05 +0800</pubDate><guid>http://yuguo.im/post/2020/03/create-error/</guid><description>作者：Stefan Nilsson
+原文网址：https://yourbasic.org/golang/create-error/
+基于字符串的错误 标准库提供了两个现成的选项。
+// simple string-based error err1 := errors.New(&amp;quot;math: square root of negative number&amp;quot;) // with formatting err2 := fmt.Errorf(&amp;quot;math: square root of negative number %g&amp;quot;, x) 带有数据的自定义错误 要定义自定义错误类型，您必须满足预先声明的 error 接口。
+type error interface { Error() string } 这里有两个例子。
+type SyntaxError struct { Line int Col int } func (e *SyntaxError) Error() string { return fmt.Sprintf(&amp;quot;%d:%d: syntax error&amp;quot;, e.Line, e.Col) } type InternalError struct { Path string } func (e *InternalError) Error() string { return fmt.</description></item><item><title>Golang 中将接口转换为字符串（译文）</title><link>http://yuguo.im/post/2020/03/interface-to-string/</link><pubDate>Sun, 15 Mar 2020 20:33:15 +0800</pubDate><guid>http://yuguo.im/post/2020/03/interface-to-string/</guid><description>作者：Stefan Nilsson
+原文网址：https://yourbasic.org/golang/interface-to-string/
+使用 fmt.Sprintf 将interface value转换为字符串。
+var x interface{} = &amp;quot;abc&amp;quot; str := fmt.Sprintf(&amp;quot;%v&amp;quot;, x) 实际上，可以使用相同的技术来获取任何数据结构的字符串表示形式。
+var x interface{} = []int{1, 2, 3} str := fmt.Sprintf(&amp;quot;%v&amp;quot;, x) fmt.Println(str) // &amp;quot;[1 2 3]&amp;quot; Fmt 备忘单 顶级 fmt 格式化技巧</description></item><item><title>Golang 中 crypto/rand（译文）</title><link>http://yuguo.im/post/2020/03/crypto-rand-int/</link><pubDate>Sun, 15 Mar 2020 16:08:45 +0800</pubDate><guid>http://yuguo.im/post/2020/03/crypto-rand-int/</guid><description>作者：Stefan Nilsson
+原文网址：https://yourbasic.org/golang/crypto-rand-int/
+Go 有两个用于随机数的包：
+math/rand 实现了大量伪随机数生成器。 crypto/rand 实现了具有受限接口的加密安全伪随机数生成器。 这两个包可以通过调用包 math/rand 中的 rand.New 与一个从 crypto/rand 获取数据的源来合并。
+import ( crand &amp;#34;crypto/rand&amp;#34; rand &amp;#34;math/rand&amp;#34; &amp;#34;encoding/binary&amp;#34; &amp;#34;fmt&amp;#34; &amp;#34;log&amp;#34; ) func main() { var src cryptoSource rnd := rand.New(src) fmt.Println(rnd.Intn(1000)) // a truly random number 0 to 999 } type cryptoSource struct{} func (s cryptoSource) Seed(seed int64) {} func (s cryptoSource) Int63() int64 { return int64(s.Uint64() &amp;amp; ^uint64(1&amp;lt;&amp;lt;63)) } func (s cryptoSource) Uint64() (v uint64) { err := binary.</description></item><item><title>Golang 中生成唯一的字符串（UUID，GUID）(译文)</title><link>http://yuguo.im/post/2020/03/generate-uuid-guid/</link><pubDate>Sun, 15 Mar 2020 15:48:09 +0800</pubDate><guid>http://yuguo.im/post/2020/03/generate-uuid-guid/</guid><description>作者：Stefan Nilsson
+原文网址：https://yourbasic.org/golang/generate-uuid-guid/
+通用唯一标识符 UUID（universally unique identifier）或全局唯一标识符 GUID （globally unique identifier）是用于标识信息的 128 位数字。
+UUID 是唯一的(出于实用目的)：它重复的概率非常接近零。 UUID 不依赖中央机构的注册和分配。 UUID 的字符串表示形式由 32 个十六进制数字组成，以 5 个组显示，由连字符 - 分隔。例如：
+123e4567-e89b-12d3-a456-426655440000 UUID 生成器示例 您可以使用来自 crypto/rand 包的 rand.Read 函数来生成基本的 UUID。
+b := make([]byte, 16) _, err := rand.Read(b) if err != nil { log.Fatal(err) } uuid := fmt.Sprintf(&amp;#34;%x-%x-%x-%x-%x&amp;#34;, b[0:4], b[4:6], b[6:8], b[8:10], b[10:]) fmt.Println(uuid) 输出：
+9438167c-9493-4993-fd48-950b27aad7c9 局限性 此 UUID 不符合 RFC4122。特别是，它不包含任何版本号或变体号。
+警告：如果系统底层调用失败，则 rand.</description></item><item><title>Golang 中生成随机数，字符和切片元素（译文）</title><link>http://yuguo.im/post/2020/03/generate-number-random-range/</link><pubDate>Fri, 13 Mar 2020 08:19:52 +0800</pubDate><guid>http://yuguo.im/post/2020/03/generate-number-random-range/</guid><description>作者：Stefan Nilsson
+原文网址：https://yourbasic.org/golang/generate-number-random-range/
+Go 伪随机数基础知识 使用包 math/rand 中的 rand.Seed 和 rand.Int63 函数生成 int64 类型的非负伪随机数：
+rand.Seed(time.Now().UnixNano()) n := rand.Int63() // for example 4601851300195147788 同样，rand.Float64 生成伪随机浮点数 x，其中 0 ≤ x &amp;lt; 1：
+x := rand.Float64() // for example 0.49893371771268225 警告：如果不先调用 rand.Seed，则每次运行该程序时，都会得到相同的数字序列。
+请参阅随机数生成器中的种子是什么?, 解释伪随机数生成器的原理。
+几个随机源 math/rand 包中的函数全部使用单个随机源。
+如果需要，您可以使用自己的源创建一个新的 Rand 类型的随机生成器，然后使用其方法生成随机数：
+generator := rand.New(rand.NewSource(time.Now().UnixNano())) n := generator.Int63() x := generator.Float64() 给定范围内的整数和字符 a 和 b 之间的数字 使用 rand.Intn(m)，它返回一个伪随机数 n，其中 0 ≤ n &amp;lt; m。</description></item><item><title>Golang 中生成密码（译文）</title><link>http://yuguo.im/post/2020/03/generate-random-string/</link><pubDate>Thu, 12 Mar 2020 08:27:26 +0800</pubDate><guid>http://yuguo.im/post/2020/03/generate-random-string/</guid><description>作者：Stefan Nilsson
+原文网址：https://yourbasic.org/golang/generate-random-string/
+随机字符串 该代码从瑞典语字母（包括非 ASCII 字符 å， ä 和 ö ）中生成一个随机的数字和字符字符串。
+rand.Seed(time.Now().UnixNano()) chars := []rune(&amp;#34;ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖ&amp;#34; + &amp;#34;abcdefghijklmnopqrstuvwxyzåäö&amp;#34; + &amp;#34;0123456789&amp;#34;) length := 8 var b strings.Builder for i := 0; i &amp;lt; length; i++ { b.WriteRune(chars[rand.Intn(len(chars))]) } str := b.String() // E.g. &amp;#34;ExcbsVQs&amp;#34; 警告：要生成密码，应使用加密安全的伪随机数。请参阅 User-friendly access to crypto/rand。
+有限制的随机字符串 此代码生成一个随机的 ASCII 字符串，该字符串至少包含一个数字和一个特殊字符。
+rand.Seed(time.Now().UnixNano()) digits := &amp;#34;0123456789&amp;#34; specials := &amp;#34;~=+%^*/()[]{}/!@#$?|&amp;#34; all := &amp;#34;ABCDEFGHIJKLMNOPQRSTUVWXYZ&amp;#34; + &amp;#34;abcdefghijklmnopqrstuvwxyz&amp;#34; + digits + specials length := 8 buf := make([]byte, length) buf[0] = digits[rand.</description></item><item><title>Golang 中 int，int64 和字符串互转（译文）</title><link>http://yuguo.im/post/2020/03/convert-int-to-string/</link><pubDate>Wed, 11 Mar 2020 19:40:30 +0800</pubDate><guid>http://yuguo.im/post/2020/03/convert-int-to-string/</guid><description>作者：Stefan Nilsson
+原文网址：https://yourbasic.org/golang/convert-int-to-string/
+int/int64 转字符串 使用 strconv.Itoa 将 int 转换为十进制字符串。
+s := strconv.Itoa(97) // s == &amp;quot;97&amp;quot; 警告：在普通转换中，该值将解释为 Unicode 码位，并且生成的字符串将包含该码位表示的字符，并以 UTF-8 编码。
+s := string(97) // s == &amp;quot;a&amp;quot;
+使用 strconv.FormatInt 以给定的进制数（十进制、十六进制）格式化 int64。
+var n int64 = 97 s := strconv.FormatInt(n, 10) // s == &amp;quot;97&amp;quot; (十进制) var n int64 = 97 s := strconv.FormatInt(n, 16) // s == &amp;quot;61&amp;quot; (十六进制) 字符串转 int/int64 使用 strconv.Atoi 将十进制字符串解析为 int 。</description></item><item><title>Golang 中字符串和浮点数互转（译文）</title><link>http://yuguo.im/post/2020/03/convert-string-to-float/</link><pubDate>Wed, 11 Mar 2020 19:33:24 +0800</pubDate><guid>http://yuguo.im/post/2020/03/convert-string-to-float/</guid><description>作者：Stefan Nilsson
+原文网址：https://yourbasic.org/golang/convert-string-to-float/
+字符串转为浮点数 使用 strconv.ParseFloat 函数将字符串解析为浮点数, 通过指定参数 bitSize 的值来确定精度：float32 为 32，float64 为 64。
+func ParseFloat(s string, bitSize int) (float64, error) 当 bitSize 为 32 时，结果仍为 float64 类型，但可以将其转换为 float32 而无需更改其值。
+f := &amp;quot;3.14159265&amp;quot; if s, err := strconv.ParseFloat(f, 32); err == nil { fmt.Println(s) // 3.1415927410125732 } if s, err := strconv.ParseFloat(f, 64); err == nil { fmt.Println(s) // 3.14159265 } 浮点数转为字符串 使用 fmt.Sprintf 方法将浮点数格式化为字符串。
+s := fmt.Sprintf(&amp;quot;%f&amp;quot;, 123.</description></item><item><title>Golang 中字节切片/数组和字符串互转（译文）</title><link>http://yuguo.im/post/2020/03/convert-string-to-byte-slice/</link><pubDate>Wed, 11 Mar 2020 18:20:48 +0800</pubDate><guid>http://yuguo.im/post/2020/03/convert-string-to-byte-slice/</guid><description>作者：Stefan Nilsson
+原文网址：https://yourbasic.org/golang/convert-string-to-byte-slice/
+基本认知 在字符串和字节切片（数组）之间进行转换时，会得到一个全新的切片，其中包含与字符串相同的字节，反之亦然。
+转换不会修改数据 唯一的区别是字符串是不可变的，而字节片可以修改 如果需要操纵字符串的 rune ，则可能需要将字符串转换为 rune 切片，更多细节请看这篇文章 Golang 中 runes 和 字符串互转（译文）
+将字符串转为字节切片 将字符串转换为字节切片时，会得到一个新的切片，其中包含与字符串相同的字节。
+b := []byte(&amp;quot;ABC€&amp;quot;) fmt.Println(b) // [65 66 67 226 130 172] 请注意，字符 € 是使用 3 个字节的 UTF-8 编码的。有关 Unicode 码位的 UTF-8 编码的更多信息，请参阅关于 rune 的这篇文章。
+将字节切片转为字符串 当您将字节的一部分转换为字符串时，您将获得一个新的字符串，其中包含与该片段相同的字节。
+s := string([]byte{65, 66, 67, 226, 130, 172}) fmt.Println(s) // ABC€ 性能 这些转换将创建一个新的切片或字符串，因此时间复杂度与处理的字节数成正比。</description></item><item><title>Golang 中 runes 和 字符串互转（译文）</title><link>http://yuguo.im/post/2020/03/convert-string-to-rune-slice/</link><pubDate>Wed, 11 Mar 2020 08:26:57 +0800</pubDate><guid>http://yuguo.im/post/2020/03/convert-string-to-rune-slice/</guid><description>作者：Stefan Nilsson
+原文网址：https://yourbasic.org/golang/convert-string-to-rune-slice/
+Convert string to runes 将字符串转换为 rune 切片时，会得到一个新的切片，其中包含字符串的 Unicode 码位( runes ) 对于无效的 UTF-8 序列，每个无效字节的 rune 值将为 0xFFFD。 r := []rune(&amp;quot;ABC€&amp;quot;) fmt.Println(r) // [65 66 67 8364] fmt.Printf(&amp;quot;%U\n&amp;quot;, r) // [U+0041 U+0042 U+0043 U+20AC] 您还可以使用 range 循环访问字符串的码位。
+Convert runes to string 当您将一小段 runes 转换为字符串时，会得到一个新字符串，该字符串是将 runes 转换为 UTF-8 编码字符串的串联。 有效 Unicode 码位范围之外的值将转换为 Unicode 替换字符\uFFFD, 显示为�。 s := string([]rune{'\u0041', '\u0042', '\u0043', '\u20AC', -1}) fmt.</description></item><item><title>Runes 和字符编码（译文）</title><link>http://yuguo.im/post/2020/03/rune/</link><pubDate>Tue, 10 Mar 2020 19:00:17 +0800</pubDate><guid>http://yuguo.im/post/2020/03/rune/</guid><description>作者：Stefan Nilsson
+原文网址：https://yourbasic.org/golang/rune
+字符，ASCII 和 Unicode rune 类型是 int32 的别名，用于强调其代表的是码位（code point），而不是整数。
+ASCII 定义 128 个字符，由码位 0 – 127 标识。它涵盖英文字母，拉丁数字和其他一些字符。
+Unicode 是 ASCII 的超集，它定义了 1,114,112 个代码点的代码空间。 Unicode 版本 10.0 涵盖 139 个现代和历史文本集（包括符文字母，但不包括 Klingon ）以及多个符号集。
+字符串和 UTF-8 编码 字符串是字节序列，而不是符文。
+但是，字符串通常包含以 UTF-8 编码的 Unicode 文本，该文本使用一到四个字节对所有 Unicode 码位进行编码。（ASCII 字符使用一个字节编码，而其他码位则使用更多字节。）
+由于 Go 源代码本身被编码为 UTF-8，因此字符串文字将自动获得此编码。
+例如，在字符串&amp;quot;café&amp;quot;中，字符é（码位 233）使用两个字节编码，而 ASCII 字符 c，a 和 f（码位 99、97 和 102）仅使用一个字节：
+fmt.Println([]byte(&amp;quot;café&amp;quot;)) // [99 97 102 195 169] fmt.</description></item><item><title>Golang 中类型断言和类型切换（译文）</title><link>http://yuguo.im/post/2020/03/type-assertion-switch/</link><pubDate>Tue, 10 Mar 2020 07:55:40 +0800</pubDate><guid>http://yuguo.im/post/2020/03/type-assertion-switch/</guid><description>类型断言提供对接口具体值的访问。
+作者：Stefan Nilsson
+原文网址：https://yourbasic.org/golang/type-assertion-switch/
+类型断言 类型断言并不能真正将 interface 转换为另一种数据类型，但是可以访问 interface 的具体值，而这正是您所希望的。
+类型断言 x.(T) 断言 x 中存储的具体值是 T 类型，并且 x 不为 nil
+如果 T 不是 interface，则断言 x 的动态类型与 T 相同 如果 T 是 interface，则断言 x 的动态类型实现了 T var x interface{} = &amp;quot;foo&amp;quot; var s string = x.(string) fmt.Println(s) // &amp;quot;foo&amp;quot; s, ok := x.(string) fmt.Println(s, ok) // &amp;quot;foo true&amp;quot; n, ok := x.(int) fmt.Println(n, ok) // &amp;quot;0 false&amp;quot; n = x.</description></item><item><title>如何在 Go 中使用 JSON【最佳实践】（译文）</title><link>http://yuguo.im/post/2020/03/go-json/</link><pubDate>Tue, 03 Mar 2020 10:42:18 +0800</pubDate><guid>http://yuguo.im/post/2020/03/go-json/</guid><description>JSON 数据交换格式对人类来说很容易读写，对机器进行解析和生成也非常有效。
+作者：Stefan Nilsson
+原文网址：https://yourbasic.org/golang/json-example/
+默认类型 用于解码和编码 JSON 的默认 Go 类型是
+Go JSON bool booleans float64 numbers string strings nil null 另外，可以将 math.big 包中的 time.Time 和数字类型自动编码为JSON字符串。
+请注意，JSON不支持基本整数类型。它们通常可以用浮点数来近似。
+由于实现 IEEE 754-2008 binary64（双精度）数字的软件普遍可用并得到广泛使用，因此，期望其精度或范围不超过其提供的精度的实现可以实现良好的互操作性。
+请注意，使用此类软件时，在实现将完全一致于其数值的意义上，整数（整数）且在 $\ce{[-2^53 + 1, 2^53 - 1]}$ 范围内是可以互操作的。
+RFC 7159: JSON数据交换格式
+编码(marshal) struct 转 JSON 包 encoding/json 中的 json.Marshal 函数生成JSON数据。</description></item><item><title>Defer, Panic and Recover</title><link>http://yuguo.im/post/2019/defer-panic-and-recover/</link><pubDate>Wed, 13 Feb 2019 12:14:17 +0800</pubDate><guid>http://yuguo.im/post/2019/defer-panic-and-recover/</guid><description>翻译自 golang 的官方博客 Defer, Panic, and Recover
+Go 具有控制流程的常用机制：if，for，switch，goto。它还有 go 语句在单独的 goroutine 中运行代码。在这里，我想讨论一些不太常见的问题：defer, panic, recover。
+defer 语句将函数调用推送到列表中。在周围函数返回后执行已保存调用的列表。延迟通常用于简化执行各种清理操作的功能。
+举个例子，让我们看一个打开两个文件并将一个文件的内容复制到另一个文件的函数：
+func CopyFile(dstName, srcName string) (written int64, err error) { src, err := os.Open(srcName) if err != nil { return } dst, err := os.Create(dstName) if err != nil { return } written, err = io.Copy(dst, src) dst.Close() src.Close() return } 这可以正常运行，但有一个 bug。 如果对 os.Create 的调用失败，该函数将返回而不关闭源文件。 这可以通过在第二个 return 语句之前调用 src.Close 来轻松解决，但如果函数更复杂，则问题可能不会那么容易被注意到并解决。 通过引入 defer 语句，我们可以确保文件始终关闭：</description></item><item><title>Golang何时该使用指针?</title><link>http://yuguo.im/post/2018/golang-pointers/</link><pubDate>Tue, 25 Dec 2018 21:05:31 +0800</pubDate><guid>http://yuguo.im/post/2018/golang-pointers/</guid><description>Github 原文
+一个函数何时该用指针类型做receiver对初学者而言一直是个头疼的问题。如果不知道该如何取舍，选择指针类型的receiver。但有些时候value receiver更加合适，比如对象是一些轻量级的不变的structs，使用value receiver会更加高效。下面是列举了一些常用的判断指导。
+如果receiver是map、func或者chan，不要使用指针 如果receiver是slice并且该函数并不会修改此slice，不要使用指针 如果该函数会修改receiver，此时一定要用指针 如果receiver是struct并且包含互斥类型sync.Mutex，或者是类似的同步变量，receiver必须是指针，这样可以避免对象拷贝 如果receiver是较大的struct或者array，使用指针则更加高效。多大才算大？假设struct内所有成员都要作为函数变量传进去，如果觉得这时数据太多，就是struct太大 如果receiver是struct，array或者slice，并且其中某个element指向了某个可变量，则这个时候receiver选指针会使代码的意图更加明显 如果receiver使较小的struct或者array，并且其变量都是些不变量、常量，例如time.Time，value receiver更加适合，因为value receiver可以减少需要回收的垃圾量 最后，如果不确定用哪个，使用指针类的receiver</description></item></channel></rss>

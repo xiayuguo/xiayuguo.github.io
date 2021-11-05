@@ -1,0 +1,78 @@
+<!doctype html><html>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<title> Golang 中字节切片/数组和字符串互转（译文） &#183; 随笔 </title>
+<link rel=stylesheet href=http://yuguo.im/css/slim.css>
+<link rel=stylesheet href=http://yuguo.im/css/highlight.min.css>
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro" rel=stylesheet type=text/css>
+<link rel=apple-touch-icon-precomposed sizes=144x144 href=/apple-touch-icon-144-precomposed.png>
+<link rel="shortcut icon" href=/favicon.ico>
+<link href rel=alternate type=application/rss+xml title=随笔>
+</head>
+<body>
+<div class=container>
+<div class=header>
+<h1 class=site-title><a href=http://yuguo.im/>随笔</a></h1>
+<p class=site-tagline>Stay hungry. Stay foolish.</p>
+<div class=nav>
+<a class=nav-btn href=#>
+<span class="ci ci-burger"></span>
+</a>
+<ul class=nav-list>
+<li class=spacer>&ac;</li>
+<li><a href=https://github.com/xiayuguo>Github</a></li>
+</ul>
+</div>
+</div>
+<div class=content>
+<div class=posts>
+<div class=post>
+<h2 class=post-title><a href=http://yuguo.im/post/2020/03/convert-string-to-byte-slice/>Golang 中字节切片/数组和字符串互转（译文）</a></h2>
+<span class=post-date>Mar 11, 2020 </span>
+<div class=post-content>
+<blockquote>
+<p>作者：Stefan Nilsson</p>
+<p>原文网址：https://yourbasic.org/golang/convert-string-to-byte-slice/</p>
+</blockquote>
+<h2 id=基本认知>基本认知</h2>
+<p>在字符串和字节切片（数组）之间进行转换时，会得到一个全新的切片，其中包含与字符串相同的字节，反之亦然。</p>
+<ul>
+<li>转换不会修改数据</li>
+<li>唯一的区别是字符串是不可变的，而字节片可以修改</li>
+</ul>
+<blockquote>
+<p>如果需要操纵字符串的 rune ，则可能需要将字符串转换为 rune 切片，更多细节请看这篇文章 <a href=https://xiayuguo.com/post/2020/03/convert-string-to-rune-slice/>Golang 中 runes 和 字符串互转（译文）</a></p>
+</blockquote>
+<h2 id=将字符串转为字节切片>将字符串转为字节切片</h2>
+<p>将字符串转换为字节切片时，会得到一个新的切片，其中包含与字符串相同的字节。</p>
+<pre tabindex=0><code>b := []byte(&quot;ABC€&quot;)
+fmt.Println(b) // [65 66 67 226 130 172]
+</code></pre><p>请注意，字符 € 是使用 3 个字节的 UTF-8 编码的。有关 Unicode 码位的 UTF-8 编码的更多信息，请参阅关于 <a href=https://xiayuguo.com/post/2020/03/rune/ title=rune>rune</a> 的这篇文章。</p>
+<h2 id=将字节切片转为字符串>将字节切片转为字符串</h2>
+<p>当您将字节的一部分转换为字符串时，您将获得一个新的字符串，其中包含与该片段相同的字节。</p>
+<pre tabindex=0><code>s := string([]byte{65, 66, 67, 226, 130, 172})
+fmt.Println(s) // ABC€
+</code></pre><h2 id=性能>性能</h2>
+<p>这些转换将创建一个新的切片或字符串，因此时间复杂度与处理的字节数成正比。</p>
+</div>
+</div>
+<div class=pagination>
+<a class="btn previous" href=http://yuguo.im/post/2020/03/convert-string-to-rune-slice/> Prev</a>
+<a class="btn next" href=http://yuguo.im/post/2020/03/convert-string-to-float/> Next</a>
+</div>
+</div>
+</div>
+<div id=disqus_thread></div>
+<script>var disqus_config=function(){this.page.url="http://yuguo.im/post/2020/03/convert-string-to-byte-slice/"};(function(){var a=document,b=a.createElement('script');b.src='//yuguo.disqus.com/embed.js',b.setAttribute('data-timestamp',+new Date),(a.head||a.body).appendChild(b)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments powered by Disqus.</a></noscript>
+<div class=footer>
+<p>Copyright@<a href=http://yuguo.im/about>Yuguo</a> 2019. Powered by <a href=https://gohugo.io/>Hugo</a>. This theme—Slim—is open sourced on <a href=https://github.com/zhe/hugo-theme-slim>Github</a>.</p>
+</div>
+</div>
+<script src=http://yuguo.im/js/slim.js></script>
+<script src=http://yuguo.im/js/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script>
+<script>(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)})(window,document,'script','//www.google-analytics.com/analytics.js','ga'),ga('create','UA-161689466-1','auto'),ga('send','pageview')</script>
+</body>
+</html>

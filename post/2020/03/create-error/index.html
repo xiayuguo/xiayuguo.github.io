@@ -1,0 +1,99 @@
+<!doctype html><html>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<title> Golang 中 3 种简单的方法来创建错误（译文） &#183; 随笔 </title>
+<link rel=stylesheet href=http://yuguo.im/css/slim.css>
+<link rel=stylesheet href=http://yuguo.im/css/highlight.min.css>
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro" rel=stylesheet type=text/css>
+<link rel=apple-touch-icon-precomposed sizes=144x144 href=/apple-touch-icon-144-precomposed.png>
+<link rel="shortcut icon" href=/favicon.ico>
+<link href rel=alternate type=application/rss+xml title=随笔>
+</head>
+<body>
+<div class=container>
+<div class=header>
+<h1 class=site-title><a href=http://yuguo.im/>随笔</a></h1>
+<p class=site-tagline>Stay hungry. Stay foolish.</p>
+<div class=nav>
+<a class=nav-btn href=#>
+<span class="ci ci-burger"></span>
+</a>
+<ul class=nav-list>
+<li class=spacer>&ac;</li>
+<li><a href=https://github.com/xiayuguo>Github</a></li>
+</ul>
+</div>
+</div>
+<div class=content>
+<div class=posts>
+<div class=post>
+<h2 class=post-title><a href=http://yuguo.im/post/2020/03/create-error/>Golang 中 3 种简单的方法来创建错误（译文）</a></h2>
+<span class=post-date>Mar 19, 2020 </span>
+<div class=post-content>
+<blockquote>
+<p>作者：Stefan Nilsson</p>
+<p>原文网址：https://yourbasic.org/golang/create-error/</p>
+</blockquote>
+<p><img src=http://oss.xiayuguo.com/blog/202003/bug-small.png alt></p>
+<h2 id=基于字符串的错误>基于字符串的错误</h2>
+<p>标准库提供了两个现成的选项。</p>
+<pre tabindex=0><code>// simple string-based error
+err1 := errors.New(&quot;math: square root of negative number&quot;)
+
+// with formatting
+err2 := fmt.Errorf(&quot;math: square root of negative number %g&quot;, x)
+</code></pre><h2 id=带有数据的自定义错误>带有数据的自定义错误</h2>
+<p>要定义自定义错误类型，您必须满足预先声明的 <code>error</code> 接口。</p>
+<pre tabindex=0><code>type error interface {
+    Error() string
+}
+</code></pre><p>这里有两个例子。</p>
+<pre tabindex=0><code>type SyntaxError struct {
+    Line int
+    Col  int
+}
+
+func (e *SyntaxError) Error() string {
+    return fmt.Sprintf(&quot;%d:%d: syntax error&quot;, e.Line, e.Col)
+}
+</code></pre><pre tabindex=0><code>type InternalError struct {
+    Path string
+}
+
+func (e *InternalError) Error() string {
+    return fmt.Sprintf(&quot;parse %v: internal error&quot;, e.Path)
+}
+</code></pre><p>如果 <code>Foo</code> 是可以返回 <code>SyntaxError</code> 或 <code>InternalError</code> 的函数，则可以处理两种情况。</p>
+<pre tabindex=0><code>if err := Foo(); err != nil {
+    switch e := err.(type) {
+    case *SyntaxError:
+        // Do something interesting with e.Line and e.Col.
+    case *InternalError:
+        // Abort and file an issue.
+    default:
+        log.Println(e)
+    }
+}
+</code></pre>
+</div>
+</div>
+<div class=pagination>
+<a class="btn previous" href=http://yuguo.im/post/2020/03/interface-to-string/> Prev</a>
+<a class="btn next" href=http://yuguo.im/post/2020/03/recover-from-panic/> Next</a>
+</div>
+</div>
+</div>
+<div id=disqus_thread></div>
+<script>var disqus_config=function(){this.page.url="http://yuguo.im/post/2020/03/create-error/"};(function(){var a=document,b=a.createElement('script');b.src='//yuguo.disqus.com/embed.js',b.setAttribute('data-timestamp',+new Date),(a.head||a.body).appendChild(b)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments powered by Disqus.</a></noscript>
+<div class=footer>
+<p>Copyright@<a href=http://yuguo.im/about>Yuguo</a> 2019. Powered by <a href=https://gohugo.io/>Hugo</a>. This theme—Slim—is open sourced on <a href=https://github.com/zhe/hugo-theme-slim>Github</a>.</p>
+</div>
+</div>
+<script src=http://yuguo.im/js/slim.js></script>
+<script src=http://yuguo.im/js/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script>
+<script>(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)})(window,document,'script','//www.google-analytics.com/analytics.js','ga'),ga('create','UA-161689466-1','auto'),ga('send','pageview')</script>
+</body>
+</html>

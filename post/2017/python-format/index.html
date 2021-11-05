@@ -1,0 +1,203 @@
+<!doctype html><html>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<title> Python中字符串格式化符号和转义字符含义 &#183; 随笔 </title>
+<link rel=stylesheet href=http://yuguo.im/css/slim.css>
+<link rel=stylesheet href=http://yuguo.im/css/highlight.min.css>
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro" rel=stylesheet type=text/css>
+<link rel=apple-touch-icon-precomposed sizes=144x144 href=/apple-touch-icon-144-precomposed.png>
+<link rel="shortcut icon" href=/favicon.ico>
+<link href rel=alternate type=application/rss+xml title=随笔>
+</head>
+<body>
+<div class=container>
+<div class=header>
+<h1 class=site-title><a href=http://yuguo.im/>随笔</a></h1>
+<p class=site-tagline>Stay hungry. Stay foolish.</p>
+<div class=nav>
+<a class=nav-btn href=#>
+<span class="ci ci-burger"></span>
+</a>
+<ul class=nav-list>
+<li class=spacer>&ac;</li>
+<li><a href=https://github.com/xiayuguo>Github</a></li>
+</ul>
+</div>
+</div>
+<div class=content>
+<div class=posts>
+<div class=post>
+<h2 class=post-title><a href=http://yuguo.im/post/2017/python-format/>Python中字符串格式化符号和转义字符含义</a></h2>
+<span class=post-date>Apr 12, 2017 </span>
+<div class=post-content>
+<blockquote>
+<p>这篇文档整理自<a href="http://bbs.fishc.com/forum.php?mod=viewthread&tid=39140&extra=page%3D1%26filter%3Dtypeid%26typeid%3D403">鱼C论坛</a>, 感谢作者输出,我只是一枚搬运工&mldr;</p>
+</blockquote>
+<h3 id=字符串格式化符号含义>字符串格式化符号含义</h3>
+<table>
+<thead>
+<tr>
+<th style=text-align:left>符号</th>
+<th style=text-align:left>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style=text-align:left>%c</td>
+<td style=text-align:left>格式化字符及其ASCII码</td>
+</tr>
+<tr>
+<td style=text-align:left>%s</td>
+<td style=text-align:left>格式化字符串</td>
+</tr>
+<tr>
+<td style=text-align:left>%d</td>
+<td style=text-align:left>格式化整数</td>
+</tr>
+<tr>
+<td style=text-align:left>%o</td>
+<td style=text-align:left>格式化无符号八进制数</td>
+</tr>
+<tr>
+<td style=text-align:left>%x</td>
+<td style=text-align:left>格式化字符号十六进制数</td>
+</tr>
+<tr>
+<td style=text-align:left>%X</td>
+<td style=text-align:left>格式化字符号十六进制数(大写)</td>
+</tr>
+<tr>
+<td style=text-align:left>%f</td>
+<td style=text-align:left>格式化定点数,可指定小数点后的精度</td>
+</tr>
+<tr>
+<td style=text-align:left>%e</td>
+<td style=text-align:left>用科学计数法格式化定点数</td>
+</tr>
+<tr>
+<td style=text-align:left>%E</td>
+<td style=text-align:left>作用同%e, 用科学计数法格式化定点数</td>
+</tr>
+<tr>
+<td style=text-align:left>%g</td>
+<td style=text-align:left>根据值的大小决定使用%f或%e</td>
+</tr>
+<tr>
+<td style=text-align:left>%G</td>
+<td style=text-align:left>作用同%g, 根据值的大小决定使用%f或者%E</td>
+</tr>
+</tbody>
+</table>
+<h3 id=格式化操作符辅助指令>格式化操作符辅助指令</h3>
+<table>
+<thead>
+<tr>
+<th style=text-align:left>符号</th>
+<th style=text-align:left>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style=text-align:left>m.n</td>
+<td style=text-align:left>m是显示的最小总宽度,n是小数点后的位数</td>
+</tr>
+<tr>
+<td style=text-align:left>-</td>
+<td style=text-align:left>用于左对齐</td>
+</tr>
+<tr>
+<td style=text-align:left>+</td>
+<td style=text-align:left>在正数前面显示加好(+)</td>
+</tr>
+<tr>
+<td style=text-align:left>#</td>
+<td style=text-align:left>在八进制数前面显示'0o', 在十六进制数前面显示'0x&rsquo;或'0X'</td>
+</tr>
+<tr>
+<td style=text-align:left>0</td>
+<td style=text-align:left>显示的数字前面填充'0&rsquo;取代空格</td>
+</tr>
+</tbody>
+</table>
+<h3 id=字符串转义字符含义>字符串转义字符含义</h3>
+<table>
+<thead>
+<tr>
+<th style=text-align:left>符号</th>
+<th style=text-align:left>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style=text-align:left>'</td>
+<td style=text-align:left>单引号</td>
+</tr>
+<tr>
+<td style=text-align:left>"</td>
+<td style=text-align:left>双引号</td>
+</tr>
+<tr>
+<td style=text-align:left>\a</td>
+<td style=text-align:left>发出系统响铃声</td>
+</tr>
+<tr>
+<td style=text-align:left>\b</td>
+<td style=text-align:left>退格符</td>
+</tr>
+<tr>
+<td style=text-align:left>\n</td>
+<td style=text-align:left>换行符</td>
+</tr>
+<tr>
+<td style=text-align:left>\t</td>
+<td style=text-align:left>横向制表符(TAB)</td>
+</tr>
+<tr>
+<td style=text-align:left>\v</td>
+<td style=text-align:left>纵向制表符</td>
+</tr>
+<tr>
+<td style=text-align:left>\r</td>
+<td style=text-align:left>回车符</td>
+</tr>
+<tr>
+<td style=text-align:left>\f</td>
+<td style=text-align:left>换页符</td>
+</tr>
+<tr>
+<td style=text-align:left>\o</td>
+<td style=text-align:left>八进制数代表的字符</td>
+</tr>
+<tr>
+<td style=text-align:left>\x</td>
+<td style=text-align:left>十六进制数代表的字符</td>
+</tr>
+<tr>
+<td style=text-align:left>\0</td>
+<td style=text-align:left>表示一个空字符</td>
+</tr>
+<tr>
+<td style=text-align:left>\|反斜杠</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class=pagination>
+<a class="btn previous" href=http://yuguo.im/post/2017/oauth2/> Prev</a>
+<a class="btn next" href=http://yuguo.im/post/2017/pycharm-autopep8/> Next</a>
+</div>
+</div>
+</div>
+<div class=footer>
+<p>Copyright@<a href=http://yuguo.im/about>Yuguo</a> 2019. Powered by <a href=https://gohugo.io/>Hugo</a>. This theme—Slim—is open sourced on <a href=https://github.com/zhe/hugo-theme-slim>Github</a>.</p>
+</div>
+</div>
+<script src=http://yuguo.im/js/slim.js></script>
+<script src=http://yuguo.im/js/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script>
+<script>(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)})(window,document,'script','//www.google-analytics.com/analytics.js','ga'),ga('create','UA-161689466-1','auto'),ga('send','pageview')</script>
+</body>
+</html>

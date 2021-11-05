@@ -1,0 +1,219 @@
+<!doctype html><html>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<title> View Memory Information Using the Command Line in Win10 &#183; 随笔 </title>
+<link rel=stylesheet href=http://yuguo.im/css/slim.css>
+<link rel=stylesheet href=http://yuguo.im/css/highlight.min.css>
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro" rel=stylesheet type=text/css>
+<link rel=apple-touch-icon-precomposed sizes=144x144 href=/apple-touch-icon-144-precomposed.png>
+<link rel="shortcut icon" href=/favicon.ico>
+<link href rel=alternate type=application/rss+xml title=随笔>
+</head>
+<body>
+<div class=container>
+<div class=header>
+<h1 class=site-title><a href=http://yuguo.im/>随笔</a></h1>
+<p class=site-tagline>Stay hungry. Stay foolish.</p>
+<div class=nav>
+<a class=nav-btn href=#>
+<span class="ci ci-burger"></span>
+</a>
+<ul class=nav-list>
+<li class=spacer>&ac;</li>
+<li><a href=https://github.com/xiayuguo>Github</a></li>
+</ul>
+</div>
+</div>
+<div class=content>
+<div class=posts>
+<div class=post>
+<h2 class=post-title><a href=http://yuguo.im/post/2019/03/view-mem-info-in-win10/>View Memory Information Using the Command Line in Win10</a></h2>
+<span class=post-date>Mar 21, 2019 </span>
+<div class=post-content>
+<blockquote>
+<p>通过命令行查看内存条信息</p>
+</blockquote>
+<h2 id=步骤一-打开命令行模式>步骤一: 打开命令行模式</h2>
+<ul>
+<li>方式一: Win + R 打开运行，输入cmd回车;</li>
+<li>方式二: Win + S 打开搜索，输入cmd回车;</li>
+</ul>
+<h2 id=步骤二-命令行模式下输入wmic>步骤二: 命令行模式下输入<code>wmic</code></h2>
+<pre tabindex=0><code>C:\Users\Hugo&gt;wmic
+wmic:root\cli&gt;
+</code></pre><h2 id=步骤三-继续输入memorychip>步骤三: 继续输入<code>memorychip</code></h2>
+<pre tabindex=0><code>wmic:root\cli&gt;memorychip
+...  Capacity    ConfiguredClockSpeed  ConfiguredVoltage  Manufacturer 
+...  8589934592      2133                 1200             Kingston 
+...  8589934592      2133                 1200             Samsung  
+
+</code></pre><p>一般购买内存条就关心上面几个参数: 容量, 频率, 电压，生产商；其余参数由于版面有限，这里就不再展示了。</p>
+<h2 id=附录-内存条参数说明>附录: 内存条参数说明</h2>
+<table>
+<thead>
+<tr>
+<th style=text-align:left>参数</th>
+<th style=text-align:left>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style=text-align:left>Capacity  </td>
+<td style=text-align:left>获取内存容量（单位KB）</td>
+</tr>
+<tr>
+<td style=text-align:left>Caption  </td>
+<td style=text-align:left>物理内存还虚拟内存</td>
+</tr>
+<tr>
+<td style=text-align:left>ConfiguredClockSpeed  </td>
+<td style=text-align:left>配置时钟速度</td>
+</tr>
+<tr>
+<td style=text-align:left>ConfiguredVoltage  </td>
+<td style=text-align:left>配置电压</td>
+</tr>
+<tr>
+<td style=text-align:left>CreationClassName  </td>
+<td style=text-align:left>创建类名</td>
+</tr>
+<tr>
+<td style=text-align:left>DataWidth  </td>
+<td style=text-align:left>获取内存带宽</td>
+</tr>
+<tr>
+<td style=text-align:left>Description  </td>
+<td style=text-align:left>描述</td>
+</tr>
+<tr>
+<td style=text-align:left>DeviceLocator  </td>
+<td style=text-align:left>获取设备定位器</td>
+</tr>
+<tr>
+<td style=text-align:left>FormFactor    </td>
+<td style=text-align:left>构成因素</td>
+</tr>
+<tr>
+<td style=text-align:left>HotSwappable  </td>
+<td style=text-align:left>是否支持热插拔</td>
+</tr>
+<tr>
+<td style=text-align:left>InstallDate  </td>
+<td style=text-align:left>安装日期</td>
+</tr>
+<tr>
+<td style=text-align:left>InterleaveDataDepth  </td>
+<td style=text-align:left>数据交错深度</td>
+</tr>
+<tr>
+<td style=text-align:left>InterleavePosition  </td>
+<td style=text-align:left>交错的位置</td>
+</tr>
+<tr>
+<td style=text-align:left>Manufacturer    </td>
+<td style=text-align:left>生产商</td>
+</tr>
+<tr>
+<td style=text-align:left>MaxVoltage  </td>
+<td style=text-align:left>最大电压</td>
+</tr>
+<tr>
+<td style=text-align:left>MemoryType  </td>
+<td style=text-align:left>内存类型</td>
+</tr>
+<tr>
+<td style=text-align:left>MinVoltage  </td>
+<td style=text-align:left>最小电压</td>
+</tr>
+<tr>
+<td style=text-align:left>Model  </td>
+<td style=text-align:left>型号</td>
+</tr>
+<tr>
+<td style=text-align:left>Name  </td>
+<td style=text-align:left>名字</td>
+</tr>
+<tr>
+<td style=text-align:left>OtherIdentifyingInfo  </td>
+<td style=text-align:left>其他识别信息</td>
+</tr>
+<tr>
+<td style=text-align:left>PartNumber  </td>
+<td style=text-align:left>零件编号</td>
+</tr>
+<tr>
+<td style=text-align:left>PositionInRow  </td>
+<td style=text-align:left>行位置</td>
+</tr>
+<tr>
+<td style=text-align:left>PoweredOn  </td>
+<td style=text-align:left>是否接通电源</td>
+</tr>
+<tr>
+<td style=text-align:left>Removable  </td>
+<td style=text-align:left>是否可拆卸</td>
+</tr>
+<tr>
+<td style=text-align:left>Replaceable  </td>
+<td style=text-align:left>是否可更换</td>
+</tr>
+<tr>
+<td style=text-align:left>SerialNumber  </td>
+<td style=text-align:left>编号</td>
+</tr>
+<tr>
+<td style=text-align:left>SKU  </td>
+<td style=text-align:left>SKU号</td>
+</tr>
+<tr>
+<td style=text-align:left>SMBIOSMemoryType  </td>
+<td style=text-align:left>SMBIOS内存类型</td>
+</tr>
+<tr>
+<td style=text-align:left>Speed  </td>
+<td style=text-align:left>速率</td>
+</tr>
+<tr>
+<td style=text-align:left>Status  </td>
+<td style=text-align:left>状态</td>
+</tr>
+<tr>
+<td style=text-align:left>Tag  </td>
+<td style=text-align:left>唯一标识符的物理存储器</td>
+</tr>
+<tr>
+<td style=text-align:left>TotalWidth  </td>
+<td style=text-align:left>总宽</td>
+</tr>
+<tr>
+<td style=text-align:left>TypeDetail  </td>
+<td style=text-align:left>类型详细信息</td>
+</tr>
+<tr>
+<td style=text-align:left>Version  </td>
+<td style=text-align:left>版本信息</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class=pagination>
+<a class="btn previous" href=http://yuguo.im/post/2019/defer-panic-and-recover/> Prev</a>
+<a class="btn next" href=http://yuguo.im/post/2019/replace-flash-disk/> Next</a>
+</div>
+</div>
+</div>
+<div id=disqus_thread></div>
+<script>var disqus_config=function(){this.page.url="http://yuguo.im/post/2019/03/view-mem-info-in-win10/"};(function(){var a=document,b=a.createElement('script');b.src='//yuguo.disqus.com/embed.js',b.setAttribute('data-timestamp',+new Date),(a.head||a.body).appendChild(b)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments powered by Disqus.</a></noscript>
+<div class=footer>
+<p>Copyright@<a href=http://yuguo.im/about>Yuguo</a> 2019. Powered by <a href=https://gohugo.io/>Hugo</a>. This theme—Slim—is open sourced on <a href=https://github.com/zhe/hugo-theme-slim>Github</a>.</p>
+</div>
+</div>
+<script src=http://yuguo.im/js/slim.js></script>
+<script src=http://yuguo.im/js/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script>
+<script>(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)})(window,document,'script','//www.google-analytics.com/analytics.js','ga'),ga('create','UA-161689466-1','auto'),ga('send','pageview')</script>
+</body>
+</html>

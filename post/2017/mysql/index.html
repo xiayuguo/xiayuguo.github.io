@@ -1,0 +1,427 @@
+<!doctype html><html>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<title> mysql &#183; 随笔 </title>
+<link rel=stylesheet href=http://yuguo.im/css/slim.css>
+<link rel=stylesheet href=http://yuguo.im/css/highlight.min.css>
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro" rel=stylesheet type=text/css>
+<link rel=apple-touch-icon-precomposed sizes=144x144 href=/apple-touch-icon-144-precomposed.png>
+<link rel="shortcut icon" href=/favicon.ico>
+<link href rel=alternate type=application/rss+xml title=随笔>
+</head>
+<body>
+<div class=container>
+<div class=header>
+<h1 class=site-title><a href=http://yuguo.im/>随笔</a></h1>
+<p class=site-tagline>Stay hungry. Stay foolish.</p>
+<div class=nav>
+<a class=nav-btn href=#>
+<span class="ci ci-burger"></span>
+</a>
+<ul class=nav-list>
+<li class=spacer>&ac;</li>
+<li><a href=https://github.com/xiayuguo>Github</a></li>
+</ul>
+</div>
+</div>
+<div class=content>
+<div class=posts>
+<div class=post>
+<h2 class=post-title><a href=http://yuguo.im/post/2017/mysql/>mysql</a></h2>
+<span class=post-date>Mar 31, 2017 </span>
+<div class=post-content>
+<h2 id=初涉mysql>初涉Mysql</h2>
+<h3 id=mysql概述>MySQL概述</h3>
+<ul>
+<li>MySQL由瑞典MySQL AB公司开发，目前属于Oracle公司.</li>
+<li>MySQL是一个开源的关系型数据库管理系统.</li>
+<li>MySQL分为社区版和企业版.</li>
+</ul>
+<h3 id=mysql的安装与配置>MySQL的安装与配置</h3>
+<h3 id=启动和停止mysql>启动和停止MySQL</h3>
+<ul>
+<li>windows
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>net start/stop mysql
+</code></pre></div></li>
+<li>linux
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>service mysql start/stop
+</code></pre></div></li>
+</ul>
+<h3 id=mysql登录和退出>MySQL登录和退出</h3>
+<ul>
+<li>MySQL登录</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style=text-align:center>参数</th>
+<th style=text-align:center>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style=text-align:center>-D, &ndash;database=name</td>
+<td style=text-align:center>打开指定数据库</td>
+</tr>
+<tr>
+<td style=text-align:center>&ndash;delimiter = name</td>
+<td style=text-align:center>指定分隔符</td>
+</tr>
+<tr>
+<td style=text-align:center>-h, &ndash;host=name</td>
+<td style=text-align:center>服务器名称</td>
+</tr>
+<tr>
+<td style=text-align:center>-p, &ndash;password[=name]</td>
+<td style=text-align:center>密码</td>
+</tr>
+<tr>
+<td style=text-align:center>-P, &ndash;port=#</td>
+<td style=text-align:center>端口号</td>
+</tr>
+<tr>
+<td style=text-align:center>&ndash;prompt=name</td>
+<td style=text-align:center>设置提示符</td>
+</tr>
+<tr>
+<td style=text-align:center>-u, &ndash;user=name</td>
+<td style=text-align:center>打开指定数据库</td>
+</tr>
+<tr>
+<td style=text-align:center>-V, &ndash;version</td>
+<td style=text-align:center>输出版本信息并且退出</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>MySQL退出
+<ul>
+<li>mysql > exit;</li>
+<li>mysql > quit;</li>
+<li>mysql > \q;</li>
+</ul>
+</li>
+</ul>
+<h3 id=修改mysql提示符>修改MySQL提示符</h3>
+<ul>
+<li>MySQL提示符</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style=text-align:center>参数</th>
+<th style=text-align:center>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style=text-align:center>\D</td>
+<td style=text-align:center>完整的日期</td>
+</tr>
+<tr>
+<td style=text-align:center>\d</td>
+<td style=text-align:center>当前数据库</td>
+</tr>
+<tr>
+<td style=text-align:center>\h</td>
+<td style=text-align:center>服务器名称</td>
+</tr>
+<tr>
+<td style=text-align:center>\u</td>
+<td style=text-align:center>当前用户</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p>连接客户端时通过参数指定</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>shell&gt;mysql -uroot -proot --prompt 提示符
+</code></pre></div></li>
+<li>
+<p>连接上客户端后，通过prompt命令修改</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>mysql&gt;prompt 提示符
+</code></pre></div></li>
+</ul>
+<h3 id=mysql常用命令>MySQL常用命令</h3>
+<ul>
+<li>
+<p>显示当前服务器版本</p>
+<pre tabindex=0><code>SELECT VERSION();
+</code></pre></li>
+<li>
+<p>显示当前日期时间</p>
+<pre tabindex=0><code>SELECT NOW();
+</code></pre></li>
+<li>
+<p>显示当前用户</p>
+<pre tabindex=0><code>SELECT USER();
+</code></pre></li>
+</ul>
+<blockquote>
+<p>MySQL语句的规范</p>
+</blockquote>
+<ul>
+<li>关键字和函数名称全部大写</li>
+<li>数据库名称 表名称 字段名称全部小写</li>
+<li>SQL语句必须以分号结尾</li>
+</ul>
+<h3 id=操作数据库>操作数据库</h3>
+<ul>
+<li>创建数据库
+<pre tabindex=0><code>CREATE {DATABASE | SCHEMA} {IF NOT EXISTS} db_name [DEFAULT] CHARACTER SET [=] charset_name
+</code></pre></li>
+<li>查看当前服务器下的数据表列表
+<pre tabindex=0><code>SHOW {DATABASES | SCHEMAS} [LIKE 'pattern' | WHERE expr]
+</code></pre></li>
+<li>修改数据库
+<pre tabindex=0><code>ALTER {DATABASE | SCHEMA} [db_name] [DEFAULT] CHARACTER SET [=] charset_name
+</code></pre></li>
+<li>删除数据库
+<pre tabindex=0><code>DROP {DATABASE | SCHEMA} [IF EXISTS] db_name
+</code></pre></li>
+</ul>
+<h2 id=数据类型和操作数据表>数据类型和操作数据表</h2>
+<h3 id=数据类型>数据类型</h3>
+<blockquote>
+<p>数据类型是指列、存储过程参数、表达式和局部变量的数字特征，它决定了数据的存储格式，代表了不同的信息类型。</p>
+</blockquote>
+<h4 id=整型>整型</h4>
+<table>
+<thead>
+<tr>
+<th style=text-align:center>数据类型</th>
+<th>存储范围</th>
+<th style=text-align:center>字节</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style=text-align:center>TINYINT</td>
+<td>有符号值: -128到127(-27到2^7-1)无符号值: 0到255(0到28-1)</td>
+<td style=text-align:center>1</td>
+</tr>
+<tr>
+<td style=text-align:center>SMALLINT</td>
+<td>有符号值: -32768到32767(-215到2^15-1)无符号值: 0到65535(0到216-1)</td>
+<td style=text-align:center>2</td>
+</tr>
+<tr>
+<td style=text-align:center>MEDIUMINT</td>
+<td>有符号值: -83886088到8388607(-223到2^23-1)无符号值: 0到16777215(0到224-1)</td>
+<td style=text-align:center>3</td>
+</tr>
+<tr>
+<td style=text-align:center>INT</td>
+<td>有符号值: -2147483648到2147483648(-231到2^31-1)无符号值: 0到4294967295(0到232-1)</td>
+<td style=text-align:center>4</td>
+</tr>
+<tr>
+<td style=text-align:center>BIGINT</td>
+<td>有符号值: -9223373036854775808到9223373036854775807(-263到2^63-1)无符号值: 0到18446744073709551615(0到264-1)</td>
+<td style=text-align:center>8</td>
+</tr>
+</tbody>
+</table>
+<h4 id=浮点型>浮点型</h4>
+<table>
+<thead>
+<tr>
+<th style=text-align:center>数据类型</th>
+<th style=text-align:left>存储范围</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style=text-align:center>FLOAT[(M,D)]</td>
+<td style=text-align:left>-3.402823466E+38到-1.175494351E-38; 0和1.175494351E-38到3.402823466E+38.M是数字总位数, D是小数点后面的位数.如果M和D被省略, 根据硬件允许的限制来保存值.单精度浮点数精确到大约7位小数位.</td>
+</tr>
+<tr>
+<td style=text-align:center>DOUBLE[(M,D)]</td>
+<td style=text-align:left>-1.7976931348623157E+308到-2.2250738585072014E-308; 0和2.2250738585072014E-308到1.7976931348623157E+308.</td>
+</tr>
+</tbody>
+</table>
+<h4 id=日期时间型>日期时间型</h4>
+<table>
+<thead>
+<tr>
+<th style=text-align:left>列类型</th>
+<th style=text-align:left>存储需求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style=text-align:left>YEAR</td>
+<td style=text-align:left>1</td>
+</tr>
+<tr>
+<td style=text-align:left>TIME</td>
+<td style=text-align:left>3</td>
+</tr>
+<tr>
+<td style=text-align:left>DATE</td>
+<td style=text-align:left>3</td>
+</tr>
+<tr>
+<td style=text-align:left>DATETIME</td>
+<td style=text-align:left>8</td>
+</tr>
+<tr>
+<td style=text-align:left>TIMESTAMP</td>
+<td style=text-align:left>4</td>
+</tr>
+</tbody>
+</table>
+<h4 id=字符型>字符型</h4>
+<table>
+<thead>
+<tr>
+<th style=text-align:left>列类型</th>
+<th>存储需求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style=text-align:left>CHAR(M)</td>
+<td>M个字节, 0 &lt;= M &lt;= 255</td>
+</tr>
+<tr>
+<td style=text-align:left>VARCHAR(M)</td>
+<td>L+1个字节, 其中L &lt;= M且0 &lt;= M &lt;= 65535</td>
+</tr>
+<tr>
+<td style=text-align:left>TINYTEXT</td>
+<td>L+1个字节, 其中L &lt; 28</td>
+</tr>
+<tr>
+<td style=text-align:left>TEXT</td>
+<td>L+2个字节, 其中L &lt; 216</td>
+</tr>
+<tr>
+<td style=text-align:left>MEDIUMTEXT</td>
+<td>L+3个字节, 其中L &lt; 224</td>
+</tr>
+<tr>
+<td style=text-align:left>LONGTEXT</td>
+<td>L+4个字节, 其中L &lt; 232</td>
+</tr>
+<tr>
+<td style=text-align:left>ENUM(&lsquo;value1&rsquo;, &lsquo;value2&rsquo;, &mldr;)</td>
+<td>1或2个字节, 取决于枚举值的个数(最多65535个值)</td>
+</tr>
+<tr>
+<td style=text-align:left>SET(&lsquo;value1&rsquo;, &lsquo;value2&rsquo;, &mldr;)</td>
+<td>1,2,3,4或者8个字节, 取决于set成员的数目(最多64个成员)</td>
+</tr>
+</tbody>
+</table>
+<h3 id=操作数据表>操作数据表</h3>
+<h4 id=概述>概述</h4>
+<ul>
+<li>数据表(或称表)是数据库最重要的组成部分之一，是其他对象的基础。</li>
+</ul>
+<h4 id=use>USE</h4>
+<ul>
+<li>打开数据库</li>
+<li>USE 数据库名称;</li>
+</ul>
+<h4 id=创建数据表>创建数据表</h4>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>CREATE</span> <span style=color:#66d9ef>TABLE</span> [<span style=color:#66d9ef>IF</span> <span style=color:#66d9ef>NOT</span> <span style=color:#66d9ef>EXISTS</span>] <span style=color:#66d9ef>table_name</span> (
+    <span style=color:#66d9ef>column_name</span> data_type, 
+    ...
+)
+</code></pre></div><h4 id=查看数据表列表>查看数据表列表</h4>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>SHOW</span> TABLES [<span style=color:#66d9ef>FROM</span> db_name]
+[<span style=color:#66d9ef>LIKE</span> <span style=color:#e6db74>&#39;pattern&#39;</span> <span style=color:#f92672>|</span> <span style=color:#66d9ef>WHERE</span> expr]
+</code></pre></div><h4 id=查看数据表结构>查看数据表结构</h4>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>SHOW</span> COLUMNS <span style=color:#66d9ef>FROM</span> tbl_name
+</code></pre></div><h4 id=插入记录>插入记录</h4>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>INSERT</span> [<span style=color:#66d9ef>INTO</span>] tbl_name [(col_name,...)] <span style=color:#66d9ef>VALUES</span> (val,...)
+</code></pre></div><h4 id=记录查找>记录查找</h4>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>SELECT</span> expr,... <span style=color:#66d9ef>FROM</span> tbl_name
+</code></pre></div><h4 id=空值与非空>空值与非空</h4>
+<ul>
+<li>NULL, 字段值可以为空</li>
+<li>NOT NULL, 字段值禁止为空</li>
+</ul>
+<h4 id=auto_increment>AUTO_INCREMENT</h4>
+<ul>
+<li>自动编号，且必须与主键组合使用</li>
+<li>默认情况下，起始值为1，每次增量为1</li>
+</ul>
+<h4 id=primary-key>PRIMARY KEY</h4>
+<ul>
+<li>主键约束</li>
+<li>每张数据表只能存在一个主键</li>
+<li>主键保证记录的唯一性</li>
+<li>主键自动为NOT NULL</li>
+</ul>
+<h4 id=unique-key>UNIQUE KEY</h4>
+<ul>
+<li>唯一约束</li>
+<li>唯一约束可以保证记录的唯一性</li>
+<li>唯一约束的字段可以为空值(NULL)</li>
+<li>每张数据表可以存在多个唯一约束</li>
+</ul>
+<h4 id=default>DEFAULT</h4>
+<ul>
+<li>默认值</li>
+<li>当插入记录时，如果没有明确为字段赋值，则自动赋予默认值。</li>
+</ul>
+<h2 id=约束以及修改数据表>约束以及修改数据表</h2>
+<h3 id=约束>约束</h3>
+<ul>
+<li>约束保证数据的完整性和一致性。</li>
+<li>约束分为表级约束和列级约束。</li>
+<li>约束类型包括:
+<ul>
+<li>NOT NULL(非空约束)</li>
+<li>PRIMARY KEY(主键约束)</li>
+<li>UNIQUE KEY(唯一约束)</li>
+<li>DEFAULT(默认约束)</li>
+<li>FOREIGIN KEY(外键约束)</li>
+</ul>
+</li>
+</ul>
+<h4 id=foreign-key>FOREIGN KEY</h4>
+<ul>
+<li>保持数据一致性，完整性</li>
+<li>实现一对一或一对多关系。</li>
+</ul>
+<h4 id=外键约束的要求>外键约束的要求</h4>
+<ul>
+<li>父表和子表必须使用相同的存储引擎，而且禁止使用临时表。</li>
+<li>数据表的存储引擎只能为InnoDB。</li>
+<li>外键列和参照列必须具有相似的数据类型。其中数字的长度或是否有符号位必须相同;而字符的长度则可以不同。</li>
+<li>外键列和参照列必须创建索引。如果外键列不存在索引的话，MySQL将自动创建索引。</li>
+</ul>
+<h4 id=编辑数据表的默认存储引擎>编辑数据表的默认存储引擎</h4>
+<p>MySQL配置文件
+<code>default-storage-engine=INNODB</code></p>
+<h3 id=数据表的操作>数据表的操作</h3>
+<h2 id=操作数据表中的记录>操作数据表中的记录</h2>
+<h2 id=子查询和连接>子查询和连接</h2>
+<h2 id=运算符和函数>运算符和函数</h2>
+<h2 id=自定义函数>自定义函数</h2>
+<h2 id=mysql存储过程>MySQL存储过程</h2>
+<h2 id=mysql存储引擎>MySQL存储引擎</h2>
+<h2 id=mysql图形化管理工具>MySQL图形化管理工具</h2>
+</div>
+</div>
+<div class=pagination>
+<a class="btn previous" href=http://yuguo.im/post/2015/regex/> Prev</a>
+<a class="btn next" href=http://yuguo.im/post/2017/python-excel/> Next</a>
+</div>
+</div>
+</div>
+<div class=footer>
+<p>Copyright@<a href=http://yuguo.im/about>Yuguo</a> 2019. Powered by <a href=https://gohugo.io/>Hugo</a>. This theme—Slim—is open sourced on <a href=https://github.com/zhe/hugo-theme-slim>Github</a>.</p>
+</div>
+</div>
+<script src=http://yuguo.im/js/slim.js></script>
+<script src=http://yuguo.im/js/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script>
+<script>(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)})(window,document,'script','//www.google-analytics.com/analytics.js','ga'),ga('create','UA-161689466-1','auto'),ga('send','pageview')</script>
+</body>
+</html>

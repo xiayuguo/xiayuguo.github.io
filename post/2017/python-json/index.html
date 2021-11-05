@@ -1,0 +1,106 @@
+<!doctype html><html>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<title> 关于Python中json库的一些整理 &#183; 随笔 </title>
+<link rel=stylesheet href=http://yuguo.im/css/slim.css>
+<link rel=stylesheet href=http://yuguo.im/css/highlight.min.css>
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro" rel=stylesheet type=text/css>
+<link rel=apple-touch-icon-precomposed sizes=144x144 href=/apple-touch-icon-144-precomposed.png>
+<link rel="shortcut icon" href=/favicon.ico>
+<link href rel=alternate type=application/rss+xml title=随笔>
+</head>
+<body>
+<div class=container>
+<div class=header>
+<h1 class=site-title><a href=http://yuguo.im/>随笔</a></h1>
+<p class=site-tagline>Stay hungry. Stay foolish.</p>
+<div class=nav>
+<a class=nav-btn href=#>
+<span class="ci ci-burger"></span>
+</a>
+<ul class=nav-list>
+<li class=spacer>&ac;</li>
+<li><a href=https://github.com/xiayuguo>Github</a></li>
+</ul>
+</div>
+</div>
+<div class=content>
+<div class=posts>
+<div class=post>
+<h2 class=post-title><a href=http://yuguo.im/post/2017/python-json/>关于Python中json库的一些整理</a></h2>
+<span class=post-date>Apr 19, 2017 </span>
+<div class=post-content>
+<h3 id=jsondump和jsondumps的区别来自stackoverflow的释疑httpstackoverflowcomquestions36059194what-is-the-difference-between-json-dump-and-json-dumps-in-python>json.dump和json.dumps的区别(<a href=http://stackoverflow.com/questions/36059194/what-is-the-difference-between-json-dump-and-json-dumps-in-python>来自Stackoverflow的释疑</a>)</h3>
+<ul>
+<li>json.dump</li>
+</ul>
+<blockquote>
+<p>Serialize <code>obj</code> as a JSON formatted stream to <code>fp</code> (a <code>.write()</code>-supporting file-like object).
+If <code>ensure_ascii</code> is <code>False</code>, some chunks written to <code>fp</code> may be <code>unicode</code> instances.</p>
+</blockquote>
+<ul>
+<li>json.dumps</li>
+</ul>
+<blockquote>
+<p>Serialize <code>obj</code> to a JSON formatted <code>str</code>.
+If <code>ensure_ascii</code> is <code>False</code>, all non-ASCII characters are not escaped, and the return value may be a <code>unicode</code> instance.</p>
+</blockquote>
+<h3 id=ensure_ascii的神奇之处>ensure_ascii的神奇之处</h3>
+<p><a href="https://docs.python.org/2/library/json.html?highlight=ensure_ascii#basic-usage">Python Docs</a></p>
+<blockquote>
+<p>If <code>ensure_ascii</code> is true (the default), all non-ASCII characters in the output are escaped with <code>\uXXXX</code> sequences, and the result is a <code>str</code> instance consisting of ASCII characters only. If <code>ensure_ascii</code> is <code>False</code>, some chunks written to <code>fp</code> may be <code>unicode</code> instances. This usually happens because the input contains unicode strings or the <code>encoding</code> parameter is used. Unless <code>fp.write()</code> explicitly understands <code>unicode</code> ( as in <code>codecs.getwriter</code> ) this is likely to cause an error.</p>
+</blockquote>
+<h4 id=实战>实战</h4>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>&gt;&gt;&gt;</span> <span style=color:#f92672>import</span> json
+<span style=color:#f92672>&gt;&gt;&gt;</span> data <span style=color:#f92672>=</span> [<span style=color:#e6db74>u</span><span style=color:#e6db74>&#34;她&#34;</span>, <span style=color:#e6db74>u</span><span style=color:#e6db74>&#34;是&#34;</span>, <span style=color:#e6db74>u</span><span style=color:#e6db74>&#34;美女&#34;</span>]
+<span style=color:#f92672>&gt;&gt;&gt;</span> output1 <span style=color:#f92672>=</span> json<span style=color:#f92672>.</span>dumps(data)
+<span style=color:#f92672>&gt;&gt;&gt;</span> output1
+<span style=color:#e6db74>&#39;[&#34;</span><span style=color:#ae81ff>\\</span><span style=color:#e6db74>u5979&#34;, &#34;</span><span style=color:#ae81ff>\\</span><span style=color:#e6db74>u662f&#34;, &#34;</span><span style=color:#ae81ff>\\</span><span style=color:#e6db74>u7f8e</span><span style=color:#ae81ff>\\</span><span style=color:#e6db74>u5973&#34;]&#39;</span>
+<span style=color:#f92672>&gt;&gt;&gt;</span> print(output1)
+[<span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\\</span><span style=color:#e6db74>u5979&#34;</span>, <span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\\</span><span style=color:#e6db74>u662f&#34;</span>, <span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\\</span><span style=color:#e6db74>u7f8e</span><span style=color:#ae81ff>\\</span><span style=color:#e6db74>u5973&#34;</span>]
+<span style=color:#f92672>&gt;&gt;&gt;</span> output2 <span style=color:#f92672>=</span> json<span style=color:#f92672>.</span>dumps(data, ensure_ascii<span style=color:#f92672>=</span><span style=color:#66d9ef>False</span>)
+<span style=color:#f92672>&gt;&gt;&gt;</span> outout2
+<span style=color:#e6db74>u</span><span style=color:#e6db74>&#39;[&#34;</span><span style=color:#ae81ff>\u5979</span><span style=color:#e6db74>&#34;, &#34;</span><span style=color:#ae81ff>\u662f</span><span style=color:#e6db74>&#34;, &#34;</span><span style=color:#ae81ff>\u7f8e\u5973</span><span style=color:#e6db74>&#34;]&#39;</span>
+<span style=color:#f92672>&gt;&gt;&gt;</span> print(output2)
+[<span style=color:#e6db74>&#34;她&#34;</span>, <span style=color:#e6db74>&#34;是&#34;</span>, <span style=color:#e6db74>&#34;美女&#34;</span>]
+
+</code></pre></div><h3 id=参数cls的妙用之处理时间>参数cls的妙用之处理时间</h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>import</span> json
+<span style=color:#f92672>from</span> datetime <span style=color:#f92672>import</span> datetime
+
+<span style=color:#66d9ef>class</span> <span style=color:#a6e22e>DateTimeEncoder</span>(json<span style=color:#f92672>.</span>JSONEncoder):
+    <span style=color:#e6db74>&#34;&#34;&#34;convert datetime to string in json.dumps&#34;&#34;&#34;</span>
+
+    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>default</span>(self, obj):
+        <span style=color:#66d9ef>if</span> isinstance(obj, datetime):
+            encoded_object <span style=color:#f92672>=</span> obj<span style=color:#f92672>.</span>strftime(<span style=color:#e6db74>&#39;%Y-%m-</span><span style=color:#e6db74>%d</span><span style=color:#e6db74> %H:%M:%S&#39;</span>)
+        <span style=color:#66d9ef>elif</span> isinstance(obj, date):
+            encoded_object <span style=color:#f92672>=</span> obj<span style=color:#f92672>.</span>strftime(<span style=color:#e6db74>&#39;%Y-%m-</span><span style=color:#e6db74>%d</span><span style=color:#e6db74>&#39;</span>)
+        <span style=color:#66d9ef>else</span>:
+            encoded_object <span style=color:#f92672>=</span> json<span style=color:#f92672>.</span>JSONEncoder<span style=color:#f92672>.</span>default(self, obj)
+        <span style=color:#66d9ef>return</span> encoded_object
+
+<span style=color:#66d9ef>if</span> __name__ <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;__main__&#34;</span>:
+    data <span style=color:#f92672>=</span> {<span style=color:#e6db74>&#34;now&#34;</span>: datetime<span style=color:#f92672>.</span>now()}
+    print(json<span style=color:#f92672>.</span>dumps(data, cls<span style=color:#f92672>=</span>DateTimeEncoder))
+    <span style=color:#75715e># output: {&#34;now&#34;: &#34;2017-04-19 16:32:53&#34;}</span>
+</code></pre></div>
+</div>
+</div>
+<div class=pagination>
+<a class="btn previous" href=http://yuguo.im/post/2017/pycharm-jump/> Prev</a>
+<a class="btn next" href=http://yuguo.im/post/2017/go-note/> Next</a>
+</div>
+</div>
+</div>
+<div class=footer>
+<p>Copyright@<a href=http://yuguo.im/about>Yuguo</a> 2019. Powered by <a href=https://gohugo.io/>Hugo</a>. This theme—Slim—is open sourced on <a href=https://github.com/zhe/hugo-theme-slim>Github</a>.</p>
+</div>
+</div>
+<script src=http://yuguo.im/js/slim.js></script>
+<script src=http://yuguo.im/js/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script>
+<script>(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)})(window,document,'script','//www.google-analytics.com/analytics.js','ga'),ga('create','UA-161689466-1','auto'),ga('send','pageview')</script>
+</body>
+</html>

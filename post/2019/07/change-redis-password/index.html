@@ -1,0 +1,75 @@
+<!doctype html><html>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<title> Change Redis Password &#183; 随笔 </title>
+<link rel=stylesheet href=http://yuguo.im/css/slim.css>
+<link rel=stylesheet href=http://yuguo.im/css/highlight.min.css>
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro" rel=stylesheet type=text/css>
+<link rel=apple-touch-icon-precomposed sizes=144x144 href=/apple-touch-icon-144-precomposed.png>
+<link rel="shortcut icon" href=/favicon.ico>
+<link href rel=alternate type=application/rss+xml title=随笔>
+</head>
+<body>
+<div class=container>
+<div class=header>
+<h1 class=site-title><a href=http://yuguo.im/>随笔</a></h1>
+<p class=site-tagline>Stay hungry. Stay foolish.</p>
+<div class=nav>
+<a class=nav-btn href=#>
+<span class="ci ci-burger"></span>
+</a>
+<ul class=nav-list>
+<li class=spacer>&ac;</li>
+<li><a href=https://github.com/xiayuguo>Github</a></li>
+</ul>
+</div>
+</div>
+<div class=content>
+<div class=posts>
+<div class=post>
+<h2 class=post-title><a href=http://yuguo.im/post/2019/07/change-redis-password/>Change Redis Password</a></h2>
+<span class=post-date>Jul 22, 2019 </span>
+<div class=post-content>
+<h1 id=ubuntu>Ubuntu</h1>
+<h2 id=修改配置文件-etcredisredisconf>修改配置文件 <code>/etc/redis/redis.conf</code></h2>
+<pre tabindex=0><code>requirepass 你的密码
+</code></pre><h2 id=重启-redis-服务>重启 redis 服务</h2>
+<pre tabindex=0><code>service redis restart
+</code></pre><h1 id=win10>Win10</h1>
+<h2 id=修改配置文件-cprogram-filesredisrediswindows-serviceconf>修改配置文件 <code>C:\Program Files\Redis\redis.windows-service.conf</code></h2>
+<pre tabindex=0><code>requirepass 你的密码
+</code></pre><h2 id=重启-redis-服务-1>重启 redis 服务</h2>
+<pre tabindex=0><code>net stop redis
+net start redis
+</code></pre><p>注: 这两个操作都需要以管理员身份权限</p>
+<h1 id=实时生效免重启>实时生效(免重启)</h1>
+<h2 id=启动-redis-客户端-redis-cli>启动 redis 客户端 <code>redis-cli</code></h2>
+<pre tabindex=0><code>127.0.0.1:6379&gt; config set requirepass 你的密码
+</code></pre><p>注: 这种方式确实是实时生效，但是一旦重启后，这种配置就丢失了，以配置文件为准, 因为它并没有被持久化到文件中。</p>
+<h1 id=参考文档>参考文档</h1>
+<ol>
+<li><a href=https://stackoverflow.com/questions/7537905/redis-set-a-password-for-redis>set a password for redis</a></li>
+<li><a href=https://www.cnblogs.com/sheepswallow/p/4856751.html>莫博客</a></li>
+</ol>
+</div>
+</div>
+<div class=pagination>
+<a class="btn previous" href=http://yuguo.im/post/2019/07/change-mysql-password/> Prev</a>
+<a class="btn next" href=http://yuguo.im/post/2019/08/cpluspuls14-required/> Next</a>
+</div>
+</div>
+</div>
+<div id=disqus_thread></div>
+<script>var disqus_config=function(){this.page.url="http://yuguo.im/post/2019/07/change-redis-password/"};(function(){var a=document,b=a.createElement('script');b.src='//yuguo.disqus.com/embed.js',b.setAttribute('data-timestamp',+new Date),(a.head||a.body).appendChild(b)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments powered by Disqus.</a></noscript>
+<div class=footer>
+<p>Copyright@<a href=http://yuguo.im/about>Yuguo</a> 2019. Powered by <a href=https://gohugo.io/>Hugo</a>. This theme—Slim—is open sourced on <a href=https://github.com/zhe/hugo-theme-slim>Github</a>.</p>
+</div>
+</div>
+<script src=http://yuguo.im/js/slim.js></script>
+<script src=http://yuguo.im/js/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script>
+<script>(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)})(window,document,'script','//www.google-analytics.com/analytics.js','ga'),ga('create','UA-161689466-1','auto'),ga('send','pageview')</script>
+</body>
+</html>

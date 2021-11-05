@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tool on 随笔</title><link>http://yuguo.im/tags/tool/</link><description>Recent content in Tool on 随笔</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Tue, 02 Jul 2019 18:40:09 +0800</lastBuildDate><atom:link href="http://yuguo.im/tags/tool/index.xml" rel="self" type="application/rss+xml"/><item><title>Tar压缩命令小结</title><link>http://yuguo.im/post/2019/07/tar-zip-summary/</link><pubDate>Tue, 02 Jul 2019 18:40:09 +0800</pubDate><guid>http://yuguo.im/post/2019/07/tar-zip-summary/</guid><description>今天遇到一个麻烦，从生产环境备份的一个SQL脚本，体积是705M，希望下载到本地做测试，由于网络不稳定、带宽有限等问题，无法下载成功，于是怎么办？压缩！
+root@localhost:/home/test# ls -lh total 705M -rw-r--r-- 1 root root 705M 7月 2 09:48 bf_2019_07-02.sql 我们先来回顾下压缩/解压缩相关常用命令
+Tar -c create 简写, 创建压缩 -x extract 简写, 提取压缩 -f 生成的文件名 -z 以gzip方式压缩 -j 以bzip2方式压缩 -J 以xz方式压缩 -t list 简写, 列出压缩的内容 -v verbose 简写, 详细列出已处理的文件 示例 Tar 压缩 tar -czf a.tar.gz a.sql tar -cjf a.tar.bz2 a.sql tar -cJf a.tar.xz a.sql Tar 解压缩 tar -xzf a.tar.gz tar -xjf a.</description></item><item><title>还在找U盘？别找了，我教你一招！</title><link>http://yuguo.im/post/2019/replace-flash-disk/</link><pubDate>Sat, 01 Jun 2019 23:22:26 +0800</pubDate><guid>http://yuguo.im/post/2019/replace-flash-disk/</guid><description>最近有同事问我，有没有U盘，她要给别人拷下文件，或者是从别人那拷贝下文件。
+这些文件普遍有个特点就是体积大（超出微信客户端中的上限 100M）
+办公室里这种小事时常发生，时间就在指缝间悄悄流逝。
+作为一名 “懒人”，这种事要是发生在身上，我会这么解决：
+准备工作 发送方和接收方在一个局域网内 发送方的 PC 上有 python 环境 开始我的表演 以 Win10 系统演示，其他系统方法类似
+Step.1 发送方进入要传递文件的目录
+Step.2 地址栏输入cmd
+Step.3 输入指令ipconfig，获得ipv4地址，假设你获得的是192.168.1.10
+Step.4 确认系统环境的python版本，不同版本输入不同的指令，请对号入座。
+python2 python -m SimpleHTTPServer python3 python -m http.server Step.5 此时防火墙会有提示，选择允许访问
+Step.6 接收方打开任意浏览器，输入http:192.168.1.10:8000，页面上立马会返回Step.1中看到的目录，此时就已经大功告成了。
+新的旅程 技术的诞生是因为问题需要得到解决，然而解决问题的方案永远不止一种，此时应在特定的场景下寻求最优解，不局限某种方法，不固步自封，勇于尝试各种思路。从这周开始，每一周的周末，我都会和大家分享，日常工作生活学习中遇到的各种问题，以及我是怎么解决的，不求给大家多大的帮助，但求拓宽解决问题的思路。</description></item></channel></rss>

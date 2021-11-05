@@ -1,0 +1,180 @@
+<!doctype html><html>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<title> Vim Cheat Sheet &#183; 随笔 </title>
+<link rel=stylesheet href=http://yuguo.im/css/slim.css>
+<link rel=stylesheet href=http://yuguo.im/css/highlight.min.css>
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro" rel=stylesheet type=text/css>
+<link rel=apple-touch-icon-precomposed sizes=144x144 href=/apple-touch-icon-144-precomposed.png>
+<link rel="shortcut icon" href=/favicon.ico>
+<link href rel=alternate type=application/rss+xml title=随笔>
+</head>
+<body>
+<div class=container>
+<div class=header>
+<h1 class=site-title><a href=http://yuguo.im/>随笔</a></h1>
+<p class=site-tagline>Stay hungry. Stay foolish.</p>
+<div class=nav>
+<a class=nav-btn href=#>
+<span class="ci ci-burger"></span>
+</a>
+<ul class=nav-list>
+<li class=spacer>&ac;</li>
+<li><a href=https://github.com/xiayuguo>Github</a></li>
+</ul>
+</div>
+</div>
+<div class=content>
+<div class=posts>
+<div class=post>
+<h2 class=post-title><a href=http://yuguo.im/post/2015/vim/>Vim Cheat Sheet</a></h2>
+<span class=post-date>Sep 21, 2015 </span>
+<div class=post-content>
+<h2 id=光标>光标</h2>
+<ul>
+<li>h - 左移光标</li>
+<li>j - 下移光标</li>
+<li>k - 上移光标</li>
+<li>l - 右移光标</li>
+<li>w - 移动到下个单词开头</li>
+<li>W - 移动到下个单词开头(单词含标点)</li>
+<li>e - 移动到下个单词结尾</li>
+<li>E - 移动到下个单词结尾(单词含标点)</li>
+<li>b - 移动到上个单词结尾</li>
+<li>B - 移动到上个单词结尾(单词含标点)</li>
+<li>0 - 移动到行首</li>
+<li>^ - 移动到行首的非空白符</li>
+<li>$ - 移动到行尾</li>
+<li>G - 移动到文档末行行首</li>
+<li>5G - 移动到第五行</li>
+</ul>
+<p>Tip1 : 命令前追加数字表示命令的重复次数, 比如4j 表示向下移动四行</p>
+<h2 id=插入模式---插入追加文本>插入模式 - 插入/追加文本</h2>
+<ul>
+<li>i - 从光标前开始插入字符</li>
+<li>I - 从行首开始插入字符</li>
+<li>a - 从光标后开始插入字符</li>
+<li>A - 从行尾开始插入字符</li>
+<li>o - 在当前行之下另起一行, 开始插入字符</li>
+<li>O - 在当前行之上另起一行, 开始插入字符</li>
+<li>ea - 从当前单词末尾开始插入</li>
+<li>Esc - 退出插入模式</li>
+</ul>
+<h2 id=编辑>编辑</h2>
+<ul>
+<li>r - 替换当前字符</li>
+<li>J - 将下一行合并到当前行</li>
+<li>cc - 清空当前行, 然后进入插入模式</li>
+<li>cw - 从光标位置开始, 修改单词</li>
+<li>c$ - 从光标位置开始, 修改当前行</li>
+<li>s - 删除当前字符, 然后进入插入模式</li>
+<li>S - 清空当前行, 然后进入插入模式 (同cc)</li>
+<li>xp - 当前字符后移</li>
+<li>u - 撤销</li>
+<li>Ctrl + r - 重复</li>
+<li>. - 再次执行上个命令</li>
+</ul>
+<h2 id=选择文本可视化模式>选择文本（可视化模式）</h2>
+<ul>
+<li>v - 进入可视化模式, 移动光标高亮选择, 然后可以对选择的文本执行命令(比如y-复制)</li>
+<li>V - 进入可视化模式(行粒度选择)</li>
+<li>o - 切换光标到选择区开头/结尾</li>
+<li>Ctrl + v - 进入可视化模式(矩阵选择)</li>
+<li>O - 切换光标到选择区的角</li>
+<li>aw - 选择当前单词</li>
+<li>ab - 选择被 () 包裹的区域(含括号)</li>
+<li>aB - 选择被 {} 包裹的区域(含花括号)</li>
+<li>ib - 选择被 () 包裹的区域(不含括号)</li>
+<li>iB - 选择被 {} 包裹的区域(不含花括号)</li>
+<li>Esc - 退出可视化模式</li>
+</ul>
+<h2 id=可视化模式命令>可视化模式命令</h2>
+<ul>
+<li>&lt; - 向左缩进 | > - 向右缩进</li>
+<li>y - 复制</li>
+<li>d - 剪切</li>
+<li>~ - 大小写切换</li>
+</ul>
+<h2 id=剪切-复制-粘贴>剪切, 复制, 粘贴</h2>
+<ul>
+<li>yy - 复制当前行</li>
+<li>2yy - 复制 2 行</li>
+<li>yw - 复制当前单词</li>
+<li>y$ - 复制, 从光标位置到行末</li>
+<li>p - 在光标后粘贴</li>
+<li>P - 在光标前粘贴</li>
+<li>dd - 剪切当前行</li>
+<li>2dd - 剪切 2 行</li>
+<li>dw - 剪切当前单词</li>
+<li>D - 剪切, 从光标位置到行末</li>
+<li>d$ - 剪切, 从光标位置到行末 (同D)</li>
+<li>x - 剪切当前字符</li>
+</ul>
+<h2 id=查找替换>查找/替换</h2>
+<ul>
+<li>/pattern - 查找pattern</li>
+<li>?pattern - 向上查找pattern</li>
+<li>n - 查找下一个</li>
+<li>N - 查找上一个</li>
+<li>:%s/old/new/g - 替换全部</li>
+<li>:%s/old/new/gc - (逐个)替换</li>
+</ul>
+<h2 id=多文件>多文件</h2>
+<ul>
+<li>:e filename - 新建缓冲区打开 filename</li>
+<li>:bnext or :bn - 切换到下个缓冲区</li>
+<li>:bprev or :bp - 切换到上个缓冲区</li>
+<li>:bd - 关闭缓冲区</li>
+<li>:sp filename - 新建缓冲区打开 filename 并水平分栏</li>
+<li>:vsp filename - 新缓冲区打开 filename 并垂直分栏</li>
+<li>Ctrl + ws - 水平分栏</li>
+<li>Ctrl + ww - 在分栏间切换</li>
+<li>Ctrl + wq - 关闭分栏</li>
+<li>Ctrl + wv - 垂直分栏</li>
+<li>Ctrl + wh - 切换到右侧分栏</li>
+<li>Ctrl + wl - 切换到左侧分栏</li>
+<li>Ctrl + wj - move cursor to the window below (horizontal split)</li>
+<li>Ctrl + wk - move cursor to the window above (horizontal split)</li>
+</ul>
+<h2 id=页签>页签</h2>
+<ul>
+<li>:tabnew filename or :tabn filename - 创建新页签/在新标签页中打开文档</li>
+<li>Ctrl + wT - 将分栏变成页签</li>
+<li>gt or :tabnext or :tabn - 切换到下一个页签</li>
+<li>gT or :tabprev or :tabp - 切换到上一个页签</li>
+<li>Xgt - 切换到第X个页签</li>
+<li>:tabmove # - 移动页签到第 # 位(下标从 0 开始)</li>
+<li>:tabclose or :tabc - 关闭当前页签</li>
+<li>:tabonly or :tabo - 关闭其他页签</li>
+</ul>
+<p>Tip2: &ldquo;X"表示一个具体的数字</p>
+<h2 id=退出>退出</h2>
+<ul>
+<li>:w - 保存</li>
+<li>:wq or :x or ZZ - 保存并退出</li>
+<li>:q - 退出(修改未保存时警告)</li>
+<li>:q! or ZQ - 不保存强制退出</li>
+</ul>
+<h2 id=补充>补充</h2>
+<ul>
+<li>nu 显示光标所在行号</li>
+<li>set nu 显示所有行号</li>
+</ul>
+</div>
+</div>
+<div class=pagination>
+<a class="btn next" href=http://yuguo.im/post/2015/regex/> Next</a>
+</div>
+</div>
+</div>
+<div class=footer>
+<p>Copyright@<a href=http://yuguo.im/about>Yuguo</a> 2019. Powered by <a href=https://gohugo.io/>Hugo</a>. This theme—Slim—is open sourced on <a href=https://github.com/zhe/hugo-theme-slim>Github</a>.</p>
+</div>
+</div>
+<script src=http://yuguo.im/js/slim.js></script>
+<script src=http://yuguo.im/js/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script>
+<script>(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)})(window,document,'script','//www.google-analytics.com/analytics.js','ga'),ga('create','UA-161689466-1','auto'),ga('send','pageview')</script>
+</body>
+</html>

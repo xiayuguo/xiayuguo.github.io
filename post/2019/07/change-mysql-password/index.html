@@ -1,0 +1,125 @@
+<!doctype html><html>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<title> Change Mysql Password &#183; 随笔 </title>
+<link rel=stylesheet href=http://yuguo.im/css/slim.css>
+<link rel=stylesheet href=http://yuguo.im/css/highlight.min.css>
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro" rel=stylesheet type=text/css>
+<link rel=apple-touch-icon-precomposed sizes=144x144 href=/apple-touch-icon-144-precomposed.png>
+<link rel="shortcut icon" href=/favicon.ico>
+<link href rel=alternate type=application/rss+xml title=随笔>
+</head>
+<body>
+<div class=container>
+<div class=header>
+<h1 class=site-title><a href=http://yuguo.im/>随笔</a></h1>
+<p class=site-tagline>Stay hungry. Stay foolish.</p>
+<div class=nav>
+<a class=nav-btn href=#>
+<span class="ci ci-burger"></span>
+</a>
+<ul class=nav-list>
+<li class=spacer>&ac;</li>
+<li><a href=https://github.com/xiayuguo>Github</a></li>
+</ul>
+</div>
+</div>
+<div class=content>
+<div class=posts>
+<div class=post>
+<h2 class=post-title><a href=http://yuguo.im/post/2019/07/change-mysql-password/>Change Mysql Password</a></h2>
+<span class=post-date>Jul 17, 2019 </span>
+<div class=post-content>
+<blockquote>
+<p>去年的这个夏天，不像今年雨水很多，天气微热，朋友打电话过来说: “他的数据库被人黑了，对方扬言必须给某某账号下转xxx比特币，不然就删库”。修改数据库密码有三种常见方式：<code>mysqladmin</code>和<code>sql</code>。</p>
+</blockquote>
+<p>修改数据库密码前，我们先来看下数据库里存储的用户和密码信息，此处示例中我使用的密码是<code>666</code>, 要修改为<code>999</code>。</p>
+<pre tabindex=0><code>mysql&gt; select host,user,password from mysql.user where user=&quot;root&quot;;
++-----------+------+-------------------------------------------+
+| host      | user | password                                  |
++-----------+------+-------------------------------------------+
+| localhost | root | *007D50CA06F69776D307B1BEC71CD73D0EA0999C |
+| hugo      | root | *007D50CA06F69776D307B1BEC71CD73D0EA0999C |
+| 127.0.0.1 | root | *007D50CA06F69776D307B1BEC71CD73D0EA0999C |
+| ::1       | root | *007D50CA06F69776D307B1BEC71CD73D0EA0999C |
+| %         | root | *007D50CA06F69776D307B1BEC71CD73D0EA0999C |
++-----------+------+-------------------------------------------+
+5 rows in set (0.00 sec)
+
+</code></pre><h1 id=方式一>方式一</h1>
+<pre tabindex=0><code>mysqladmin -uroot -p666 flush-privileges password &quot;999&quot;
+</code></pre><p>可以通过下面的方式来验证：</p>
+<pre tabindex=0><code>root@hugo:~# mysqladmin -uroot -p999 ping
+mysqld is alive
+</code></pre><p>修改成功</p>
+<pre tabindex=0><code>mysql&gt; select host,user,password from mysql.user where user=&quot;root&quot;;
++-----------+------+-------------------------------------------+
+| host      | user | password                                  |
++-----------+------+-------------------------------------------+
+| localhost | root | *627B3E4116939F447D767EECFB048F52DFBF73A7 |
+| hugo      | root | *007D50CA06F69776D307B1BEC71CD73D0EA0999C |
+| 127.0.0.1 | root | *007D50CA06F69776D307B1BEC71CD73D0EA0999C |
+| ::1       | root | *007D50CA06F69776D307B1BEC71CD73D0EA0999C |
+| %         | root | *007D50CA06F69776D307B1BEC71CD73D0EA0999C |
++-----------+------+-------------------------------------------+
+5 rows in set (0.00 sec)
+</code></pre><p>这种方式因为没有指定<code>-h</code>参数，所以默认修改了<code>host=localhost</code>的那一行, 并不彻底。</p>
+<h1 id=方式二>方式二</h1>
+<pre tabindex=0><code>mysql -uroot -p666 -e 'UPDATE mysql.user SET Password=PASSWORD('999') where user=&quot;root&quot;;flush privileges;'
+</code></pre><p>同样我们来看下是否修改成功？</p>
+<pre tabindex=0><code>root@hugo:~# mysqladmin -uroot -p999 ping
+mysqld is alive
+</code></pre><p>没毛病, 修改成功</p>
+<pre tabindex=0><code>mysql&gt; select host,user,password from mysql.user where user=&quot;root&quot;;
++-----------+------+-------------------------------------------+
+| host      | user | password                                  |
++-----------+------+-------------------------------------------+
+| localhost | root | *627B3E4116939F447D767EECFB048F52DFBF73A7 |
+| hugo      | root | *627B3E4116939F447D767EECFB048F52DFBF73A7 |
+| 127.0.0.1 | root | *627B3E4116939F447D767EECFB048F52DFBF73A7 |
+| ::1       | root | *627B3E4116939F447D767EECFB048F52DFBF73A7 |
+| %         | root | *627B3E4116939F447D767EECFB048F52DFBF73A7 |
++-----------+------+-------------------------------------------+
+5 rows in set (0.00 sec)
+</code></pre><p>很明显，这种方式更加彻底，因为是通过<code>sql</code>的方式。</p>
+<h1 id=方式三>方式三</h1>
+<p>有时候我们并不知道原密码，怎么办呢？</p>
+<p>参照网友给的<a href=https://blog.bihe0832.com/mysql-modify-root.html>方法</a>:</p>
+<p>以安全模式启动mysql，可以直接以root身份登录，然后重设密码。下面是具体步骤(版本5.7.X)</p>
+<p>停掉在运行的MySQL服务：</p>
+<pre tabindex=0><code>sudo service mysql stop
+</code></pre><p>以安全模式启动mysql：</p>
+<pre tabindex=0><code>sudo mysqld_safe --skip-grant-tables --skip-networking &amp;
+</code></pre><p>直接用root登录，无需密码：</p>
+<pre tabindex=0><code>mysql -uroot
+</code></pre><p>重设密码：</p>
+<pre tabindex=0><code>mysql&gt; use mysql;
+mysql&gt; update user set authentication_string=password('password') where user='root';
+mysql&gt; flush privileges;
+</code></pre><p>退出mysql</p>
+<pre tabindex=0><code>mysql &gt; quit
+</code></pre><p>重启mysql</p>
+<pre tabindex=0><code>sudo service mysql restart
+</code></pre>
+</div>
+</div>
+<div class=pagination>
+<a class="btn previous" href=http://yuguo.im/post/2019/07/history-and-history-file/> Prev</a>
+<a class="btn next" href=http://yuguo.im/post/2019/07/change-redis-password/> Next</a>
+</div>
+</div>
+</div>
+<div id=disqus_thread></div>
+<script>var disqus_config=function(){this.page.url="http://yuguo.im/post/2019/07/change-mysql-password/"};(function(){var a=document,b=a.createElement('script');b.src='//yuguo.disqus.com/embed.js',b.setAttribute('data-timestamp',+new Date),(a.head||a.body).appendChild(b)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments powered by Disqus.</a></noscript>
+<div class=footer>
+<p>Copyright@<a href=http://yuguo.im/about>Yuguo</a> 2019. Powered by <a href=https://gohugo.io/>Hugo</a>. This theme—Slim—is open sourced on <a href=https://github.com/zhe/hugo-theme-slim>Github</a>.</p>
+</div>
+</div>
+<script src=http://yuguo.im/js/slim.js></script>
+<script src=http://yuguo.im/js/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script>
+<script>(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)})(window,document,'script','//www.google-analytics.com/analytics.js','ga'),ga('create','UA-161689466-1','auto'),ga('send','pageview')</script>
+</body>
+</html>

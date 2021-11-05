@@ -1,0 +1,86 @@
+<!doctype html><html>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<title> 实现 PWA “可安装” 需要什么？ &#183; 随笔 </title>
+<link rel=stylesheet href=http://yuguo.im/css/slim.css>
+<link rel=stylesheet href=http://yuguo.im/css/highlight.min.css>
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro" rel=stylesheet type=text/css>
+<link rel=apple-touch-icon-precomposed sizes=144x144 href=/apple-touch-icon-144-precomposed.png>
+<link rel="shortcut icon" href=/favicon.ico>
+<link href rel=alternate type=application/rss+xml title=随笔>
+</head>
+<body>
+<div class=container>
+<div class=header>
+<h1 class=site-title><a href=http://yuguo.im/>随笔</a></h1>
+<p class=site-tagline>Stay hungry. Stay foolish.</p>
+<div class=nav>
+<a class=nav-btn href=#>
+<span class="ci ci-burger"></span>
+</a>
+<ul class=nav-list>
+<li class=spacer>&ac;</li>
+<li><a href=https://github.com/xiayuguo>Github</a></li>
+</ul>
+</div>
+</div>
+<div class=content>
+<div class=posts>
+<div class=post>
+<h2 class=post-title><a href=http://yuguo.im/post/2020/04/pwa-install/>实现 PWA “可安装” 需要什么？</a></h2>
+<span class=post-date>Apr 14, 2020 </span>
+<div class=post-content>
+<blockquote>
+<p>2020年2月14日发布 · 2020年2月24日更新</p>
+<p>原文作者：Pete LePage</p>
+<p>原文地址：https://web.dev/install-criteria/</p>
+</blockquote>
+<p><img src=http://oss.xiayuguo.com/blog/202004/pwa.svg alt></p>
+<p>许多浏览器会向用户表明，当您的渐进式 Web 应用程序（PWA）满足特定条件时，可以安装该程序。示例包括地址栏中的“安装”按钮或弹出菜单中的“安装”菜单项。另外，满足条件时，许多浏览器都会触发 <code>beforeinstallprompt</code> 事件，使您可以直接从 PWA 启用安装流程。</p>
+<p>在 Chrome 浏览器中，您的 Progressive Web App 必须满足以下条件，才能触发 <code>beforeinstallprompt</code> 事件并显示浏览器内安装提示：</p>
+<ul>
+<li>该 web app 尚未安装</li>
+<li>满足用户启发式行为(引导页)</li>
+<li>通过 HTTPS 提供服务</li>
+<li>包括一个 <a href=https://web.dev/add-manifest/ title="Web App Manifest">Web App Manifest</a>，其中包括
+<ul>
+<li><code>short_name</code> 或 <code>name</code></li>
+<li><code>icons</code> - 必须包含 192px 和 512px 图标</li>
+<li><code>start_url</code></li>
+<li><code>display</code> - 必须是指定选项 <code>fullscreen</code>, <code>standalone</code> 或 <code>minimal-ui</code> 中的一个</li>
+<li>注: <code>prefer_related_applications</code> 要么不存在，要么值为 <code>false</code></li>
+</ul>
+</li>
+<li>Registers a service worker with a functional <code>fetch</code> handler</li>
+</ul>
+<p>其他浏览器具有类似的安装标准，尽管可能会有细微的差异。检查各个站点以获取完整详细信息：</p>
+<ul>
+<li><a href=https://docs.microsoft.com/en-us/microsoft-edge/progressive-web-apps#requirements title=Edge>Edge</a></li>
+<li><a href=https://developer.mozilla.org/en-US/Apps/Progressive/Add_to_home_screen#How_do_you_make_an_app_A2HS-ready title=Firefox>Firefox</a></li>
+<li><a href=https://dev.opera.com/articles/installable-web-apps/ title=Opera>Opera</a></li>
+<li><a href=https://hub.samsunginter.net/docs/ambient-badging/ title="Samsung Internet">Samsung Internet</a></li>
+<li><a href=https://plus.ucweb.com/docs/pwa/docs-en/zvrh56 title="UC Browser">UC Browser</a></li>
+</ul>
+<p><strong>在 Android 手机上，如果 web app manifest 中包含 <code>related_applications</code> 和 <code>"prefer_related_applications": true</code>，则会将用户定向到 Google Play 商店，并提示您安装指定的本机应用。</strong></p>
+</div>
+</div>
+<div class=pagination>
+<a class="btn previous" href=http://yuguo.im/post/2020/04/format-parse-string-time-date-example/> Prev</a>
+<a class="btn next" href=http://yuguo.im/post/2020/04/golang-excel/> Next</a>
+</div>
+</div>
+</div>
+<div id=disqus_thread></div>
+<script>var disqus_config=function(){this.page.url="http://yuguo.im/post/2020/04/pwa-install/"};(function(){var a=document,b=a.createElement('script');b.src='//yuguo.disqus.com/embed.js',b.setAttribute('data-timestamp',+new Date),(a.head||a.body).appendChild(b)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments powered by Disqus.</a></noscript>
+<div class=footer>
+<p>Copyright@<a href=http://yuguo.im/about>Yuguo</a> 2019. Powered by <a href=https://gohugo.io/>Hugo</a>. This theme—Slim—is open sourced on <a href=https://github.com/zhe/hugo-theme-slim>Github</a>.</p>
+</div>
+</div>
+<script src=http://yuguo.im/js/slim.js></script>
+<script src=http://yuguo.im/js/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script>
+<script>(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)})(window,document,'script','//www.google-analytics.com/analytics.js','ga'),ga('create','UA-161689466-1','auto'),ga('send','pageview')</script>
+</body>
+</html>

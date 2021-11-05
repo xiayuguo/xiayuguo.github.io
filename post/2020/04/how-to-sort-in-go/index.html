@@ -1,0 +1,152 @@
+<!doctype html><html>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<title> Golang 中的 3 种排序方式（译文） &#183; 随笔 </title>
+<link rel=stylesheet href=http://yuguo.im/css/slim.css>
+<link rel=stylesheet href=http://yuguo.im/css/highlight.min.css>
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro" rel=stylesheet type=text/css>
+<link rel=apple-touch-icon-precomposed sizes=144x144 href=/apple-touch-icon-144-precomposed.png>
+<link rel="shortcut icon" href=/favicon.ico>
+<link href rel=alternate type=application/rss+xml title=随笔>
+</head>
+<body>
+<div class=container>
+<div class=header>
+<h1 class=site-title><a href=http://yuguo.im/>随笔</a></h1>
+<p class=site-tagline>Stay hungry. Stay foolish.</p>
+<div class=nav>
+<a class=nav-btn href=#>
+<span class="ci ci-burger"></span>
+</a>
+<ul class=nav-list>
+<li class=spacer>&ac;</li>
+<li><a href=https://github.com/xiayuguo>Github</a></li>
+</ul>
+</div>
+</div>
+<div class=content>
+<div class=posts>
+<div class=post>
+<h2 class=post-title><a href=http://yuguo.im/post/2020/04/how-to-sort-in-go/>Golang 中的 3 种排序方式（译文）</a></h2>
+<span class=post-date>Apr 8, 2020 </span>
+<div class=post-content>
+<blockquote>
+<p>作者：Stefan Nilsson</p>
+<p>原文网址：https://yourbasic.org/golang/how-to-sort-in-go/</p>
+</blockquote>
+<p><img src=http://oss.xiayuguo.com/blog/202004/sorted-ring-binders.jpg alt></p>
+<h2 id=对整数浮点数或字符串的切片进行排序>对整数，浮点数或字符串的切片进行排序</h2>
+<p>使用下面与其类型对应的方法</p>
+<ul>
+<li><a href=https://golang.org/pkg/sort/#Ints title=sort.Ints>sort.Ints</a></li>
+<li><a href=https://golang.org/pkg/sort/#Float64s title=sort.Float64s>sort.Float64s</a></li>
+<li><a href=https://golang.org/pkg/sort/#Strings title=sort.Strings>sort.Strings</a></li>
+</ul>
+<pre tabindex=0><code>s := []int{4, 2, 3, 1}
+sort.Ints(s)
+fmt.Println(s) // [1 2 3 4]
+</code></pre><blockquote>
+<p>包 <a href=https://godoc.org/github.com/yourbasic/radix title=radix>radix</a> 是对 sort.Strings 的一种替代方案。在某些情况, 它可以快两倍以上。</p>
+</blockquote>
+<h2 id=用自定义比较器排序>用自定义比较器排序</h2>
+<ul>
+<li>使用函数 <a href=https://golang.org/pkg/sort/#Slice title=sort.Slice>sort.Slice</a>。它使用提供的功能 <code>less(i, j int) bool</code> 对切片进行排序。</li>
+<li>要在保留相等元素的原始顺序的同时对切片进行排序，请改用 <a href=https://golang.org/pkg/sort/#SliceStable title=sort.SliceStable>sort.SliceStable</a>。</li>
+</ul>
+<pre tabindex=0><code>family := []struct {
+    Name string
+    Age  int
+}{
+    {&quot;Alice&quot;, 23},
+    {&quot;David&quot;, 2},
+    {&quot;Eve&quot;, 2},
+    {&quot;Bob&quot;, 25},
+}
+
+// Sort by age, keeping original order or equal elements.
+sort.SliceStable(family, func(i, j int) bool {
+    return family[i].Age &lt; family[j].Age
+})
+fmt.Println(family) // [{David 2} {Eve 2} {Alice 23} {Bob 25}]
+</code></pre><h2 id=自定义数据结构排序>自定义数据结构排序</h2>
+<ul>
+<li>使用通用的 <a href=https://golang.org/pkg/sort/#Sort title=sort.Sort>sort.Sort</a> 和 <a href=https://golang.org/pkg/sort/#Stable title=sort.Stable>sort.Stable</a> 函数。</li>
+<li>他们对实现 <a href=https://golang.org/pkg/sort/#Interface title=sort.Interface>sort.Interface</a> 接口的任何集合进行排序。</li>
+</ul>
+<pre tabindex=0><code>type Interface interface {
+        // Len is the number of elements in the collection.
+        Len() int
+        // Less reports whether the element with
+        // index i should sort before the element with index j.
+        Less(i, j int) bool
+        // Swap swaps the elements with indexes i and j.
+        Swap(i, j int)
+}
+</code></pre><p>这里有一个示例。</p>
+<pre tabindex=0><code>type Person struct {
+    Name string
+    Age  int
+}
+
+// ByAge implements sort.Interface based on the Age field.
+type ByAge []Person
+
+func (a ByAge) Len() int           { return len(a) }
+func (a ByAge) Less(i, j int) bool { return a[i].Age &lt; a[j].Age }
+func (a ByAge) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
+
+func main() {
+    family := []Person{
+        {&quot;Alice&quot;, 23},
+        {&quot;Eve&quot;, 2},
+        {&quot;Bob&quot;, 25},
+    }
+    sort.Sort(ByAge(family))
+    fmt.Println(family) // [{Eve 2} {Alice 23} {Bob 25}]
+}
+</code></pre><h2 id=福利-按键或值对-map-排序>福利: 按键或值对 Map 排序</h2>
+<p>map 是键值对的无序集合。如果需要稳定的迭代顺序，则必须维护单独的数据结构。</p>
+<p>下面的代码示例：使用键构造一个切片, 再按键顺序对 map 进行排序。</p>
+<pre tabindex=0><code>m := map[string]int{&quot;Alice&quot;: 2, &quot;Cecil&quot;: 1, &quot;Bob&quot;: 3}
+
+keys := make([]string, 0, len(m))
+for k := range m {
+    keys = append(keys, k)
+}
+sort.Strings(keys)
+
+for _, k := range keys {
+    fmt.Println(k, m[k])
+}
+// Output:
+// Alice 2
+// Bob 3
+// Cecil 1
+</code></pre><blockquote>
+<p>同样，从 <a href=https://tip.golang.org/doc/go1.12 title="Go 1.12 Tip">Go 1.12</a> 开始，<a href=https://golang.org/pkg/fmt/ title=fmt>fmt</a> 包以键排序的顺序打印 map 以简化测试。</p>
+</blockquote>
+<h2 id=性能和实现>性能和实现</h2>
+<p>Go 排序包中的所有算法在最坏的情况下都进行时间复杂度为 O(nlogn) 的比较，其中 n 是要排序的元素数。</p>
+<p>大多数功能是使用快速排序的优化版本实现的。</p>
+</div>
+</div>
+<div class=pagination>
+<a class="btn previous" href=http://yuguo.im/post/2020/03/linux-netstat-command-examples/> Prev</a>
+<a class="btn next" href=http://yuguo.im/post/2020/03/shuffle-slice-array/> Next</a>
+</div>
+</div>
+</div>
+<div id=disqus_thread></div>
+<script>var disqus_config=function(){this.page.url="http://yuguo.im/post/2020/04/how-to-sort-in-go/"};(function(){var a=document,b=a.createElement('script');b.src='//yuguo.disqus.com/embed.js',b.setAttribute('data-timestamp',+new Date),(a.head||a.body).appendChild(b)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments powered by Disqus.</a></noscript>
+<div class=footer>
+<p>Copyright@<a href=http://yuguo.im/about>Yuguo</a> 2019. Powered by <a href=https://gohugo.io/>Hugo</a>. This theme—Slim—is open sourced on <a href=https://github.com/zhe/hugo-theme-slim>Github</a>.</p>
+</div>
+</div>
+<script src=http://yuguo.im/js/slim.js></script>
+<script src=http://yuguo.im/js/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script>
+<script>(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)})(window,document,'script','//www.google-analytics.com/analytics.js','ga'),ga('create','UA-161689466-1','auto'),ga('send','pageview')</script>
+</body>
+</html>

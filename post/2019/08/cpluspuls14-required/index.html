@@ -1,0 +1,98 @@
+<!doctype html><html>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<title> Microsoft Visual C++ 14.0 is required &#183; 随笔 </title>
+<link rel=stylesheet href=http://yuguo.im/css/slim.css>
+<link rel=stylesheet href=http://yuguo.im/css/highlight.min.css>
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro" rel=stylesheet type=text/css>
+<link rel=apple-touch-icon-precomposed sizes=144x144 href=/apple-touch-icon-144-precomposed.png>
+<link rel="shortcut icon" href=/favicon.ico>
+<link href rel=alternate type=application/rss+xml title=随笔>
+</head>
+<body>
+<div class=container>
+<div class=header>
+<h1 class=site-title><a href=http://yuguo.im/>随笔</a></h1>
+<p class=site-tagline>Stay hungry. Stay foolish.</p>
+<div class=nav>
+<a class=nav-btn href=#>
+<span class="ci ci-burger"></span>
+</a>
+<ul class=nav-list>
+<li class=spacer>&ac;</li>
+<li><a href=https://github.com/xiayuguo>Github</a></li>
+</ul>
+</div>
+</div>
+<div class=content>
+<div class=posts>
+<div class=post>
+<h2 class=post-title><a href=http://yuguo.im/post/2019/08/cpluspuls14-required/>Microsoft Visual C++ 14.0 is required</a></h2>
+<span class=post-date>Aug 26, 2019 </span>
+<div class=post-content>
+<blockquote>
+<p>在Windows系统上安装某些需要编译的包时经常会遇到这个问题，经常使用的办法是找一个编译好的版本直接通过pip安装，但是找不到怎么办?</p>
+</blockquote>
+<h2 id=省时省力第一优先级>省时省力，第一优先级</h2>
+<p>Python Extension Packages for Windows: <a href=https://www.lfd.uci.edu/~gohlke/pythonlibs/>https://www.lfd.uci.edu/~gohlke/pythonlibs/</a></p>
+<h2 id=安装c编译环境>安装C编译环境</h2>
+<h3 id=失败经历>失败经历</h3>
+<p>先附上我的失败经历，希望直接看到成功的，直接下拉到最后。</p>
+<h4 id=1-利用python包的错误提示信息>1. 利用<code>python</code>包的错误提示信息</h4>
+<pre tabindex=0><code>Microsoft Visual C++ 14.0 is required. Get it with &quot;Microsoft Visual C++ Build Tools&quot;: https://visualstudio.microsoft.com/downloads/
+</code></pre><p>这个网站把2015、2017版本给隐藏起来，找起来比较麻烦。
+看这里所有的旧版本都在这: <a href=https://visualstudio.microsoft.com/zh-hans/vs/older-downloads/>https://visualstudio.microsoft.com/zh-hans/vs/older-downloads/</a>
+<img src=https://hugo-1256107396.cos.ap-chengdu.myqcloud.com/blog/2019/08/m_cplusplus.png alt></p>
+<h4 id=2-python版本和对应的c编译版本>2. python版本和对应的C++编译版本</h4>
+<p><a href=https://wiki.python.org/moin/WindowsCompilers>https://wiki.python.org/moin/WindowsCompilers</a></p>
+<table>
+<thead>
+<tr>
+<th style=text-align:left>Visual C++</th>
+<th style=text-align:left>CPython</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style=text-align:left>14.X</td>
+<td style=text-align:left>3.5, 3.6, 3.7, 3.8</td>
+</tr>
+<tr>
+<td style=text-align:left>10.0</td>
+<td style=text-align:left>3.3, 3.4</td>
+</tr>
+<tr>
+<td style=text-align:left>9.0</td>
+<td style=text-align:left>2.6, 2.7, 3.0, 3.1, 3.2</td>
+</tr>
+</tbody>
+</table>
+<h4 id=3-我把2019-2017-2015版本均高于140版本都安装一遍后仍然不行>3. 我把2019, 2017, 2015版本(均高于14.0版本)都安装一遍后仍然不行</h4>
+<h3 id=成功经历>成功经历</h3>
+<p>参考博客 <a href=https://www.hongweipeng.com/index.php/archives/1532/>https://www.hongweipeng.com/index.php/archives/1532/</a></p>
+<p>资源下载链接: <code>https://pan.baidu.com/s/19CkNu5ZiifNrYNHj77tbCg</code></p>
+<p>提取码: <code>ggdv</code></p>
+<p>默认安装2015，注意根据您的操作系统选择Windows 8.1 / 10 SDK。这个时间比较长，耐心等到安装结束之后，再重试安装，我这边成功了，那么你呢？
+如果有更好的方案，请在下方留言，感激不尽。</p>
+</div>
+</div>
+<div class=pagination>
+<a class="btn previous" href=http://yuguo.im/post/2019/07/change-redis-password/> Prev</a>
+<a class="btn next" href=http://yuguo.im/about/> Next</a>
+</div>
+</div>
+</div>
+<div id=disqus_thread></div>
+<script>var disqus_config=function(){this.page.url="http://yuguo.im/post/2019/08/cpluspuls14-required/"};(function(){var a=document,b=a.createElement('script');b.src='//yuguo.disqus.com/embed.js',b.setAttribute('data-timestamp',+new Date),(a.head||a.body).appendChild(b)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments powered by Disqus.</a></noscript>
+<div class=footer>
+<p>Copyright@<a href=http://yuguo.im/about>Yuguo</a> 2019. Powered by <a href=https://gohugo.io/>Hugo</a>. This theme—Slim—is open sourced on <a href=https://github.com/zhe/hugo-theme-slim>Github</a>.</p>
+</div>
+</div>
+<script src=http://yuguo.im/js/slim.js></script>
+<script src=http://yuguo.im/js/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script>
+<script>(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)})(window,document,'script','//www.google-analytics.com/analytics.js','ga'),ga('create','UA-161689466-1','auto'),ga('send','pageview')</script>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!doctype html><html>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<title> configparser(PY3) VS ConfigParser(PY2) &#183; 随笔 </title>
+<link rel=stylesheet href=http://yuguo.im/css/slim.css>
+<link rel=stylesheet href=http://yuguo.im/css/highlight.min.css>
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro" rel=stylesheet type=text/css>
+<link rel=apple-touch-icon-precomposed sizes=144x144 href=/apple-touch-icon-144-precomposed.png>
+<link rel="shortcut icon" href=/favicon.ico>
+<link href rel=alternate type=application/rss+xml title=随笔>
+</head>
+<body>
+<div class=container>
+<div class=header>
+<h1 class=site-title><a href=http://yuguo.im/>随笔</a></h1>
+<p class=site-tagline>Stay hungry. Stay foolish.</p>
+<div class=nav>
+<a class=nav-btn href=#>
+<span class="ci ci-burger"></span>
+</a>
+<ul class=nav-list>
+<li class=spacer>&ac;</li>
+<li><a href=https://github.com/xiayuguo>Github</a></li>
+</ul>
+</div>
+</div>
+<div class=content>
+<div class=posts>
+<div class=post>
+<h2 class=post-title><a href=http://yuguo.im/post/2017/python-config/>configparser(PY3) VS ConfigParser(PY2)</a></h2>
+<span class=post-date>Apr 26, 2017 </span>
+<div class=post-content>
+<blockquote>
+<p>关于使用ConfigParser,我的小伙伴想实现特殊的需求: 1.配置中的参数均大写; 2.配置文件中"=&ldquo;等号两侧无空格, 于是摸索中写下这篇文章, 方便有缘人</p>
+</blockquote>
+<p>范例: 配置文件config.ini长成这样</p>
+<pre tabindex=0><code>[test]
+TEST=A
+AUTO=B
+HAHA=C
+</code></pre><p>小伙伴使用的是python2的环境,所有优先考虑ConfigParser(ConfigParser库是自带的嘛)</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#75715e># https://github.com/hugoxia/Python/config-demo/config.py</span>
+
+<span style=color:#75715e># -*- coding: utf-8 -*-</span>
+
+<span style=color:#f92672>from</span> ConfigParser <span style=color:#f92672>import</span> ConfigParser
+
+
+<span style=color:#66d9ef>class</span> <span style=color:#a6e22e>CustomConfig</span>(ConfigParser):
+    <span style=color:#66d9ef>def</span> __init__(self, defaults<span style=color:#f92672>=</span><span style=color:#66d9ef>None</span>):
+        ConfigParser<span style=color:#f92672>.</span>__init__(self, defaults<span style=color:#f92672>=</span>defaults)
+
+    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>write</span>(self, fp):
+        <span style=color:#e6db74>&#34;&#34;&#34;Write an .ini-format representation of the configuration state.&#34;&#34;&#34;</span>
+        <span style=color:#66d9ef>if</span> self<span style=color:#f92672>.</span>_defaults:
+            fp<span style=color:#f92672>.</span>write(<span style=color:#e6db74>&#34;[</span><span style=color:#e6db74>%s</span><span style=color:#e6db74>]</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>%</span> <span style=color:#e6db74>&#34;DEFAULT&#34;</span>)
+            <span style=color:#66d9ef>for</span> (key, value) <span style=color:#f92672>in</span> self<span style=color:#f92672>.</span>_defaults<span style=color:#f92672>.</span>items():
+                fp<span style=color:#f92672>.</span>write(<span style=color:#e6db74>&#34;</span><span style=color:#e6db74>%s</span><span style=color:#e6db74> = </span><span style=color:#e6db74>%s</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>%</span> (key, str(value)<span style=color:#f92672>.</span>replace(<span style=color:#e6db74>&#39;</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#39;</span>, <span style=color:#e6db74>&#39;</span><span style=color:#ae81ff>\n\t</span><span style=color:#e6db74>&#39;</span>)))
+            fp<span style=color:#f92672>.</span>write(<span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>)
+        <span style=color:#66d9ef>for</span> section <span style=color:#f92672>in</span> self<span style=color:#f92672>.</span>_sections:
+            fp<span style=color:#f92672>.</span>write(<span style=color:#e6db74>&#34;[</span><span style=color:#e6db74>%s</span><span style=color:#e6db74>]</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>%</span> section)
+            <span style=color:#66d9ef>for</span> (key, value) <span style=color:#f92672>in</span> self<span style=color:#f92672>.</span>_sections[section]<span style=color:#f92672>.</span>items():
+                <span style=color:#66d9ef>if</span> key <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;__name__&#34;</span>:
+                    <span style=color:#66d9ef>continue</span>
+                <span style=color:#66d9ef>if</span> (value <span style=color:#f92672>is</span> <span style=color:#f92672>not</span> <span style=color:#66d9ef>None</span>) <span style=color:#f92672>or</span> (self<span style=color:#f92672>.</span>_optcre <span style=color:#f92672>==</span> self<span style=color:#f92672>.</span>OPTCRE):
+                    key <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;=&#34;</span><span style=color:#f92672>.</span>join((key, str(value)<span style=color:#f92672>.</span>replace(<span style=color:#e6db74>&#39;</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#39;</span>, <span style=color:#e6db74>&#39;</span><span style=color:#ae81ff>\n\t</span><span style=color:#e6db74>&#39;</span>)))
+                fp<span style=color:#f92672>.</span>write(<span style=color:#e6db74>&#34;</span><span style=color:#e6db74>%s</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>%</span> (key))
+            fp<span style=color:#f92672>.</span>write(<span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>)
+
+
+<span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Config</span>(object):
+    <span style=color:#66d9ef>def</span> __init__(self, path):
+        self<span style=color:#f92672>.</span>config_path <span style=color:#f92672>=</span> path
+        self<span style=color:#f92672>.</span>conf <span style=color:#f92672>=</span> CustomConfig()
+        self<span style=color:#f92672>.</span>conf<span style=color:#f92672>.</span>optionxform <span style=color:#f92672>=</span> str
+        self<span style=color:#f92672>.</span>conf<span style=color:#f92672>.</span>read(self<span style=color:#f92672>.</span>config_path)
+ 
+    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>get</span>(self, field, key):
+        <span style=color:#66d9ef>return</span> self<span style=color:#f92672>.</span>conf<span style=color:#f92672>.</span>get(field, key)
+
+    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>set</span>(self, field, key, value):
+        <span style=color:#66d9ef>return</span> self<span style=color:#f92672>.</span>conf<span style=color:#f92672>.</span>set(field, key, value)
+
+    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>save</span>(self):
+        <span style=color:#66d9ef>with</span> open(self<span style=color:#f92672>.</span>config_path, <span style=color:#e6db74>&#39;w&#39;</span>) <span style=color:#66d9ef>as</span> f:
+            self<span style=color:#f92672>.</span>conf<span style=color:#f92672>.</span>write(f)
+
+
+<span style=color:#66d9ef>if</span> __name__ <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;__main__&#34;</span>:
+    config <span style=color:#f92672>=</span> Config(<span style=color:#e6db74>&#34;./config.ini&#34;</span>)
+    config<span style=color:#f92672>.</span>set(<span style=color:#e6db74>&#34;test&#34;</span>, <span style=color:#e6db74>&#34;HAHA&#34;</span>, <span style=color:#e6db74>&#34;D&#34;</span>)
+    config<span style=color:#f92672>.</span>save()
+
+</code></pre></div><p>有没有觉得很麻烦,咱来看看configparser的表现</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#75715e># https://github.com/hugoxia/Python/config-demo/config_py3.py</span>
+
+<span style=color:#75715e># -*- coding: utf-8 -*-</span>
+
+<span style=color:#f92672>import</span> configparser
+
+
+<span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Config</span>(object):
+    <span style=color:#66d9ef>def</span> __init__(self, path):
+        self<span style=color:#f92672>.</span>config_path <span style=color:#f92672>=</span> path
+        self<span style=color:#f92672>.</span>conf <span style=color:#f92672>=</span> configparser<span style=color:#f92672>.</span>ConfigParser()
+        self<span style=color:#f92672>.</span>conf<span style=color:#f92672>.</span>optionxform <span style=color:#f92672>=</span> str
+        self<span style=color:#f92672>.</span>conf<span style=color:#f92672>.</span>read(self<span style=color:#f92672>.</span>config_path)
+ 
+    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>get</span>(self, field, key):
+        <span style=color:#66d9ef>return</span> self<span style=color:#f92672>.</span>conf<span style=color:#f92672>.</span>get(field, key)
+
+    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>set</span>(self, field, key, value):
+        <span style=color:#66d9ef>return</span> self<span style=color:#f92672>.</span>conf<span style=color:#f92672>.</span>set(field, key, value)
+
+    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>save</span>(self):
+        <span style=color:#66d9ef>with</span> open(self<span style=color:#f92672>.</span>config_path, <span style=color:#e6db74>&#39;w&#39;</span>) <span style=color:#66d9ef>as</span> f:
+            self<span style=color:#f92672>.</span>conf<span style=color:#f92672>.</span>write(f, space_around_delimiters<span style=color:#f92672>=</span><span style=color:#66d9ef>False</span>)
+
+
+<span style=color:#66d9ef>if</span> __name__ <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;__main__&#34;</span>:
+    config <span style=color:#f92672>=</span> Config(<span style=color:#e6db74>&#34;./config.ini&#34;</span>)
+    config<span style=color:#f92672>.</span>set(<span style=color:#e6db74>&#34;test&#34;</span>, <span style=color:#e6db74>&#34;HAHA&#34;</span>, <span style=color:#e6db74>&#34;D&#34;</span>)
+    config<span style=color:#f92672>.</span>save()
+</code></pre></div><p>总结:</p>
+<ul>
+<li>针对保留原大小写的问题, ConfigParser和configparser的处理方式一样</li>
+</ul>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>self<span style=color:#f92672>.</span>optionxform <span style=color:#f92672>=</span> str <span style=color:#75715e># 中文的话,会出现乱码</span>
+</code></pre></div><ul>
+<li>针对空格的问题, ConfigParser需要复写write方法,而configparser的write方法自带一个参数space_around_delimiters, 通过修改这个参数可以直接实现.有兴趣的可以看下这两个库的原码.</li>
+</ul>
+</div>
+</div>
+<div class=pagination>
+<a class="btn previous" href=http://yuguo.im/post/2017/wsgi-uwsgi/> Prev</a>
+<a class="btn next" href=http://yuguo.im/post/2017/mysql-limit/> Next</a>
+</div>
+</div>
+</div>
+<div class=footer>
+<p>Copyright@<a href=http://yuguo.im/about>Yuguo</a> 2019. Powered by <a href=https://gohugo.io/>Hugo</a>. This theme—Slim—is open sourced on <a href=https://github.com/zhe/hugo-theme-slim>Github</a>.</p>
+</div>
+</div>
+<script src=http://yuguo.im/js/slim.js></script>
+<script src=http://yuguo.im/js/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script>
+<script>(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)})(window,document,'script','//www.google-analytics.com/analytics.js','ga'),ga('create','UA-161689466-1','auto'),ga('send','pageview')</script>
+</body>
+</html>

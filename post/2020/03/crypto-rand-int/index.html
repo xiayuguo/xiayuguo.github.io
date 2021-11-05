@@ -1,0 +1,98 @@
+<!doctype html><html>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<title> Golang 中 crypto/rand（译文） &#183; 随笔 </title>
+<link rel=stylesheet href=http://yuguo.im/css/slim.css>
+<link rel=stylesheet href=http://yuguo.im/css/highlight.min.css>
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro" rel=stylesheet type=text/css>
+<link rel=apple-touch-icon-precomposed sizes=144x144 href=/apple-touch-icon-144-precomposed.png>
+<link rel="shortcut icon" href=/favicon.ico>
+<link href rel=alternate type=application/rss+xml title=随笔>
+</head>
+<body>
+<div class=container>
+<div class=header>
+<h1 class=site-title><a href=http://yuguo.im/>随笔</a></h1>
+<p class=site-tagline>Stay hungry. Stay foolish.</p>
+<div class=nav>
+<a class=nav-btn href=#>
+<span class="ci ci-burger"></span>
+</a>
+<ul class=nav-list>
+<li class=spacer>&ac;</li>
+<li><a href=https://github.com/xiayuguo>Github</a></li>
+</ul>
+</div>
+</div>
+<div class=content>
+<div class=posts>
+<div class=post>
+<h2 class=post-title><a href=http://yuguo.im/post/2020/03/crypto-rand-int/>Golang 中 crypto/rand（译文）</a></h2>
+<span class=post-date>Mar 15, 2020 </span>
+<div class=post-content>
+<blockquote>
+<p>作者：Stefan Nilsson</p>
+<p>原文网址：https://yourbasic.org/golang/crypto-rand-int/</p>
+</blockquote>
+<p><img src=http://oss.xiayuguo.com/blog/202003/programmer.jpg alt></p>
+<p>Go 有两个用于随机数的包：</p>
+<ul>
+<li><a href=https://golang.org/pkg/math/rand/ title=math/rand>math/rand</a> 实现了大量伪随机数生成器。</li>
+<li><a href=https://golang.org/pkg/crypto/rand/ title=crypto/rand>crypto/rand</a> 实现了具有受限接口的加密安全伪随机数生成器。</li>
+</ul>
+<p>这两个包可以通过调用包 <code>math/rand</code> 中的 <a href=https://golang.org/pkg/math/rand/#New title=rand.New>rand.New</a> 与一个从 <code>crypto/rand</code> 获取数据的源来合并。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-golang data-lang=golang><span style=color:#f92672>import</span> (
+    <span style=color:#a6e22e>crand</span> <span style=color:#e6db74>&#34;crypto/rand&#34;</span>
+    <span style=color:#a6e22e>rand</span> <span style=color:#e6db74>&#34;math/rand&#34;</span>
+
+    <span style=color:#e6db74>&#34;encoding/binary&#34;</span>
+    <span style=color:#e6db74>&#34;fmt&#34;</span>
+    <span style=color:#e6db74>&#34;log&#34;</span>
+)
+
+<span style=color:#66d9ef>func</span> <span style=color:#a6e22e>main</span>() {
+    <span style=color:#66d9ef>var</span> <span style=color:#a6e22e>src</span> <span style=color:#a6e22e>cryptoSource</span>
+    <span style=color:#a6e22e>rnd</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>rand</span>.<span style=color:#a6e22e>New</span>(<span style=color:#a6e22e>src</span>)
+    <span style=color:#a6e22e>fmt</span>.<span style=color:#a6e22e>Println</span>(<span style=color:#a6e22e>rnd</span>.<span style=color:#a6e22e>Intn</span>(<span style=color:#ae81ff>1000</span>)) <span style=color:#75715e>// a truly random number 0 to 999
+</span><span style=color:#75715e></span>}
+
+<span style=color:#66d9ef>type</span> <span style=color:#a6e22e>cryptoSource</span> <span style=color:#66d9ef>struct</span>{}
+
+<span style=color:#66d9ef>func</span> (<span style=color:#a6e22e>s</span> <span style=color:#a6e22e>cryptoSource</span>) <span style=color:#a6e22e>Seed</span>(<span style=color:#a6e22e>seed</span> <span style=color:#66d9ef>int64</span>) {}
+
+<span style=color:#66d9ef>func</span> (<span style=color:#a6e22e>s</span> <span style=color:#a6e22e>cryptoSource</span>) <span style=color:#a6e22e>Int63</span>() <span style=color:#66d9ef>int64</span> {
+    <span style=color:#66d9ef>return</span> int64(<span style=color:#a6e22e>s</span>.<span style=color:#a6e22e>Uint64</span>() <span style=color:#f92672>&amp;</span> ^uint64(<span style=color:#ae81ff>1</span><span style=color:#f92672>&lt;&lt;</span><span style=color:#ae81ff>63</span>))
+}
+
+<span style=color:#66d9ef>func</span> (<span style=color:#a6e22e>s</span> <span style=color:#a6e22e>cryptoSource</span>) <span style=color:#a6e22e>Uint64</span>() (<span style=color:#a6e22e>v</span> <span style=color:#66d9ef>uint64</span>) {
+    <span style=color:#a6e22e>err</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>binary</span>.<span style=color:#a6e22e>Read</span>(<span style=color:#a6e22e>crand</span>.<span style=color:#a6e22e>Reader</span>, <span style=color:#a6e22e>binary</span>.<span style=color:#a6e22e>BigEndian</span>, <span style=color:#f92672>&amp;</span><span style=color:#a6e22e>v</span>)
+    <span style=color:#66d9ef>if</span> <span style=color:#a6e22e>err</span> <span style=color:#f92672>!=</span> <span style=color:#66d9ef>nil</span> {
+        <span style=color:#a6e22e>log</span>.<span style=color:#a6e22e>Fatal</span>(<span style=color:#a6e22e>err</span>)
+    }
+    <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>v</span>
+}
+</code></pre></div><blockquote>
+<p>警告：如果系统底层调用失败，则 <code>crand.Reader</code> 调用将返回错误。例如，如果它在 <code>Unix</code> 系统上不能读取 <code>/dev/urandom</code>，或者在 <code>Windows</code> 系统上 <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/aa379886(v=vs.85).aspx" title=CryptAcquireContext>CryptAcquireContext</a> 调用失败。</p>
+</blockquote>
+</div>
+</div>
+<div class=pagination>
+<a class="btn previous" href=http://yuguo.im/post/2020/03/generate-uuid-guid/> Prev</a>
+<a class="btn next" href=http://yuguo.im/post/2020/03/interface-to-string/> Next</a>
+</div>
+</div>
+</div>
+<div id=disqus_thread></div>
+<script>var disqus_config=function(){this.page.url="http://yuguo.im/post/2020/03/crypto-rand-int/"};(function(){var a=document,b=a.createElement('script');b.src='//yuguo.disqus.com/embed.js',b.setAttribute('data-timestamp',+new Date),(a.head||a.body).appendChild(b)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments powered by Disqus.</a></noscript>
+<div class=footer>
+<p>Copyright@<a href=http://yuguo.im/about>Yuguo</a> 2019. Powered by <a href=https://gohugo.io/>Hugo</a>. This theme—Slim—is open sourced on <a href=https://github.com/zhe/hugo-theme-slim>Github</a>.</p>
+</div>
+</div>
+<script src=http://yuguo.im/js/slim.js></script>
+<script src=http://yuguo.im/js/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script>
+<script>(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)})(window,document,'script','//www.google-analytics.com/analytics.js','ga'),ga('create','UA-161689466-1','auto'),ga('send','pageview')</script>
+</body>
+</html>

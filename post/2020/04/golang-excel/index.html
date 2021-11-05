@@ -1,0 +1,183 @@
+<!doctype html><html>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<title> How to use Excel with Go &#183; 随笔 </title>
+<link rel=stylesheet href=http://yuguo.im/css/slim.css>
+<link rel=stylesheet href=http://yuguo.im/css/highlight.min.css>
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro" rel=stylesheet type=text/css>
+<link rel=apple-touch-icon-precomposed sizes=144x144 href=/apple-touch-icon-144-precomposed.png>
+<link rel="shortcut icon" href=/favicon.ico>
+<link href rel=alternate type=application/rss+xml title=随笔>
+</head>
+<body>
+<div class=container>
+<div class=header>
+<h1 class=site-title><a href=http://yuguo.im/>随笔</a></h1>
+<p class=site-tagline>Stay hungry. Stay foolish.</p>
+<div class=nav>
+<a class=nav-btn href=#>
+<span class="ci ci-burger"></span>
+</a>
+<ul class=nav-list>
+<li class=spacer>&ac;</li>
+<li><a href=https://github.com/xiayuguo>Github</a></li>
+</ul>
+</div>
+</div>
+<div class=content>
+<div class=posts>
+<div class=post>
+<h2 class=post-title><a href=http://yuguo.im/post/2020/04/golang-excel/>How to use Excel with Go</a></h2>
+<span class=post-date>Apr 15, 2020 </span>
+<div class=post-content>
+<p>Microsoft Excel™ (XLSX) 是广泛使用的一种电子表格格式。</p>
+<p><img src=http://oss.xiayuguo.com/blog/202004/golang-excel.png alt></p>
+<p>Github 上有两个 Golang 包可以方便读写 Excel 文件。</p>
+<table>
+<thead>
+<tr>
+<th style=text-align:left></th>
+<th style=text-align:left><a href=https://github.com/360EntSecGroup-Skylar/excelize title=360EntSecGroup-Skylar/excelize>360EntSecGroup-Skylar/excelize</a></th>
+<th style=text-align:left><a href=https://github.com/tealeg/xlsx title=tealeg/xlsx>tealeg/xlsx</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style=text-align:left>Watch</td>
+<td style=text-align:left>170</td>
+<td style=text-align:left>180</td>
+</tr>
+<tr>
+<td style=text-align:left>Star</td>
+<td style=text-align:left>6k</td>
+<td style=text-align:left>4k</td>
+</tr>
+<tr>
+<td style=text-align:left>Fork</td>
+<td style=text-align:left>652</td>
+<td style=text-align:left>657</td>
+</tr>
+</tbody>
+</table>
+<p>包 <code>360EntSecGroup-Skylar/excelize</code> 比 <code>tealeg/xlsx</code> 关注度更高，并且 <a href=https://github.com/360EntSecGroup-Skylar/excelize/blob/master/README_zh.md title=README.md>README.md</a> 中有很多示例代码，下面就来看看这个包。</p>
+<h2 id=360entsecgroup-skylarexcelize>360EntSecGroup-Skylar/excelize</h2>
+<h3 id=安装>安装</h3>
+<pre tabindex=0><code>go get github.com/360EntSecGroup-Skylar/excelize
+</code></pre><h3 id=创建-excel-文档>创建 Excel 文档</h3>
+<h4 id=官方示例>官方示例</h4>
+<pre tabindex=0><code>package main
+
+import (
+    &quot;fmt&quot;
+    &quot;github.com/360EntSecGroup-Skylar/excelize&quot;
+)
+
+func main() {
+    f := excelize.NewFile()
+    // 创建一个工作表
+    index := f.NewSheet(&quot;Sheet2&quot;)
+    // 设置单元格的值
+    f.SetCellValue(&quot;Sheet2&quot;, &quot;A2&quot;, &quot;Hello world.&quot;)
+    f.SetCellValue(&quot;Sheet1&quot;, &quot;B2&quot;, 100)
+    // 设置工作簿的默认工作表
+    f.SetActiveSheet(index)
+    // 根据指定路径保存文件
+    if err := f.SaveAs(&quot;Book1.xlsx&quot;); err != nil {
+        fmt.Println(err)
+    }
+}
+</code></pre><p><code>func (f *File) SetCellValue(sheet, axis string, value interface{})</code> 这个方法只能设置一个单元格的值，而通过查看源码，我们可以看到其实有一个方法 <code>func (f *File) SetSheetRow(sheet, axis string, slice interface{})</code> 可以设置一行单元格的数据。</p>
+<pre tabindex=0><code>// SetSheetRow writes an array to row by given worksheet name, starting
+// coordinate and a pointer to array type 'slice'. For example, writes an
+// array to row 6 start with the cell B6 on Sheet1:
+//
+//     xlsx.SetSheetRow(&quot;Sheet1&quot;, &quot;B6&quot;, &amp;[]interface{}{&quot;1&quot;, nil, 2})
+//
+</code></pre><h4 id=gin-中导出-excel>Gin 中导出 Excel</h4>
+<pre tabindex=0><code>package main
+
+import (
+    &quot;strconv&quot;
+	&quot;github.com/360EntSecGroup-Skylar/excelize&quot;
+	&quot;github.com/gin-gonic/gin&quot;
+)
+ 
+// Export 导出 Excel
+func Export(c *gin.Context, head []string, body [][]interface{}, filename string)  {
+	xlsx := excelize.NewFile()
+	xlsx.SetSheetRow(&quot;Sheet1&quot;, &quot;A1&quot;, &amp;head)
+	for index, rowData :=  range body{
+		xlsx.SetSheetRow(&quot;Sheet1&quot;, &quot;A&quot; + strconv.Itoa(index + 2), &amp;rowData)
+	}
+	c.Header(&quot;Content-Type&quot;, &quot;application/octet-stream&quot;)
+	c.Header(&quot;Content-Disposition&quot;, &quot;attachment; filename=&quot; + filename)
+	c.Header(&quot;Content-Transfer-Encoding&quot;, &quot;binary&quot;)
+	_ = xlsx.Write(c.Writer)
+}
+
+func main() {
+	r := gin.Default()
+	r.GET(&quot;/testExport&quot;, func(c *gin.Context) {
+        head := []string{&quot;表头一&quot;, &quot;表头二&quot;, &quot;表头三&quot;}
+        body := [][]interface{}{{1, &quot;2020&quot;, &quot;&quot;}, {2, &quot;2019&quot;, &quot;&quot;}, {3, &quot;2018&quot;, &quot;&quot;}}
+        filename := &quot;test.xlsx&quot;
+		Export(c, head, body, filename)
+	})
+	r.Run() // listen and serve on 0.0.0.0:8080 (for windows &quot;localhost:8080&quot;)
+}
+</code></pre><p>打开浏览器访问 <code>http://localhost:8080/testExport</code>, 直接下载文件 <code>text.xlsx</code>。
+<img src=http://oss.xiayuguo.com/blog/202004/golang-excel-result.png alt></p>
+<h3 id=读取-excel-文档>读取 Excel 文档</h3>
+<h4 id=官方示例-1>官方示例</h4>
+<pre tabindex=0><code>package main
+
+import (
+    &quot;fmt&quot;
+    &quot;github.com/360EntSecGroup-Skylar/excelize&quot;
+)
+
+func main() {
+    f, err := excelize.OpenFile(&quot;Book1.xlsx&quot;)
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
+    // 获取工作表中指定单元格的值
+    cell, err := f.GetCellValue(&quot;Sheet1&quot;, &quot;B2&quot;)
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
+    fmt.Println(cell)
+    // 获取 Sheet1 上所有单元格
+    rows, err := f.GetRows(&quot;Sheet1&quot;)
+    for _, row := range rows {
+        for _, colCell := range row {
+            fmt.Print(colCell, &quot;\t&quot;)
+        }
+        fmt.Println()
+    }
+}
+</code></pre>
+</div>
+</div>
+<div class=pagination>
+<a class="btn previous" href=http://yuguo.im/post/2020/04/pwa-install/> Prev</a>
+<a class="btn next" href=http://yuguo.im/post/2020/04/iota/> Next</a>
+</div>
+</div>
+</div>
+<div id=disqus_thread></div>
+<script>var disqus_config=function(){this.page.url="http://yuguo.im/post/2020/04/golang-excel/"};(function(){var a=document,b=a.createElement('script');b.src='//yuguo.disqus.com/embed.js',b.setAttribute('data-timestamp',+new Date),(a.head||a.body).appendChild(b)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments powered by Disqus.</a></noscript>
+<div class=footer>
+<p>Copyright@<a href=http://yuguo.im/about>Yuguo</a> 2019. Powered by <a href=https://gohugo.io/>Hugo</a>. This theme—Slim—is open sourced on <a href=https://github.com/zhe/hugo-theme-slim>Github</a>.</p>
+</div>
+</div>
+<script src=http://yuguo.im/js/slim.js></script>
+<script src=http://yuguo.im/js/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script>
+<script>(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)})(window,document,'script','//www.google-analytics.com/analytics.js','ga'),ga('create','UA-161689466-1','auto'),ga('send','pageview')</script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!doctype html><html>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<title> Runes 和字符编码（译文） &#183; 随笔 </title>
+<link rel=stylesheet href=http://yuguo.im/css/slim.css>
+<link rel=stylesheet href=http://yuguo.im/css/highlight.min.css>
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro" rel=stylesheet type=text/css>
+<link rel=apple-touch-icon-precomposed sizes=144x144 href=/apple-touch-icon-144-precomposed.png>
+<link rel="shortcut icon" href=/favicon.ico>
+<link href rel=alternate type=application/rss+xml title=随笔>
+</head>
+<body>
+<div class=container>
+<div class=header>
+<h1 class=site-title><a href=http://yuguo.im/>随笔</a></h1>
+<p class=site-tagline>Stay hungry. Stay foolish.</p>
+<div class=nav>
+<a class=nav-btn href=#>
+<span class="ci ci-burger"></span>
+</a>
+<ul class=nav-list>
+<li class=spacer>&ac;</li>
+<li><a href=https://github.com/xiayuguo>Github</a></li>
+</ul>
+</div>
+</div>
+<div class=content>
+<div class=posts>
+<div class=post>
+<h2 class=post-title><a href=http://yuguo.im/post/2020/03/rune/>Runes 和字符编码（译文）</a></h2>
+<span class=post-date>Mar 10, 2020 </span>
+<div class=post-content>
+<blockquote>
+<p>作者：Stefan Nilsson</p>
+<p>原文网址：https://yourbasic.org/golang/rune</p>
+</blockquote>
+<p><img src=http://oss.xiayuguo.com/blog/202003/rune-stone-ballstorp-1900.jpg alt="Runic letters encoded in stone, Ballstorp 1900"></p>
+<h2 id=字符ascii-和-unicode>字符，ASCII 和 Unicode</h2>
+<p><code>rune</code> 类型是 <code>int32</code> 的别名，用于强调其代表的是码位（code point），而不是整数。</p>
+<p><strong>ASCII</strong> 定义 128 个字符，由码位 0 – 127 标识。它涵盖英文字母，拉丁数字和其他一些字符。</p>
+<p><strong>Unicode</strong> 是 ASCII 的超集，它定义了 1,114,112 个代码点的代码空间。 Unicode 版本 10.0 涵盖 139 个现代和历史文本集（包括符文字母，但不包括 Klingon ）以及多个符号集。</p>
+<h2 id=字符串和-utf-8-编码>字符串和 UTF-8 编码</h2>
+<blockquote>
+<p>字符串是字节序列，而不是符文。</p>
+</blockquote>
+<p>但是，字符串通常包含以 UTF-8 编码的 Unicode 文本，该文本使用一到四个字节对所有 Unicode 码位进行编码。（ASCII 字符使用一个字节编码，而其他码位则使用更多字节。）</p>
+<p>由于 Go 源代码本身被编码为 UTF-8，因此字符串文字将自动获得此编码。</p>
+<p>例如，在字符串<code>"café"</code>中，字符<code>é</code>（码位 233）使用两个字节编码，而 ASCII 字符 c，a 和 f（码位 99、97 和 102）仅使用一个字节：</p>
+<pre tabindex=0><code>fmt.Println([]byte(&quot;café&quot;)) // [99 97 102 195 169]
+fmt.Println([]rune(&quot;café&quot;)) // [99 97 102 233]
+</code></pre>
+</div>
+</div>
+<div class=pagination>
+<a class="btn previous" href=http://yuguo.im/post/2020/03/type-assertion-switch/> Prev</a>
+<a class="btn next" href=http://yuguo.im/post/2020/03/convert-string-to-rune-slice/> Next</a>
+</div>
+</div>
+</div>
+<div id=disqus_thread></div>
+<script>var disqus_config=function(){this.page.url="http://yuguo.im/post/2020/03/rune/"};(function(){var a=document,b=a.createElement('script');b.src='//yuguo.disqus.com/embed.js',b.setAttribute('data-timestamp',+new Date),(a.head||a.body).appendChild(b)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments powered by Disqus.</a></noscript>
+<div class=footer>
+<p>Copyright@<a href=http://yuguo.im/about>Yuguo</a> 2019. Powered by <a href=https://gohugo.io/>Hugo</a>. This theme—Slim—is open sourced on <a href=https://github.com/zhe/hugo-theme-slim>Github</a>.</p>
+</div>
+</div>
+<script src=http://yuguo.im/js/slim.js></script>
+<script src=http://yuguo.im/js/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script>
+<script>(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)})(window,document,'script','//www.google-analytics.com/analytics.js','ga'),ga('create','UA-161689466-1','auto'),ga('send','pageview')</script>
+</body>
+</html>

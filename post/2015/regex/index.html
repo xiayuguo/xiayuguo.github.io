@@ -1,0 +1,218 @@
+<!doctype html><html>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<title> Python3正则表达式特殊符号及用法(详细列表) &#183; 随笔 </title>
+<link rel=stylesheet href=http://yuguo.im/css/slim.css>
+<link rel=stylesheet href=http://yuguo.im/css/highlight.min.css>
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro" rel=stylesheet type=text/css>
+<link rel=apple-touch-icon-precomposed sizes=144x144 href=/apple-touch-icon-144-precomposed.png>
+<link rel="shortcut icon" href=/favicon.ico>
+<link href rel=alternate type=application/rss+xml title=随笔>
+</head>
+<body>
+<div class=container>
+<div class=header>
+<h1 class=site-title><a href=http://yuguo.im/>随笔</a></h1>
+<p class=site-tagline>Stay hungry. Stay foolish.</p>
+<div class=nav>
+<a class=nav-btn href=#>
+<span class="ci ci-burger"></span>
+</a>
+<ul class=nav-list>
+<li class=spacer>&ac;</li>
+<li><a href=https://github.com/xiayuguo>Github</a></li>
+</ul>
+</div>
+</div>
+<div class=content>
+<div class=posts>
+<div class=post>
+<h2 class=post-title><a href=http://yuguo.im/post/2015/regex/>Python3正则表达式特殊符号及用法(详细列表)</a></h2>
+<span class=post-date>Sep 26, 2015 </span>
+<div class=post-content>
+<blockquote>
+<p>这篇文档整理自<a href="http://bbs.fishc.com/forum.php?mod=viewthread&tid=57691&extra=page%3D1%26filter%3Dtypeid%26typeid%3D403">鱼C论坛</a>, 感谢作者输出,我只是一枚搬运工&mldr;</p>
+</blockquote>
+<blockquote>
+<p>正则表达式的强大之处在于特殊符号的应用,特殊符号定义了字符集合、子组匹配、模式重复次数。正是这些特性符号使得一个正则表达式可以匹配字符串集合而不只是一个字符串。</p>
+</blockquote>
+<blockquote>
+<p>注1: 为了便于理解，难点的地方均用<em>斜体</em>举了栗子。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>字符</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>.</td>
+<td>表示匹配除了换行符外的任何字符 注: 通过设置re.DOTALL标志可以使.匹配任何字符(包括换行符)</td>
+</tr>
+<tr>
+<td>¦(竖杠)</td>
+<td>A¦(竖杠)B,表示匹配正则表达式A或者B</td>
+</tr>
+<tr>
+<td>^</td>
+<td>1.(脱字符)匹配输入字符串的开始位置 2.如果设置了re.MULTILINE标志,^也匹配换行符之后的位置</td>
+</tr>
+<tr>
+<td>$</td>
+<td>1.匹配输入字符串的结束位置2.如果设置了re.MULTILINE标志,$也匹配换行符之前的位置</td>
+</tr>
+<tr>
+<td>\</td>
+<td>1.将一个普通字符变成特殊字符，例如 \d 表示匹配所有十进制数字2. 解除元字符的特殊功能，例如 \. 表示匹配点号本身3. 引用序号对应的子组所匹配的字符串4. 详见下方列举</td>
+</tr>
+<tr>
+<td>[&mldr;]</td>
+<td>字符类，匹配所包含的任意一个字符注1：连字符 - 如果出现在字符串中间表示字符范围描述；如果如果出现在首位则仅作为普通字符注2：特殊字符仅有反斜线 \ 保持特殊含义，用于转义字符。其它特殊字符如 *、+、? 等均作为普通字符匹配 注3：脱字符 ^ 如果出现在首位则表示匹配不包含其中的任意字符；如果 ^ 出现在字符串中间就仅作为普通字符匹配</td>
+</tr>
+<tr>
+<td>{M,N}</td>
+<td>M 和 N 均为非负整数，其中 M &lt;= N，表示前边的 RE 匹配 M ~ N 次注1：{M,} 表示至少匹配 M 次注2：{,N} 等价于 {0,N}注3：{N} 表示需要匹配 N 次</td>
+</tr>
+<tr>
+<td>*</td>
+<td>匹配前面的子表达式零次或多次，等价于 {0,}</td>
+</tr>
+<tr>
+<td>+</td>
+<td>匹配前面的子表达式一次或多次，等价于 {1,}</td>
+</tr>
+<tr>
+<td>?</td>
+<td>匹配前面的子表达式零次或一次，等价于 {0,1}</td>
+</tr>
+<tr>
+<td>*?, +?, ??</td>
+<td>默认情况下 *、+ 和 ? 的匹配模式是贪婪模式（即会尽可能多地匹配符合规则的字符串）；*?、+?和 ?? 表示启用对应的非贪婪模式。<em>举个栗子：对于字符串 &ldquo;FishCCC&rdquo;，正则表达式 FishC+ 会匹配整个字符串，而 FishC+? 则匹配 &ldquo;FishC&rdquo;。</em></td>
+</tr>
+<tr>
+<td>{M,N}?</td>
+<td>同上，启用非贪婪模式，即只匹配 M 次</td>
+</tr>
+<tr>
+<td>(&mldr;)</td>
+<td>匹配圆括号中的正则表达式，或者指定一个子组的开始和结束位置注：子组的内容可以在匹配之后被 \数字 再次引用 <em>举个栗子：(\w+) \1 可以字符串 &ldquo;FishC FishC.com&rdquo; 中的 &ldquo;FishC FishC&rdquo;（注意有空格）</em></td>
+</tr>
+<tr>
+<td>(?&mldr;)</td>
+<td>(? 开头的表示为正则表达式的扩展语法（下边这些是 Python 支持的所有扩展语法）</td>
+</tr>
+<tr>
+<td>(?aiLmsux)</td>
+<td>1. (? 后可以紧跟着 &lsquo;a&rsquo;，&lsquo;i&rsquo;，&lsquo;L&rsquo;，&rsquo;m'，&rsquo;s'，&lsquo;u&rsquo;，&lsquo;x&rsquo; 中的一个或多个字符，只能在正则表达式的开头使用2. 每一个字符对应一种匹配标志：re-A（只匹配 ASCII 字符），re-I（忽略大小写），re-L（区域设置），re-M（多行模式）, re-S（. 匹配任何符号），re-X（详细表达式），包含这些字符将会影响整个正则表达式的规则3. 当你不想通过 re.compile() 设置正则表达式标志，这种方法就非常有用啦注意，由于 (?x) 决定正则表达式如何被解析，所以它应该总是被放在最前边（最多允许前边有空白符）。如果 (?x) 的前边是非空白字符，那么 (?x) 就发挥不了作用了。</td>
+</tr>
+<tr>
+<td>(?:&mldr;)</td>
+<td>非捕获组，即该子组匹配的字符串无法从后边获取</td>
+</tr>
+<tr>
+<td>(?P&mldr;)</td>
+<td>命名组，通过组的名字（name）即可访问到子组匹配的字符串</td>
+</tr>
+<tr>
+<td>(?P=name)</td>
+<td>反向引用一个命名组，它匹配指定命名组匹配的任何内容</td>
+</tr>
+<tr>
+<td>(?#&mldr;)</td>
+<td>注释，括号中的内容将被忽略</td>
+</tr>
+<tr>
+<td>(?=&mldr;)</td>
+<td>前向肯定断言。如果当前包含的正则表达式（这里以 &mldr; 表示）在当前位置成功匹配，则代表成功，否则失败。一旦该部分正则表达式被匹配引擎尝试过，就不会继续进行匹配了；剩下的模式在此断言开始的地方继续尝试。<em>举个栗子：love(?=FishC) 只匹配后边紧跟着 &ldquo;FishC&rdquo; 的字符串 &ldquo;love&rdquo;</em></td>
+</tr>
+<tr>
+<td>(?!&mldr;)</td>
+<td>前向否定断言。这跟前向肯定断言相反（不匹配则表示成功，匹配表示失败）。<em>举个栗子：FishC(?!.com) 只匹配后边不是 &ldquo;.com&rdquo; 的字符串 &ldquo;FishC&rdquo;</em></td>
+</tr>
+<tr>
+<td>(?&lt;=&mldr;)</td>
+<td>后向肯定断言。跟前向肯定断言一样，只是方向相反。<em>举个栗子：(?&lt;=love)FishC 只匹配前边紧跟着 &ldquo;love&rdquo; 的字符串 &ldquo;FishC&rdquo;</em></td>
+</tr>
+<tr>
+<td>(?&lt;!&mldr;)</td>
+<td>后向否定断言。跟前向肯定断言一样，只是方向相反。<em>举个栗子：(?&lt;!FishC).com 只匹配前边不是 &ldquo;FishC&rdquo; 的字符串 &ldquo;.com&rdquo;</em></td>
+</tr>
+<tr>
+<td>(?(id/name)yes-pattern¦(竖杠)no-pattern)</td>
+<td>1. 如果子组的序号或名字存在的话，则尝试 yes-pattern 匹配模式；否则尝试 no-pattern 匹配模式2. no-pattern 是可选的<em>举个栗子：(&lt;)?(\w+@\w+(?:\.\w+)+)(?(1)>¦(竖杠)$) 是一个匹配邮件格式的正则表达式，可以匹配 &lt;user@fishc.com> 和 &lsquo;<a href=mailto:user@fishc.com>user@fishc.com</a>&rsquo;，但是不会匹配 &lsquo;&lt;user@fishc.com&rsquo; 或 &lsquo;<a href=mailto:user@fishc.com>user@fishc.com</a>>'</em></td>
+</tr>
+<tr>
+<td>\</td>
+<td>下边列举了由字符 &lsquo;' 和另一个字符组成的特殊含义。注意，'' + 元字符的组合可以解除元字符的特殊功能</td>
+</tr>
+<tr>
+<td>\序号</td>
+<td>1. 引用序号对应的子组所匹配的字符串，子组的序号从 1 开始计算2. 如果序号是以 0 开头，或者 3 个数字的长度。那么不会被用于引用对应的子组，而是用于匹配八进制数字所表示的 ASCII 码值对应的字符<em>举个栗子：(.+) \1 会匹配 &ldquo;FishC FishC&rdquo; 或 &ldquo;55 55&rdquo;，但不会匹配 &ldquo;FishCFishC&rdquo;（注意，因为子组后边还有一个空格）</em></td>
+</tr>
+<tr>
+<td>\A</td>
+<td>匹配输入字符串的开始位置</td>
+</tr>
+<tr>
+<td>\Z</td>
+<td>匹配输入字符串的结束位置</td>
+</tr>
+<tr>
+<td>\b</td>
+<td>匹配一个单词边界，单词被定义为 Unidcode 的字母数字或下横线字符<em>举个栗子：\bFishC\b 会匹配字符串 &ldquo;love FishC&rdquo;、FishC." 或 &ldquo;(FishC)"</em></td>
+</tr>
+<tr>
+<td>\B</td>
+<td>匹配非单词边界，其实就是与 \b 相反<em>举个栗子：py\B 会匹配字符串 &ldquo;python&rdquo;、&ldquo;py3&rdquo;  或 &ldquo;py2&rdquo;，但不会匹配 &ldquo;py  &ldquo;、&ldquo;py.&rdquo; 或  &ldquo;py!"</em></td>
+</tr>
+<tr>
+<td>\d</td>
+<td>1. 对于 Unicode（str 类型）模式：匹配任何一个数字，包括 [0-9] 和其他数字字符；如果开启了 re.ASCII 标志，就只匹配 [0-9]2. 对于 8 位（bytes 类型）模式：匹配 [0-9] 中任何一个数字</td>
+</tr>
+<tr>
+<td>\D</td>
+<td>匹配任何非 Unicode 的数字，其实就是与 \d 相反；如果开启了 re.ASCII 标志，则相当于匹配 [^0-9]</td>
+</tr>
+<tr>
+<td>\s</td>
+<td>1. 对于 Unicode（str 类型）模式：匹配 Unicode 中的空白字符（包括 [ \t\n\r\f\v] 以及其他空白字符）；如果开启了 re.ASCII 标志，就只匹配 [ \t\n\r\f\v]2. 对于 8 位（bytes 类型）模式：匹配 ASCII 中定义的空白字符，即 [ \t\n\r\f\v]</td>
+</tr>
+<tr>
+<td>\S</td>
+<td>匹配任何非 Unicode 中的空白字符，其实就是与 \s 相反；如果开启了 re.ASCII 标志，则相当于匹配 [^ \t\n\r\f\v]</td>
+</tr>
+<tr>
+<td>\w</td>
+<td>1. 对于 Unicode（str 类型）模式：匹配任何 Unicode 的单词字符，基本上所有语言的字符都可以匹配，当然也包括数字和下横线；如果开启了 re.ASCII 标志，就只匹配 [a-zA-Z0-9_]2. 对于 8 位（bytes 类型）模式：匹配 ASCII 中定义的字母数字，即 [a-zA-Z0-9_]</td>
+</tr>
+<tr>
+<td>\W</td>
+<td>匹配任何非 Unicode 的单词字符，其实就是与 \w 相反；如果开启了 re.ASCII 标志，则相当于 [^a-zA-Z0-9_]</td>
+</tr>
+<tr>
+<td>转义符号</td>
+<td>正则表达式还支持大部分 Python 字符串的转义符号：\a，\b，\f，\n，\r，\t，\u，\U，\v，\x，\&lt;br/>注1：\b 通常用于匹配一个单词边界，只有在字符类中才表示“退格”注2：\u 和 \U 只有在 Unicode 模式下才会被识别注3：八进制转义（\数字）是有限制的，如果第一个数字是 0，或者如果有 3 个八进制数字，那么就被认为是八进制数；其他情况则被认为是子组引用；至于字符串，八进制转义总是最多只能是 3 个数字的长度</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class=pagination>
+<a class="btn previous" href=http://yuguo.im/post/2015/vim/> Prev</a>
+<a class="btn next" href=http://yuguo.im/post/2017/mysql/> Next</a>
+</div>
+</div>
+</div>
+<div class=footer>
+<p>Copyright@<a href=http://yuguo.im/about>Yuguo</a> 2019. Powered by <a href=https://gohugo.io/>Hugo</a>. This theme—Slim—is open sourced on <a href=https://github.com/zhe/hugo-theme-slim>Github</a>.</p>
+</div>
+</div>
+<script src=http://yuguo.im/js/slim.js></script>
+<script src=http://yuguo.im/js/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script>
+<script>(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)})(window,document,'script','//www.google-analytics.com/analytics.js','ga'),ga('create','UA-161689466-1','auto'),ga('send','pageview')</script>
+</body>
+</html>

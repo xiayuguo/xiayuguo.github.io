@@ -1,0 +1,120 @@
+<!doctype html><html>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<title> Export Mysql Table to Excel &#183; 随笔 </title>
+<link rel=stylesheet href=http://yuguo.im/css/slim.css>
+<link rel=stylesheet href=http://yuguo.im/css/highlight.min.css>
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro" rel=stylesheet type=text/css>
+<link rel=apple-touch-icon-precomposed sizes=144x144 href=/apple-touch-icon-144-precomposed.png>
+<link rel="shortcut icon" href=/favicon.ico>
+<link href rel=alternate type=application/rss+xml title=随笔>
+</head>
+<body>
+<div class=container>
+<div class=header>
+<h1 class=site-title><a href=http://yuguo.im/>随笔</a></h1>
+<p class=site-tagline>Stay hungry. Stay foolish.</p>
+<div class=nav>
+<a class=nav-btn href=#>
+<span class="ci ci-burger"></span>
+</a>
+<ul class=nav-list>
+<li class=spacer>&ac;</li>
+<li><a href=https://github.com/xiayuguo>Github</a></li>
+</ul>
+</div>
+</div>
+<div class=content>
+<div class=posts>
+<div class=post>
+<h2 class=post-title><a href=http://yuguo.im/post/2019/07/export-mysql-table-to-excel/>Export Mysql Table to Excel</a></h2>
+<span class=post-date>Jul 1, 2019 </span>
+<div class=post-content>
+<blockquote>
+<p>今天有同事问我怎么把<code>Mysql</code>某个表中的数据导出到<code>Excel</code>中？本以为<code>so easy</code>的事，结果踩了很多坑，记录下。</p>
+</blockquote>
+<h2 id=方法一-使用mysql-workbench导出csv>方法一: 使用<code>MySQL Workbench</code>导出<code>CSV</code></h2>
+<p><code>MySQL Workbench</code> 这个客户端软件是我一直使用的一款 MySQL 客户端, 超级强大。自然也少不了导入和导出的功能。具体导出的步骤请移步至<a href=https://dev.mysql.com/doc/workbench/en/wb-admin-export-import-table.html>官方文档</a>(图文并茂, 美滴很)</p>
+<p>在准备享受胜利果实的时候，使用<code>Excel</code>打开导出的<code>CSV</code>文件，我去，中文全都是乱码，怎么办呢？</p>
+<p>甭捉急，两步搞定乱码问题:</p>
+<ol>
+<li>使用记事本打开上述的CSV文件</li>
+<li>文件 => 另存为 => 选中编码为<code>ANSI</code> => 最后覆盖原文件，就好了</li>
+</ol>
+<h2 id=方法二-使用原生sql导出csv>方法二: 使用原生<code>SQL</code>导出<code>CSV</code></h2>
+<p>万变不离其宗，<code>SQL</code> 是一种更加原始粗暴的方案，但是更加实用，即使再花哨的工具，最后归根结底还是会回到这个位置。</p>
+<h3 id=语法>语法</h3>
+<pre tabindex=0><code>SELECT * FROM 表名
+INTO OUTFILE '输出的文件位置'
+FIELDS TERMINATED BY '字段分隔符(,)'
+ENCLOSED BY '字段包围符(&quot;)'
+LINES TERMINATED BY '行间分隔符(\n)';
+</code></pre><p>理想很丰满，现实很骨感。有了语法，执行时又遇到问题了。</p>
+<h4 id=问题一-secure-file-priv选项问题>问题一: secure-file-priv选项问题</h4>
+<pre tabindex=0><code>ERROR 1290 (HY000): The MySQL server is running with the --secure-file-priv option so it cannot execute this statement
+</code></pre><p>使用的<code>MySQL</code>版本<code>5.7</code>会遇到<code>--secure-file-priv</code>这个选项问题，<code>5.6</code>不会。</p>
+<ul>
+<li>secure-file-priv 选项值解释</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style=text-align:left>属性值</th>
+<th style=text-align:left>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style=text-align:left>NULL</td>
+<td style=text-align:left>限制mysqld不允许导入或导出</td>
+</tr>
+<tr>
+<td style=text-align:left>/tmp</td>
+<td style=text-align:left>限制mysqld只能在/tmp目录中执行导入导出，其他目录不能执行</td>
+</tr>
+<tr>
+<td style=text-align:left>无</td>
+<td style=text-align:left>不限制mysqld在任意目录的导入导出</td>
+</tr>
+</tbody>
+</table>
+<p>通过<code>show global variables like '%secure_file_priv%';</code>查询到我的配置属于限定目录导出，于是导出时指定到那个目录下就好了。</p>
+<h4 id=问题二-没有表头>问题二: 没有表头</h4>
+<p>没有表头，工具类导出做了此项优化，一般不存在这个问题。</p>
+<pre tabindex=0><code>/* Add column headers */
+SELECT 'A', 'B', 'C'
+
+UNION ALL
+
+/* Now the actual query */
+SELECT a, b, c 
+
+FROM `TABLENAME`
+
+/* Save the query results to a file */
+INTO OUTFILE '/tmp/orders.csv'
+FIELDS TERMINATED BY ','
+ENCLOSED BY '&quot;'
+LINES TERMINATED BY '\n';
+</code></pre><p>怎么做到的呢？通过<code>UNION ALL</code>将自定义表头和结果集合并。</p>
+<h2 id=反思>反思</h2>
+<p>永远不要我以为，我以为的就是我以为的吗？</p>
+</div>
+</div>
+<div class=pagination>
+<a class="btn previous" href=http://yuguo.im/post/2019/linux-shell-shortcut/> Prev</a>
+<a class="btn next" href=http://yuguo.im/post/2019/07/tar-zip-summary/> Next</a>
+</div>
+</div>
+</div>
+<div class=footer>
+<p>Copyright@<a href=http://yuguo.im/about>Yuguo</a> 2019. Powered by <a href=https://gohugo.io/>Hugo</a>. This theme—Slim—is open sourced on <a href=https://github.com/zhe/hugo-theme-slim>Github</a>.</p>
+</div>
+</div>
+<script src=http://yuguo.im/js/slim.js></script>
+<script src=http://yuguo.im/js/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script>
+<script>(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)})(window,document,'script','//www.google-analytics.com/analytics.js','ga'),ga('create','UA-161689466-1','auto'),ga('send','pageview')</script>
+</body>
+</html>

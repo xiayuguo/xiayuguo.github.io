@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Note on 随笔</title><link>http://yuguo.im/tags/note/</link><description>Recent content in Note on 随笔</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sat, 22 Apr 2017 22:53:29 +0000</lastBuildDate><atom:link href="http://yuguo.im/tags/note/index.xml" rel="self" type="application/rss+xml"/><item><title>Go学习笔记</title><link>http://yuguo.im/post/2017/go-note/</link><pubDate>Sat, 22 Apr 2017 22:53:29 +0000</pubDate><guid>http://yuguo.im/post/2017/go-note/</guid><description>&lt;h1 id="go笔记">Go笔记&lt;/h1>
+&lt;p>{% blockquote Go &lt;a href="https://golang.org">https://golang.org&lt;/a> Welcome to golang.org %}
+The Go programming language is an open source project to make programmers more productive.
+{% endblockquote %}&lt;/p>
+&lt;blockquote>
+&lt;p>Go编程语言是一个开源项目，使程序员更有成效&lt;/p>
+&lt;/blockquote></description></item></channel></rss>

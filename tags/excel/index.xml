@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Excel on 随笔</title><link>http://yuguo.im/tags/excel/</link><description>Recent content in Excel on 随笔</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Mon, 10 Apr 2017 18:48:49 +0000</lastBuildDate><atom:link href="http://yuguo.im/tags/excel/index.xml" rel="self" type="application/rss+xml"/><item><title>Python和Excel的不解之缘</title><link>http://yuguo.im/post/2017/python-excel/</link><pubDate>Mon, 10 Apr 2017 18:48:49 +0000</pubDate><guid>http://yuguo.im/post/2017/python-excel/</guid><description>&lt;h2 id="表格处理模块">表格处理模块&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="http://xlwt.readthedocs.io/en/latest/">xlwt (writing xls files)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="http://xlrd.readthedocs.io/en/latest/">xlrd (reading xls/xlsx files)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://openpyxl.readthedocs.io/en/default/">openpyxl (reading/writing xlsx files)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://xlsxwriter.readthedocs.io">xlsxwriter (writing xlsx files)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="http://www.python-excel.org/">more details&lt;/a>&lt;/li>
+&lt;/ul></description></item></channel></rss>

@@ -1,0 +1,226 @@
+<!doctype html><html>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<title> Golang 中格式化时间或日期[完整指南] &#183; 随笔 </title>
+<link rel=stylesheet href=http://yuguo.im/css/slim.css>
+<link rel=stylesheet href=http://yuguo.im/css/highlight.min.css>
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro" rel=stylesheet type=text/css>
+<link rel=apple-touch-icon-precomposed sizes=144x144 href=/apple-touch-icon-144-precomposed.png>
+<link rel="shortcut icon" href=/favicon.ico>
+<link href rel=alternate type=application/rss+xml title=随笔>
+</head>
+<body>
+<div class=container>
+<div class=header>
+<h1 class=site-title><a href=http://yuguo.im/>随笔</a></h1>
+<p class=site-tagline>Stay hungry. Stay foolish.</p>
+<div class=nav>
+<a class=nav-btn href=#>
+<span class="ci ci-burger"></span>
+</a>
+<ul class=nav-list>
+<li class=spacer>&ac;</li>
+<li><a href=https://github.com/xiayuguo>Github</a></li>
+</ul>
+</div>
+</div>
+<div class=content>
+<div class=posts>
+<div class=post>
+<h2 class=post-title><a href=http://yuguo.im/post/2020/04/format-parse-string-time-date-example/>Golang 中格式化时间或日期[完整指南]</a></h2>
+<span class=post-date>Apr 13, 2020 </span>
+<div class=post-content>
+<blockquote>
+<p>作者：Stefan Nilsson</p>
+<p>原文网址：https://yourbasic.org/golang/format-parse-string-time-date-example/</p>
+</blockquote>
+<p><img src=http://oss.xiayuguo.com/blog/202004/stopwatch.png alt></p>
+<h2 id=基本例子>基本例子</h2>
+<p>Go 不使用 <code>yyyy-mm-dd</code> 模式来格式化时间。而是，格式化一个特殊的参数</p>
+<p><code>Mon Jan 2 15:04:05 MST 2006</code></p>
+<p>与指定的时间或日期格式相同。(当写为 <code>01/02 03:04:05 PM 06 -0700</code> 时，这个日期更容易记住。美式的时间格式 月，日，时，分，秒，年排列起来依次是 1 2 3 4 5 6)</p>
+<pre tabindex=0><code>const (
+    layoutISO = &quot;2006-01-02&quot;
+    layoutUS  = &quot;January 2, 2006&quot;
+)
+date := &quot;1999-12-31&quot;
+t, _ := time.Parse(layoutISO, date)
+fmt.Println(t)                  // 1999-12-31 00:00:00 +0000 UTC
+fmt.Println(t.Format(layoutUS)) // December 31, 1999
+</code></pre><h2 id=标准时间和日期格式>标准时间和日期格式</h2>
+<table>
+<thead>
+<tr>
+<th style=text-align:left>Go 格式模板</th>
+<th style=text-align:left>注释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style=text-align:left>January 2, 2006</td>
+<td style=text-align:left>Date</td>
+</tr>
+<tr>
+<td style=text-align:left>01/02/06</td>
+<td></td>
+</tr>
+<tr>
+<td style=text-align:left>Jan-02-06</td>
+<td></td>
+</tr>
+<tr>
+<td style=text-align:left>15:04:05</td>
+<td style=text-align:left>Time</td>
+</tr>
+<tr>
+<td style=text-align:left>3:04:05 PM</td>
+<td></td>
+</tr>
+<tr>
+<td style=text-align:left>Jan _2 15:04:05</td>
+<td style=text-align:left>Timestamp</td>
+</tr>
+<tr>
+<td style=text-align:left>Jan _2 15:04:05.000000</td>
+<td style=text-align:left>with microseconds</td>
+</tr>
+<tr>
+<td style=text-align:left>2006-01-02T15:04:05-0700</td>
+<td style=text-align:left><a href=https://en.wikipedia.org/wiki/ISO_8601 title="ISO 8601">ISO 8601</a> (<a href=https://www.ietf.org/rfc/rfc3339.txt title="RFC 3339">RFC 3339</a>)</td>
+</tr>
+<tr>
+<td style=text-align:left>2006-01-02</td>
+<td></td>
+</tr>
+<tr>
+<td style=text-align:left>15:04:05</td>
+<td></td>
+</tr>
+<tr>
+<td style=text-align:left>02 Jan 06 15:04 MST</td>
+<td style=text-align:left><a href=https://www.ietf.org/rfc/rfc822.txt title="RFC 822">RFC 822</a></td>
+</tr>
+<tr>
+<td style=text-align:left>02 Jan 06 15:04 -0700</td>
+<td style=text-align:left>with numeric zone</td>
+</tr>
+<tr>
+<td style=text-align:left>Mon, 02 Jan 2006 15:04:05 MST</td>
+<td style=text-align:left><a href=https://www.ietf.org/rfc/rfc1123.txt title="RFC 1123">RFC 1123</a></td>
+</tr>
+<tr>
+<td style=text-align:left>Mon, 02 Jan 2006 15:04:05 -0700</td>
+<td style=text-align:left>with numeric zone</td>
+</tr>
+</tbody>
+</table>
+<p>以下预定义的日期和时间戳<a href=https://golang.org/pkg/time/#pkg-constants title=格式常量>格式常量</a>也可用。</p>
+<pre tabindex=0><code>ANSIC       = &quot;Mon Jan _2 15:04:05 2006&quot;
+UnixDate    = &quot;Mon Jan _2 15:04:05 MST 2006&quot;
+RubyDate    = &quot;Mon Jan 02 15:04:05 -0700 2006&quot;
+RFC822      = &quot;02 Jan 06 15:04 MST&quot;
+RFC822Z     = &quot;02 Jan 06 15:04 -0700&quot;
+RFC850      = &quot;Monday, 02-Jan-06 15:04:05 MST&quot;
+RFC1123     = &quot;Mon, 02 Jan 2006 15:04:05 MST&quot;
+RFC1123Z    = &quot;Mon, 02 Jan 2006 15:04:05 -0700&quot;
+RFC3339     = &quot;2006-01-02T15:04:05Z07:00&quot;
+RFC3339Nano = &quot;2006-01-02T15:04:05.999999999Z07:00&quot;
+Kitchen     = &quot;3:04PM&quot;
+// Handy time stamps.
+Stamp      = &quot;Jan _2 15:04:05&quot;
+StampMilli = &quot;Jan _2 15:04:05.000&quot;
+StampMicro = &quot;Jan _2 15:04:05.000000&quot;
+StampNano  = &quot;Jan _2 15:04:05.000000000&quot;
+</code></pre><h2 id=模式选项>模式选项</h2>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Options</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Year</td>
+<td>06   2006</td>
+</tr>
+<tr>
+<td>Month</td>
+<td>01   1   Jan   January</td>
+</tr>
+<tr>
+<td>Day</td>
+<td>02   2   _2   (width two, right justified)</td>
+</tr>
+<tr>
+<td>Weekday</td>
+<td>Mon   Monday</td>
+</tr>
+<tr>
+<td>Hours</td>
+<td>03   3   15</td>
+</tr>
+<tr>
+<td>Minutes</td>
+<td>04   4</td>
+</tr>
+<tr>
+<td>Seconds</td>
+<td>05   5</td>
+</tr>
+<tr>
+<td>ms μs ns</td>
+<td>.000   .000000   .000000000</td>
+</tr>
+<tr>
+<td>ms μs ns</td>
+<td>.999   .999999   .999999999   (trailing zeros removed)</td>
+</tr>
+<tr>
+<td>am/pm</td>
+<td>PM   pm</td>
+</tr>
+<tr>
+<td>Timezone</td>
+<td>MST</td>
+</tr>
+<tr>
+<td>Offset</td>
+<td>-0700   -07   -07:00   Z0700   Z07:00</td>
+</tr>
+</tbody>
+</table>
+<h2 id=个别案例>个别案例</h2>
+<ul>
+<li>
+<p>无法指定以 24 小时制显示不带前导零的小时。</p>
+</li>
+<li>
+<p>无法将午夜指定为 24:00，而不是 00:00。这样做的典型用法是提供开放时间至午夜，例如 07:00 - <strong>24</strong>:00。</p>
+</li>
+<li>
+<p>无法指定包含临界秒的时间：23:59:<strong>60</strong>。实际上，该时间包采用的是公历日历，没有临界秒。</p>
+</li>
+</ul>
+</div>
+</div>
+<div class=pagination>
+<a class="btn previous" href=http://yuguo.im/post/2020/03/shuffle-slice-array/> Prev</a>
+<a class="btn next" href=http://yuguo.im/post/2020/04/pwa-install/> Next</a>
+</div>
+</div>
+</div>
+<div id=disqus_thread></div>
+<script>var disqus_config=function(){this.page.url="http://yuguo.im/post/2020/04/format-parse-string-time-date-example/"};(function(){var a=document,b=a.createElement('script');b.src='//yuguo.disqus.com/embed.js',b.setAttribute('data-timestamp',+new Date),(a.head||a.body).appendChild(b)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments powered by Disqus.</a></noscript>
+<div class=footer>
+<p>Copyright@<a href=http://yuguo.im/about>Yuguo</a> 2019. Powered by <a href=https://gohugo.io/>Hugo</a>. This theme—Slim—is open sourced on <a href=https://github.com/zhe/hugo-theme-slim>Github</a>.</p>
+</div>
+</div>
+<script src=http://yuguo.im/js/slim.js></script>
+<script src=http://yuguo.im/js/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script>
+<script>(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)})(window,document,'script','//www.google-analytics.com/analytics.js','ga'),ga('create','UA-161689466-1','auto'),ga('send','pageview')</script>
+</body>
+</html>

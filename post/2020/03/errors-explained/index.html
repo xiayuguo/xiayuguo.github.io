@@ -1,0 +1,89 @@
+<!doctype html><html>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<title> Golang 错误处理最佳实践（译文） &#183; 随笔 </title>
+<link rel=stylesheet href=http://yuguo.im/css/slim.css>
+<link rel=stylesheet href=http://yuguo.im/css/highlight.min.css>
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro" rel=stylesheet type=text/css>
+<link rel=apple-touch-icon-precomposed sizes=144x144 href=/apple-touch-icon-144-precomposed.png>
+<link rel="shortcut icon" href=/favicon.ico>
+<link href rel=alternate type=application/rss+xml title=随笔>
+</head>
+<body>
+<div class=container>
+<div class=header>
+<h1 class=site-title><a href=http://yuguo.im/>随笔</a></h1>
+<p class=site-tagline>Stay hungry. Stay foolish.</p>
+<div class=nav>
+<a class=nav-btn href=#>
+<span class="ci ci-burger"></span>
+</a>
+<ul class=nav-list>
+<li class=spacer>&ac;</li>
+<li><a href=https://github.com/xiayuguo>Github</a></li>
+</ul>
+</div>
+</div>
+<div class=content>
+<div class=posts>
+<div class=post>
+<h2 class=post-title><a href=http://yuguo.im/post/2020/03/errors-explained/>Golang 错误处理最佳实践（译文）</a></h2>
+<span class=post-date>Mar 19, 2020 </span>
+<div class=post-content>
+<blockquote>
+<p>作者：Stefan Nilsson</p>
+<p>原文网址：https://yourbasic.org/golang/errors-explained/</p>
+</blockquote>
+<p><img src=http://oss.xiayuguo.com/blog/202003/errors.png alt></p>
+<p>Go 具有两种不同的错误处理机制：</p>
+<ul>
+<li>大多数函数返回 errors；</li>
+<li>只有真正无法恢复的条件（例如超出范围的索引）才会产生运行时异常，我们称之为 panic</li>
+</ul>
+<p>Go 的多值返回值使您可以轻松地在正常返回值旁边返回详细的错误消息。按照惯例，此类消息具有类型 <code>error</code>，这是一个简单的内置 interface：</p>
+<pre tabindex=0><code>type error interface {
+    Error() string
+}
+</code></pre><h2 id=错误处理示例>错误处理示例</h2>
+<p><code>os.Open</code> 函数无法打开文件时返回一个非 nil 错误值。</p>
+<pre tabindex=0><code>func Open(name string) (file *File, err error)
+</code></pre><p>以下代码使用 <code>os.Open</code> 打开文件。如果发生错误，它将调用 <code>log.Fatal</code> 打印错误消息并停止。</p>
+<pre tabindex=0><code>f, err := os.Open(&quot;filename.ext&quot;)
+if err != nil {
+    log.Fatal(err)
+}
+// do something with the open *File f
+</code></pre><h2 id=自定义错误>自定义错误</h2>
+<p>要创建简单的仅字符串 <code>error</code>，可以使用 <a href=https://golang.org/pkg/errors/#New title=errors.New>errors.New</a>：</p>
+<pre tabindex=0><code>err := errors.New(&quot;Houston, we have a problem&quot;)
+</code></pre><p><code>error</code> 接口仅需要一个 <code>Error</code> 方法，但是特定的 <code>error</code> 实现通常具有其他方法，从而允许调用方检查错误的详细信息。</p>
+<h4 id=学到更多>学到更多</h4>
+<p><img src=http://oss.xiayuguo.com/blog/202003/bug-small.png alt></p>
+<p>有关更多示例，请参见 <a href=https://xiayuguo.com/post/2020/03/create-error/ title="3 simple ways to create an error">3种创建错误的简单方法</a>。</p>
+<h2 id=panic>Panic</h2>
+<p>Panics 类似于 C++ 和 Java 异常，但仅适用于运行时错误，例如跟随一个 nil 指针或试图对数组访问超出范围的索引。</p>
+<h4 id=延伸阅读>延伸阅读</h4>
+<p><img src=http://oss.xiayuguo.com/blog/202003/panic-thumb.jpg alt></p>
+<p>有关如何从 panics 中恢复和测试 panics 的教程，请参见 <a href=https://xiayuguo.com/post/2020/03/recover-from-panic/ title="Recover from a panic">从 panic 中恢复</a>。</p>
+</div>
+</div>
+<div class=pagination>
+<a class="btn previous" href=http://yuguo.im/post/2020/03/recover-from-panic/> Prev</a>
+<a class="btn next" href=http://yuguo.im/post/2020/03/linux-ps-command-examples/> Next</a>
+</div>
+</div>
+</div>
+<div id=disqus_thread></div>
+<script>var disqus_config=function(){this.page.url="http://yuguo.im/post/2020/03/errors-explained/"};(function(){var a=document,b=a.createElement('script');b.src='//yuguo.disqus.com/embed.js',b.setAttribute('data-timestamp',+new Date),(a.head||a.body).appendChild(b)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments powered by Disqus.</a></noscript>
+<div class=footer>
+<p>Copyright@<a href=http://yuguo.im/about>Yuguo</a> 2019. Powered by <a href=https://gohugo.io/>Hugo</a>. This theme—Slim—is open sourced on <a href=https://github.com/zhe/hugo-theme-slim>Github</a>.</p>
+</div>
+</div>
+<script src=http://yuguo.im/js/slim.js></script>
+<script src=http://yuguo.im/js/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script>
+<script>(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)})(window,document,'script','//www.google-analytics.com/analytics.js','ga'),ga('create','UA-161689466-1','auto'),ga('send','pageview')</script>
+</body>
+</html>
