@@ -8,7 +8,7 @@ tags:
 + 雨果 / 男 / 1993
 + 本科
 + 2015.5 上线
-+ 博客: https://xiayuguo.com
++ 博客: https://yuguo.im
 + Github: https://github.com/xiayuguo
 
 
