@@ -24,4 +24,4 @@ tags:
 > 语言本身并不重要，解决问题的创新方法才是王道
 
 # 联系方式
-+ Email: hugoxia@126.com
++ Email: hi@yuguo.im
