@@ -5,6 +5,7 @@
 <title> Cannot open shared object file: Permission denied &#183; 随笔 </title>
 <link rel=stylesheet href=https://yuguo.im/css/slim.css>
 <link rel=stylesheet href=https://yuguo.im/css/highlight.min.css>
+<link rel=stylesheet href=https://yuguo.im/css/sspfont.css>
 <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro" rel=stylesheet type=text/css>
 <link rel=apple-touch-icon-precomposed sizes=144x144 href=/apple-touch-icon-144-precomposed.png>
 <link rel="shortcut icon" href=/favicon.ico>
@@ -23,6 +24,7 @@
 <li class=spacer>&ac;</li>
 <li><a href=https://github.com/xiayuguo>Github</a></li>
 <li><a href=https://twitter.com/yuguo_im>Twitter</a></li>
+<li><a href=/index.xml>RSS</a>
 </ul>
 </div>
 </div>
@@ -54,6 +56,10 @@ mysqld: error while loading shared libraries: libpthread.so.0: cannot open share
 </code></pre><h3 id=解决方案>解决方案</h3>
 <p>解决过程中, 尝试各种以 <code>权限</code> 为中心的解决办法，均无效，有的网站上把 <code>/usr/bin</code> 的权限放开后就可以了，但是本人尝试无效。大家也可以试试。</p>
 <p><strong>终极方案: 升级 <code>Ubuntu</code> 系统到 <code>16.04</code></strong>, 具体升级方法，大家可以参考这篇<a href=https://www.digitalocean.com/community/tutorials/how-to-upgrade-to-ubuntu-16-04-lts>文章</a>, 写的很细。</p>
+<div>
+<p>扫描下方二维码，关注<code style=color:#1aad19;font-weight:700>Feed</code>， 定期推送最新随笔</p>
+<img src=http://oss.xiayuguo.com/wechat_qrcode.jpg style=width:215px;height:215px alt="公众号 Feed 二维码">
+</div>
 </div>
 </div>
 <div class=pagination>
@@ -66,7 +72,6 @@ mysqld: error while loading shared libraries: libpthread.so.0: cannot open share
 <p>Copyright@<a href=https://yuguo.im/about>Yuguo</a> 2022. Powered by <a href=https://gohugo.io/>Hugo</a>. This theme—Slim—is open sourced on <a href=https://github.com/zhe/hugo-theme-slim>Github</a>.</p>
 </div>
 </div>
-<script src=https://yuguo.im/js/slim.js></script>
 <script src=https://yuguo.im/js/highlight.min.js></script>
 <script>hljs.initHighlightingOnLoad()</script>
 <script>(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)})(window,document,'script','//www.google-analytics.com/analytics.js','ga'),ga('create','UA-161689466-1','auto'),ga('send','pageview')</script>

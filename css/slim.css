@@ -365,3 +365,21 @@ button,
 	color: #ccc;
 }
 
+.nav-search {
+  position: absolute;
+  top: 0;
+  right: 26px;
+  width: 300px;
+  text-align: left;
+  border: none;
+  border: solid 4.25px #ffffff;
+  line-height: 1.25;
+  border-radius: 4px;
+}
+
+.search{
+    background: #f9f9f9;
+    width: 300px;
+    position: absolute;
+    top: 26px;
+}
