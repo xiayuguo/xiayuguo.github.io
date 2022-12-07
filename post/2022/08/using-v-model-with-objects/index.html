@@ -1,0 +1,69 @@
+<!doctype html><html>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<title> Vue.js：自定义组件中对 objects 使用 v-model（译文） &#183; 随笔 </title>
+<link rel=stylesheet href=https://yuguo.im/css/slim.css>
+<link rel=stylesheet href=https://yuguo.im/css/highlight.min.css>
+<link rel=stylesheet href=https://yuguo.im/css/sspfont.css>
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro" rel=stylesheet type=text/css>
+<link rel=apple-touch-icon-precomposed sizes=144x144 href=/apple-touch-icon-144-precomposed.png>
+<link rel="shortcut icon" href=/favicon.ico>
+<link href rel=alternate type=application/rss+xml title=随笔>
+</head>
+<body>
+<div class=container>
+<div class=header>
+<h1 class=site-title><a href=https://yuguo.im/>随笔</a></h1>
+<p class=site-tagline>Stay hungry. Stay foolish.</p>
+<div class=nav>
+<a class=nav-btn href=#>
+<span class="ci ci-burger"></span>
+</a>
+<ul class=nav-list>
+<li class=spacer>&ac;</li>
+<li><a href=https://github.com/xiayuguo>Github</a></li>
+<li><a href=https://twitter.com/yuguo_im>Twitter</a></li>
+<li><a href=/index.xml>RSS</a>
+</ul>
+</div>
+</div>
+<div class=content>
+<div class=posts>
+<div class=post>
+<h2 class=post-title><a href=https://yuguo.im/post/2022/08/using-v-model-with-objects/>Vue.js：自定义组件中对 objects 使用 v-model（译文）</a></h2>
+<span class=post-date>Aug 29, 2022 </span>
+<div class=post-content>
+<blockquote>
+<p>作者：Simon Kollross</p>
+<p>原文网址：https://simonkollross.de/posts/vuejs-using-v-model-with-objects-for-custom-components</p>
+</blockquote>
+<p>组件是 Vue.js 最强大的特性。它们允许您将应用程序构建为可重复使用的小型单元，您可以再次使用这些单元来构建新功能。</p>
+<p>在构建 SimpleSell 时，我需要捆绑一堆输入字段的自定义组件。它们的行为应该像可重用的输入控件，而它们的状态由对象提供。</p>
+<h1 id=v-model-基础>v-model 基础</h1>
+<p>你当然知道 v-model，这个属性让你的大部分输入元素都能正常工作。但是你知道也可以使用 v-model 作为自己组件的接口吗？</p>
+<p>为了更好地理解，让我们看一些基础知识。</p>
+<pre tabindex=0><code>&lt;input type=&quot;text&quot; v-model=&quot;value&quot;&gt;
+</code></pre><p>v-model 无非就是下面的语法糖。</p>
+<pre tabindex=0><code>&lt;input type=&quot;text&quot; :value=&quot;value&quot; @input=&quot;e =&gt; value = e.target.value&quot;&gt;
+</code></pre><p>首先我们有 <code>:value</code> 绑定。它提供输入字段的值。其次是 <code>@input</code> 事件。一旦触发了输入事件，我们就用输入元素的当前值更新模型的数据属性值。您也可以使用缩写：<code>@input="value = $event.target.value"</code>。</p>
+<div>
+<p>扫描下方二维码，关注<code style=color:#1aad19;font-weight:700>Feed</code>， 定期推送最新随笔</p>
+<img src=http://oss.xiayuguo.com/wechat_qrcode.jpg style=width:215px;height:215px alt="公众号 Feed 二维码">
+</div>
+</div>
+</div>
+<div class=pagination>
+<a class="btn previous" href=https://yuguo.im/post/2020/04/iota/> Prev</a>
+</div>
+</div>
+</div>
+<div class=footer>
+<p>Copyright@<a href=https://yuguo.im/about>Yuguo</a> 2022. Powered by <a href=https://gohugo.io/>Hugo</a>. This theme—Slim—is open sourced on <a href=https://github.com/zhe/hugo-theme-slim>Github</a>.</p>
+</div>
+</div>
+<script src=https://yuguo.im/js/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script>
+<script>(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)})(window,document,'script','//www.google-analytics.com/analytics.js','ga'),ga('create','UA-161689466-1','auto'),ga('send','pageview')</script>
+</body>
+</html>

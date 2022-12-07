@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Vue.js on 随笔</title><link>https://yuguo.im/tags/vue.js/</link><description>Recent content in Vue.js on 随笔</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Mon, 29 Aug 2022 20:43:15 +0800</lastBuildDate><atom:link href="https://yuguo.im/tags/vue.js/index.xml" rel="self" type="application/rss+xml"/><item><title>Vue.js：自定义组件中对 objects 使用 v-model（译文）</title><link>https://yuguo.im/post/2022/08/using-v-model-with-objects/</link><pubDate>Mon, 29 Aug 2022 20:43:15 +0800</pubDate><guid>https://yuguo.im/post/2022/08/using-v-model-with-objects/</guid><description>作者：Simon Kollross
+原文网址：https://simonkollross.de/posts/vuejs-using-v-model-with-objects-for-custom-components
+组件是 Vue.js 最强大的特性。它们允许您将应用程序构建为可重复使用的小型单元，您可以再次使用这些单元来构建新功能。
+在构建 SimpleSell 时，我需要捆绑一堆输入字段的自定义组件。它们的行为应该像可重用的输入控件，而它们的状态由对象提供。
+v-model 基础 你当然知道 v-model，这个属性让你的大部分输入元素都能正常工作。但是你知道也可以使用 v-model 作为自己组件的接口吗？
+为了更好地理解，让我们看一些基础知识。
+&amp;lt;input type=&amp;quot;text&amp;quot; v-model=&amp;quot;value&amp;quot;&amp;gt; v-model 无非就是下面的语法糖。
+&amp;lt;input type=&amp;quot;text&amp;quot; :value=&amp;quot;value&amp;quot; @input=&amp;quot;e =&amp;gt; value = e.target.value&amp;quot;&amp;gt; 首先我们有 :value 绑定。它提供输入字段的值。其次是 @input 事件。一旦触发了输入事件，我们就用输入元素的当前值更新模型的数据属性值。您也可以使用缩写：@input=&amp;quot;value = $event.target.value&amp;quot;。</description></item></channel></rss>
