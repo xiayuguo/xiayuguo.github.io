@@ -1,7 +1,7 @@
 ---
 title: Vue.js：自定义组件中对 objects 使用 v-model（译文）
 date: 2022-08-29T20:43:15+08:00
-draft: false
+draft: true
 comments: false
 tags: 
 - Vue.js
