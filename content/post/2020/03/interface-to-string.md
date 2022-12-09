@@ -26,6 +26,6 @@ fmt.Println(str) // "[1 2 3]"
 ```
 
 ## Fmt 备忘单
-![](http://oss.xiayuguo.com/blog/202003/format-thumb.jpg)
+![](http://oss.yuguo.im/blog/202003/format-thumb.jpg)
 
 [顶级 fmt 格式化技巧](https://yourbasic.org/golang/fmt-printf-reference-cheat-sheet/ "顶级 fmt 格式化技巧")

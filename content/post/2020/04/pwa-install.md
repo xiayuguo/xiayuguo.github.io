@@ -13,7 +13,7 @@ tags:
 > 
 > 原文地址：https://web.dev/install-criteria/
 
-![](http://oss.xiayuguo.com/blog/202004/pwa.svg)
+![](http://oss.yuguo.im/blog/202004/pwa.svg)
 
 许多浏览器会向用户表明，当您的渐进式 Web 应用程序（PWA）满足特定条件时，可以安装该程序。示例包括地址栏中的“安装”按钮或弹出菜单中的“安装”菜单项。另外，满足条件时，许多浏览器都会触发 `beforeinstallprompt` 事件，使您可以直接从 PWA 启用安装流程。
 

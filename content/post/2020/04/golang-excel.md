@@ -8,7 +8,7 @@ tags:
 ---
 Microsoft Excel™ (XLSX) 是广泛使用的一种电子表格格式。
 
-![](http://oss.xiayuguo.com/blog/202004/golang-excel.png)
+![](http://oss.yuguo.im/blog/202004/golang-excel.png)
 
 Github 上有两个 Golang 包可以方便读写 Excel 文件。
 
@@ -100,7 +100,7 @@ func main() {
 }
 ```
 打开浏览器访问 `http://localhost:8080/testExport`, 直接下载文件 `text.xlsx`。
-![](http://oss.xiayuguo.com/blog/202004/golang-excel-result.png)
+![](http://oss.yuguo.im/blog/202004/golang-excel-result.png)
 
 ### 读取 Excel 文档
 #### 官方示例

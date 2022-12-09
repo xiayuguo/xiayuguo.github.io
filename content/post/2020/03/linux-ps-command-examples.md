@@ -180,7 +180,7 @@ root 950 0.0 0.8 102312 15580 ? S 09:49 0:00 \_ /sbin/dhclient -d -sf /usr/libex
 root 3154 0.0 0.8 898940 15300 ? Sl 10:00 0:00 /usr/libexec/evolution-calendar-factory
 root 3020 0.0 0.8 551480 16420 ? Sl 10:00 0:00 /usr/libexec/goa-daemon
 ```
-![](http://oss.xiayuguo.com/blog/202003/ps-memory.webp)
+![](http://oss.yuguo.im/blog/202003/ps-memory.webp)
 
 ## 6. 按名称或进程ID过滤进程
 为此，我们可以使用 `-C` 选项, 关键字放在它后面。假设我们要显示名为 getty 的进程。我们可以输入：
@@ -251,13 +251,13 @@ PID %CPU %MEM USER COMMAND
 $ ps -axjf
 ```
 
-![按层次显示](http://oss.xiayuguo.com/blog/202003/ps_axjf.webp)
+![按层次显示](http://oss.yuguo.im/blog/202003/ps_axjf.webp)
 
 或者，我们可以使用的另一个命令是 `pstree`
 
 $ pstree
 
-![按层次显示信息](http://oss.xiayuguo.com/blog/202003/pstree.webp)
+![按层次显示信息](http://oss.yuguo.im/blog/202003/pstree.webp)
 
 ## 11. 显示进程持续运行时间
 这将显示一个进程在系统上运行了多长时间。
@@ -300,7 +300,7 @@ $ ps -eo pid,user,args
 ```
 `-e` 选项将显示所有进程，同时 `-o` 选项将控制输出。Pid, User 和 Args 将向您显示 进程 ID, 运行应用的用户和正在运行的应用。
 
-![显示安全信息](http://oss.xiayuguo.com/blog/202003/ps_security_1.webp)
+![显示安全信息](http://oss.yuguo.im/blog/202003/ps_security_1.webp)
 
 可以与 `-e` 选项一起使用的关键字/用户定义格式为 `args，cmd，comm，command，fname，ucmd，ucomm，lstart，bsdstart and start`。
 
@@ -323,7 +323,7 @@ $ ps -U root -u root u
 
 这是上面命令的输出。
 
-![显示真实有效的用户ID](http://oss.xiayuguo.com/blog/202003/ps_root_real_effective_ID.webp)
+![显示真实有效的用户ID](http://oss.yuguo.im/blog/202003/ps_root_real_effective_ID.webp)
 
 ## 14. 在实时进程查看器中使用 PS
 
@@ -335,14 +335,14 @@ ps 将显示有关系统中发生的情况的报告。结果将是静态报告�
 $ watch -n 1 'ps -aux --sort -pmem,-pcpu'
 ```
 
-![](http://oss.xiayuguo.com/blog/202003/watch-ps-1.png)
+![](http://oss.yuguo.im/blog/202003/watch-ps-1.png)
 
 如果您认为报告太长，我们可以将其限制为前 20 个流程，例如：我们可以添加 `head` 命令来做到这一点。
 ```
 $ watch -n 1 'ps -aux --sort -pmem,-pcpu | head -n 20'
 ```
 
-![](http://oss.xiayuguo.com/blog/202003/watch-ps-20.png)
+![](http://oss.yuguo.im/blog/202003/watch-ps-20.png)
 
 这位现场记者当然不像 top 或 htop。但是使用 ps 进行实时报告的优点是您可以自定义字段。您可以选择要查看的字段。
 
@@ -351,5 +351,5 @@ $ watch -n 1 'ps -aux --sort -pmem,-pcpu | head -n 20'
 $ watch -n 1 'ps -aux -U pungki u --sort -pmem,-pcpu | head -n 20'
 ```
 
-![](http://oss.xiayuguo.com/blog/202003/ps_watch_3.webp)
+![](http://oss.yuguo.im/blog/202003/ps_watch_3.webp)
 对于更多文档，您可以在 Linux 控制台上键入 `man ps` 来探索更多选项。

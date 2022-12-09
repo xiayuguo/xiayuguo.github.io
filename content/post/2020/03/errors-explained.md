@@ -11,7 +11,7 @@ tags:
 > 
 > 原文网址：https://yourbasic.org/golang/errors-explained/
 
-![](http://oss.xiayuguo.com/blog/202003/errors.png)
+![](http://oss.yuguo.im/blog/202003/errors.png)
 
 Go 具有两种不同的错误处理机制：
 
@@ -49,14 +49,14 @@ err := errors.New("Houston, we have a problem")
 `error` 接口仅需要一个 `Error` 方法，但是特定的 `error` 实现通常具有其他方法，从而允许调用方检查错误的详细信息。
 
 #### 学到更多
-![](http://oss.xiayuguo.com/blog/202003/bug-small.png)
+![](http://oss.yuguo.im/blog/202003/bug-small.png)
 
-有关更多示例，请参见 [3种创建错误的简单方法](https://xiayuguo.com/post/2020/03/create-error/ "3 simple ways to create an error")。
+有关更多示例，请参见 [3种创建错误的简单方法](https://yuguo.im/post/2020/03/create-error/ "3 simple ways to create an error")。
 
 ## Panic
 Panics 类似于 C++ 和 Java 异常，但仅适用于运行时错误，例如跟随一个 nil 指针或试图对数组访问超出范围的索引。
 
 #### 延伸阅读
-![](http://oss.xiayuguo.com/blog/202003/panic-thumb.jpg)
+![](http://oss.yuguo.im/blog/202003/panic-thumb.jpg)
 
-有关如何从 panics 中恢复和测试 panics 的教程，请参见 [从 panic 中恢复](https://xiayuguo.com/post/2020/03/recover-from-panic/ "Recover from a panic")。
+有关如何从 panics 中恢复和测试 panics 的教程，请参见 [从 panic 中恢复](https://yuguo.im/post/2020/03/recover-from-panic/ "Recover from a panic")。

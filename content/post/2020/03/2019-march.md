@@ -10,13 +10,13 @@ tags:
 去年的三月份，算是踏入初春，天气微热，百花盛开，正是踏青的好时节。我们一起去“杀”草莓。
 
 # First blood 
-![](http://oss.xiayuguo.com/blog/202003/one-strawberry.jpg)
+![](http://oss.yuguo.im/blog/202003/one-strawberry.jpg)
 
 # Double kill 
-![](http://oss.xiayuguo.com/blog/202003/double-strawberry.jpg)
+![](http://oss.yuguo.im/blog/202003/double-strawberry.jpg)
 
 # Legendary
-![](http://oss.xiayuguo.com/blog/202003/multi-strawberry.jpg)
+![](http://oss.yuguo.im/blog/202003/multi-strawberry.jpg)
 
 # Lovey dovey
-![](http://oss.xiayuguo.com/blog/202003/double.jpg)
+![](http://oss.yuguo.im/blog/202003/double.jpg)

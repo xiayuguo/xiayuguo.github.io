@@ -13,7 +13,7 @@ tags:
 > 
 > 原文网址：https://yourbasic.org/golang/type-assertion-switch/
 
-![](http://oss.xiayuguo.com/blog/202003/thumbs-up.jpg)
+![](http://oss.yuguo.im/blog/202003/thumbs-up.jpg)
 
 ## 类型断言
 类型断言并不能真正将 `interface` 转换为另一种数据类型，但是可以访问 `interface` 的具体值，而这正是您所希望的。

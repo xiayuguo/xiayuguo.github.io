@@ -11,7 +11,7 @@ theme = "slim"
   GithubID = "xiayuguo"
   TwitterID = "yuguo_im"
   AnalyticsID = "UA-161689466-1"
-  DisqusShortname = "yuguo"
+  # DisqusShortname = "yuguo"
   Summary = false  # takes true or false
   Content = false  # takes true or false
   # if both are set to true, summary is shown.

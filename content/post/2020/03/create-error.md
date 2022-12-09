@@ -11,7 +11,7 @@ tags:
 > 
 > 原文网址：https://yourbasic.org/golang/create-error/
 
-![](http://oss.xiayuguo.com/blog/202003/bug-small.png)
+![](http://oss.yuguo.im/blog/202003/bug-small.png)
 
 ## 基于字符串的错误
 标准库提供了两个现成的选项。

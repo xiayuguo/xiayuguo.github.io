@@ -11,7 +11,7 @@ tags:
 > 
 > 原文网址：https://yourbasic.org/golang/rune
 
-![Runic letters encoded in stone, Ballstorp 1900](http://oss.xiayuguo.com/blog/202003/rune-stone-ballstorp-1900.jpg)
+![Runic letters encoded in stone, Ballstorp 1900](http://oss.yuguo.im/blog/202003/rune-stone-ballstorp-1900.jpg)
 
 ## 字符，ASCII 和 Unicode
 `rune` 类型是 `int32` 的别名，用于强调其代表的是码位（code point），而不是整数。

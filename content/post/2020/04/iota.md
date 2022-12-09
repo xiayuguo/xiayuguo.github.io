@@ -11,7 +11,7 @@ tags:
 > 
 > 原文网址：https://yourbasic.org/golang/iota/
 
-![](http://oss.xiayuguo.com/blog/202004/lane-numbers.jpg)
+![](http://oss.yuguo.im/blog/202004/lane-numbers.jpg)
 
 ## iota 基本示例
 - `iota` 关键字表示连续的整数常量0、1、2，...

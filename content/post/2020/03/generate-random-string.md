@@ -11,7 +11,7 @@ tags:
 > 
 > 原文网址：https://yourbasic.org/golang/generate-random-string/
 
-![](http://oss.xiayuguo.com/blog/202003/password-generator.jpg)
+![](http://oss.yuguo.im/blog/202003/password-generator.jpg)
 
 ## 随机字符串
 该代码从瑞典语字母（包括非 ASCII 字符 å， ä 和 ö ）中生成一个随机的数字和字符字符串。
@@ -27,7 +27,7 @@ for i := 0; i < length; i++ {
 }
 str := b.String() // E.g. "ExcbsVQs"
 ```
-> 警告：要生成密码，应使用加密安全的伪随机数。请参阅 [User-friendly access to crypto/rand](https://xiayuguo.com/post/2020/03/crypto-rand-int "User-friendly access to crypto/rand")。
+> 警告：要生成密码，应使用加密安全的伪随机数。请参阅 [User-friendly access to crypto/rand](https://yuguo.im/post/2020/03/crypto-rand-int "User-friendly access to crypto/rand")。
 
 ## 有限制的随机字符串
 此代码生成一个随机的 ASCII 字符串，该字符串至少包含一个数字和一个特殊字符。
@@ -60,5 +60,5 @@ for i := len(buf) - 1; i > 0; i-- { // Fisher–Yates shuffle
 ```
 
 ## 延伸阅读
-![](http://oss.xiayuguo.com/blog/202003/dart.jpg)
-[Golang 中生成随机数，字符和切片元素（译文）](https://xiayuguo.com/post/2020/03/generate-number-random-range "Golang 中生成随机数，字符和切片元素（译文）")
+![](http://oss.yuguo.im/blog/202003/dart.jpg)
+[Golang 中生成随机数，字符和切片元素（译文）](https://yuguo.im/post/2020/03/generate-number-random-range "Golang 中生成随机数，字符和切片元素（译文）")

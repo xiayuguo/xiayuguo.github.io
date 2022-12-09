@@ -11,7 +11,7 @@ tags:
 > 
 > 原文网址：https://yourbasic.org/golang/format-parse-string-time-date-example/
 
-![](http://oss.xiayuguo.com/blog/202004/stopwatch.png)
+![](http://oss.yuguo.im/blog/202004/stopwatch.png)
 
 ## 基本例子
 Go 不使用 `yyyy-mm-dd` 模式来格式化时间。而是，格式化一个特殊的参数 

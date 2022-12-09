@@ -11,7 +11,7 @@ tags:
 > 
 > 原文网址：https://yourbasic.org/golang/how-to-sort-in-go/
 
-![](http://oss.xiayuguo.com/blog/202004/sorted-ring-binders.jpg)
+![](http://oss.yuguo.im/blog/202004/sorted-ring-binders.jpg)
 
 ## 对整数，浮点数或字符串的切片进行排序
 

@@ -11,7 +11,7 @@ tags:
 > 
 > 原文网址：https://yourbasic.org/golang/crypto-rand-int/
 
-![](http://oss.xiayuguo.com/blog/202003/programmer.jpg)
+![](http://oss.yuguo.im/blog/202003/programmer.jpg)
 
 Go 有两个用于随机数的包：
 

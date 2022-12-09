@@ -11,7 +11,7 @@ tags:
 > 
 > 原文网址：https://yourbasic.org/golang/convert-int-to-string/
 
-![](http://oss.xiayuguo.com/blog/202003/numbers-1-2-3.jpg)
+![](http://oss.yuguo.im/blog/202003/numbers-1-2-3.jpg)
 
 ## int/int64 转字符串
 使用 [strconv.Itoa](https://golang.org/pkg/strconv/#Itoa "strconv.Itoa") 将 int 转换为十进制字符串。

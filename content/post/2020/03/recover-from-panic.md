@@ -11,7 +11,7 @@ tags:
 > 
 > 原文网址：https://yourbasic.org/golang/recover-from-panic/
 
-![](http://oss.xiayuguo.com/blog/202003/panic-thumb.jpg)
+![](http://oss.yuguo.im/blog/202003/panic-thumb.jpg)
 
 ## Panic 是 Go 中的一个异常
 
@@ -76,7 +76,7 @@ created by testing.(*T).Run
 - `GOTRACEBACK = system` 与其他系统一样，但是为运行时函数添加了堆栈框架，并显示了运行时在内部创建的 goroutine。
 
 ## 恢复和捕获 Panic
-![](http://oss.xiayuguo.com//blog/202003/extinguish-fire.jpg)
+![](http://oss.yuguo.im//blog/202003/extinguish-fire.jpg)
 
 内置的 recover 函数可用于重新获得对异常程序的控制并恢复正常执行。
 
@@ -141,7 +141,7 @@ main received 2
 ```
 
 ## 测试 Panic（实用功能）
-![](http://oss.xiayuguo.com//blog/202003/panic-button.jpg)
+![](http://oss.yuguo.im//blog/202003/panic-button.jpg)
 
 在此示例中，我们使用反射来检查接口变量列表是否具有与给定函数的参数相对应的类型。如果是这样，我们使用这些参数调用该函数以检查是否有 panic。
 

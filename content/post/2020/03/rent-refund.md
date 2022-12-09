@@ -16,7 +16,7 @@ tags:
 
 下午：13:30 —— 17:00
 
-![](http://oss.xiayuguo.com/blog/202003/refund-time.jpg)
+![](http://oss.yuguo.im/blog/202003/refund-time.jpg)
 
 ## 准备材料
 - 身份证原件及复印件（多打印几份，备用）
@@ -27,13 +27,13 @@ tags:
 - 最近一个季度的收据，也就是对应免租期间的收据。
 
 注意：如果找不到收据，也没有关系，准备好一份声明，这份声明写在身份证复印件的背面（这里我又踩了一个坑，誊写时由于时早上排队时写的，比较潦草，人家拒绝接受，另外尽量保持字迹工整，不能有修改，写的时候细心一点），下面是声明的内容。(下图有个信息是错误的，地址不对，应该是软件公寓 A 区，不是 D 区)
-![](http://oss.xiayuguo.com/blog/202003/refund-discription.jpg)
+![](http://oss.yuguo.im/blog/202003/refund-discription.jpg)
 
 ## 其他
 1. 即使减免租金了，物业费少不了，到时需要缴纳物业费；
 2. 去年 3 月份签订了再延期一年的同志们，即使不要求退款，4 月 30 日之前必须退房，无法延期；
 3. 周末办理这个手续的人比较多，大家看好自己的时间，我排队大概花了 40 分钟才轮到我
 4. 退租金相关资料
-![](http://oss.xiayuguo.com/blog/202003/refund-remarks.jpg)
+![](http://oss.yuguo.im/blog/202003/refund-remarks.jpg)
 5. 退房相关手续相关资料
-![](http://oss.xiayuguo.com/blog/202003/tuifang.jpg)
+![](http://oss.yuguo.im/blog/202003/tuifang.jpg)

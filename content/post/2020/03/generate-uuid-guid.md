@@ -11,7 +11,7 @@ tags:
 > 
 > 原文网址：https://yourbasic.org/golang/generate-uuid-guid/
 
-![](http://oss.xiayuguo.com/blog/202003/fingerprint-keyboard.jpg)
+![](http://oss.yuguo.im/blog/202003/fingerprint-keyboard.jpg)
 
 通用唯一标识符 UUID（universally unique identifier）或全局唯一标识符 GUID （globally unique identifier）是用于标识信息的 128 位数字。
 - UUID 是唯一的(出于实用目的)：它重复的概率非常接近零。
@@ -44,5 +44,5 @@ fmt.Println(uuid)
 > 警告：如果系统底层调用失败，则 `rand.Read` 调用将返回错误。例如，如果它在 `Unix` 系统上不能读取 `/dev/urandom`，或者在 `Windows` 系统上 [CryptAcquireContext](https://msdn.microsoft.com/en-us/library/windows/desktop/aa379886(v=vs.85).aspx "CryptAcquireContext") 调用失败。
 
 ## 延伸阅读
-![](http://oss.xiayuguo.com/blog/202003/dart.jpg)
-[Golang 中生成随机数，字符和切片元素（译文）](https://xiayuguo.com/post/2020/03/generate-number-random-range "Golang 中生成随机数，字符和切片元素（译文）")
+![](http://oss.yuguo.im/blog/202003/dart.jpg)
+[Golang 中生成随机数，字符和切片元素（译文）](https://yuguo.im/post/2020/03/generate-number-random-range "Golang 中生成随机数，字符和切片元素（译文）")

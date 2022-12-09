@@ -11,7 +11,7 @@ tags:
 > 
 > 原文网址：https://yourbasic.org/golang/generate-number-random-range/
 
-![](http://oss.xiayuguo.com/blog/202003/dart.jpg)
+![](http://oss.yuguo.im/blog/202003/dart.jpg)
 
 ## Go 伪随机数基础知识
 使用包 [math/rand](https://golang.org/pkg/math/rand/ "math/rand") 中的 [rand.Seed](https://golang.org/pkg/math/rand/#Seed "rand.Seed") 和 [rand.Int63](https://golang.org/pkg/math/rand/#Int63 "rand.Int63") 函数生成 int64 类型的非负伪随机数：
@@ -60,5 +60,5 @@ c := chars[rand.Intn(len(chars))] // for example '⌘'
 ```
 
 #### 延伸阅读
-![Runic letters encoded in stone, Ballstorp 1900](http://oss.xiayuguo.com/blog/202003/rune-stone-ballstorp-1900.jpg)
-[Runes 和字符编码（译文）](https://xiayuguo.com/post/2020/03/rune/ "Runes 和字符编码（译文）")
+![Runic letters encoded in stone, Ballstorp 1900](http://oss.yuguo.im/blog/202003/rune-stone-ballstorp-1900.jpg)
+[Runes 和字符编码（译文）](https://yuguo.im/post/2020/03/rune/ "Runes 和字符编码（译文）")

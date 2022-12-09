@@ -67,6 +67,6 @@ s := fmt.Sprintf("%f", 123.456) // s == "123.456000"
 
 
 ## Fmt 备忘单
-![](http://oss.xiayuguo.com/blog/202003/format-thumb.jpg)
+![](http://oss.yuguo.im/blog/202003/format-thumb.jpg)
 
 [How to format with fmt](https://yourbasic.org/golang/fmt-printf-reference-cheat-sheet/ "How to format with fmt")
