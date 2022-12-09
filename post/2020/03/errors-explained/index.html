@@ -38,7 +38,7 @@
 <p>作者：Stefan Nilsson</p>
 <p>原文网址：https://yourbasic.org/golang/errors-explained/</p>
 </blockquote>
-<p><img src=http://oss.xiayuguo.com/blog/202003/errors.png alt></p>
+<p><img src=http://oss.yuguo.im/blog/202003/errors.png alt></p>
 <p>Go 具有两种不同的错误处理机制：</p>
 <ul>
 <li>大多数函数返回 errors；</li>
@@ -62,13 +62,13 @@ if err != nil {
 <pre tabindex=0><code>err := errors.New(&quot;Houston, we have a problem&quot;)
 </code></pre><p><code>error</code> 接口仅需要一个 <code>Error</code> 方法，但是特定的 <code>error</code> 实现通常具有其他方法，从而允许调用方检查错误的详细信息。</p>
 <h4 id=学到更多>学到更多</h4>
-<p><img src=http://oss.xiayuguo.com/blog/202003/bug-small.png alt></p>
-<p>有关更多示例，请参见 <a href=https://xiayuguo.com/post/2020/03/create-error/ title="3 simple ways to create an error">3种创建错误的简单方法</a>。</p>
+<p><img src=http://oss.yuguo.im/blog/202003/bug-small.png alt></p>
+<p>有关更多示例，请参见 <a href=https://yuguo.im/post/2020/03/create-error/ title="3 simple ways to create an error">3种创建错误的简单方法</a>。</p>
 <h2 id=panic>Panic</h2>
 <p>Panics 类似于 C++ 和 Java 异常，但仅适用于运行时错误，例如跟随一个 nil 指针或试图对数组访问超出范围的索引。</p>
 <h4 id=延伸阅读>延伸阅读</h4>
-<p><img src=http://oss.xiayuguo.com/blog/202003/panic-thumb.jpg alt></p>
-<p>有关如何从 panics 中恢复和测试 panics 的教程，请参见 <a href=https://xiayuguo.com/post/2020/03/recover-from-panic/ title="Recover from a panic">从 panic 中恢复</a>。</p>
+<p><img src=http://oss.yuguo.im/blog/202003/panic-thumb.jpg alt></p>
+<p>有关如何从 panics 中恢复和测试 panics 的教程，请参见 <a href=https://yuguo.im/post/2020/03/recover-from-panic/ title="Recover from a panic">从 panic 中恢复</a>。</p>
 <div>
 <p>扫描下方二维码，关注<code style=color:#1aad19;font-weight:700>Feed</code>， 定期推送最新随笔</p>
 <img src=http://oss.xiayuguo.com/wechat_qrcode.jpg style=width:215px;height:215px alt="公众号 Feed 二维码">
@@ -82,7 +82,7 @@ if err != nil {
 </div>
 </div>
 <div id=disqus_thread></div>
-<script>var disqus_config=function(){this.page.url="https://yuguo.im/post/2020/03/errors-explained/"};(function(){var a=document,b=a.createElement('script');b.src='//yuguo.disqus.com/embed.js',b.setAttribute('data-timestamp',+new Date),(a.head||a.body).appendChild(b)})()</script>
+<script>var disqus_config=function(){this.page.url="https://yuguo.im/post/2020/03/errors-explained/"};(function(){var a=document,b=a.createElement('script');b.src='//.disqus.com/embed.js',b.setAttribute('data-timestamp',+new Date),(a.head||a.body).appendChild(b)})()</script>
 <noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments
 powered by Disqus.</a></noscript>
 <div class=footer>

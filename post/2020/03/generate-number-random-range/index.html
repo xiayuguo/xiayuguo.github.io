@@ -38,7 +38,7 @@
 <p>作者：Stefan Nilsson</p>
 <p>原文网址：https://yourbasic.org/golang/generate-number-random-range/</p>
 </blockquote>
-<p><img src=http://oss.xiayuguo.com/blog/202003/dart.jpg alt></p>
+<p><img src=http://oss.yuguo.im/blog/202003/dart.jpg alt></p>
 <h2 id=go-伪随机数基础知识>Go 伪随机数基础知识</h2>
 <p>使用包 <a href=https://golang.org/pkg/math/rand/ title=math/rand>math/rand</a> 中的 <a href=https://golang.org/pkg/math/rand/#Seed title=rand.Seed>rand.Seed</a> 和 <a href=https://golang.org/pkg/math/rand/#Int63 title=rand.Int63>rand.Int63</a> 函数生成 int64 类型的非负伪随机数：</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-golang data-lang=golang><span style=color:#a6e22e>rand</span>.<span style=color:#a6e22e>Seed</span>(<span style=color:#a6e22e>time</span>.<span style=color:#a6e22e>Now</span>().<span style=color:#a6e22e>UnixNano</span>())
@@ -66,8 +66,8 @@
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-golang data-lang=golang><span style=color:#a6e22e>chars</span> <span style=color:#f92672>:=</span> []rune(<span style=color:#e6db74>&#34;AB⌘&#34;</span>)
 <span style=color:#a6e22e>c</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>chars</span>[<span style=color:#a6e22e>rand</span>.<span style=color:#a6e22e>Intn</span>(len(<span style=color:#a6e22e>chars</span>))] <span style=color:#75715e>// for example &#39;⌘&#39;
 </span></code></pre></div><h4 id=延伸阅读>延伸阅读</h4>
-<p><img src=http://oss.xiayuguo.com/blog/202003/rune-stone-ballstorp-1900.jpg alt="Runic letters encoded in stone, Ballstorp 1900">
-<a href=https://xiayuguo.com/post/2020/03/rune/ title="Runes 和字符编码（译文）">Runes 和字符编码（译文）</a></p>
+<p><img src=http://oss.yuguo.im/blog/202003/rune-stone-ballstorp-1900.jpg alt="Runic letters encoded in stone, Ballstorp 1900">
+<a href=https://yuguo.im/post/2020/03/rune/ title="Runes 和字符编码（译文）">Runes 和字符编码（译文）</a></p>
 <div>
 <p>扫描下方二维码，关注<code style=color:#1aad19;font-weight:700>Feed</code>， 定期推送最新随笔</p>
 <img src=http://oss.xiayuguo.com/wechat_qrcode.jpg style=width:215px;height:215px alt="公众号 Feed 二维码">
@@ -81,7 +81,7 @@
 </div>
 </div>
 <div id=disqus_thread></div>
-<script>var disqus_config=function(){this.page.url="https://yuguo.im/post/2020/03/generate-number-random-range/"};(function(){var a=document,b=a.createElement('script');b.src='//yuguo.disqus.com/embed.js',b.setAttribute('data-timestamp',+new Date),(a.head||a.body).appendChild(b)})()</script>
+<script>var disqus_config=function(){this.page.url="https://yuguo.im/post/2020/03/generate-number-random-range/"};(function(){var a=document,b=a.createElement('script');b.src='//.disqus.com/embed.js',b.setAttribute('data-timestamp',+new Date),(a.head||a.body).appendChild(b)})()</script>
 <noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments
 powered by Disqus.</a></noscript>
 <div class=footer>

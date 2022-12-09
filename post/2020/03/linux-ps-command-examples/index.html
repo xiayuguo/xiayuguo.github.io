@@ -159,7 +159,7 @@ root 802 0.0 0.9 550008 18036 ? Ssl 09:49 0:01 /usr/bin/python -Es /usr/sbin/tun
 root 950 0.0 0.8 102312 15580 ? S 09:49 0:00 \_ /sbin/dhclient -d -sf /usr/libexec/nm-dhcp-helper -pf /var/run/dhclient-eno16777736.pid -lf /var/lib/NetworkManager/dhclient-42456ebc-a752-4950-9adf-1b8bc29f43eb-eno16777736.lease -cf /var/lib/NetworkManager/dhclient-eno16777736.conf eno16777736
 root 3154 0.0 0.8 898940 15300 ? Sl 10:00 0:00 /usr/libexec/evolution-calendar-factory
 root 3020 0.0 0.8 551480 16420 ? Sl 10:00 0:00 /usr/libexec/goa-daemon
-</code></pre><p><img src=http://oss.xiayuguo.com/blog/202003/ps-memory.webp alt></p>
+</code></pre><p><img src=http://oss.yuguo.im/blog/202003/ps-memory.webp alt></p>
 <h2 id=6-按名称或进程id过滤进程>6. 按名称或进程ID过滤进程</h2>
 <p>为此，我们可以使用 <code>-C</code> 选项, 关键字放在它后面。假设我们要显示名为 getty 的进程。我们可以输入：</p>
 <pre tabindex=0><code>$ ps -C getty
@@ -201,10 +201,10 @@ PID %CPU %MEM USER COMMAND
 </code></pre><h2 id=10-分层结构中显示进程>10. 分层结构中显示进程</h2>
 <p>有时我们希望以分层形式查看进程。为此，我们可以使用 <code>-axjf</code> 选项。</p>
 <pre tabindex=0><code>$ ps -axjf
-</code></pre><p><img src=http://oss.xiayuguo.com/blog/202003/ps_axjf.webp alt=按层次显示></p>
+</code></pre><p><img src=http://oss.yuguo.im/blog/202003/ps_axjf.webp alt=按层次显示></p>
 <p>或者，我们可以使用的另一个命令是 <code>pstree</code></p>
 <p>$ pstree</p>
-<p><img src=http://oss.xiayuguo.com/blog/202003/pstree.webp alt=按层次显示信息></p>
+<p><img src=http://oss.yuguo.im/blog/202003/pstree.webp alt=按层次显示信息></p>
 <h2 id=11-显示进程持续运行时间>11. 显示进程持续运行时间</h2>
 <p>这将显示一个进程在系统上运行了多长时间。</p>
 <pre tabindex=0><code># ps -e -o pid,comm,etime | grep mysql
@@ -230,7 +230,7 @@ ELAPSED
 <p>如果要查看谁当前登录到您的服务器，可以使用 ps 命令查看它。我们可以使用一些选项来满足我们的需求。这里有些例子 ：</p>
 <pre tabindex=0><code>$ ps -eo pid,user,args
 </code></pre><p><code>-e</code> 选项将显示所有进程，同时 <code>-o</code> 选项将控制输出。Pid, User 和 Args 将向您显示 进程 ID, 运行应用的用户和正在运行的应用。</p>
-<p><img src=http://oss.xiayuguo.com/blog/202003/ps_security_1.webp alt=显示安全信息></p>
+<p><img src=http://oss.yuguo.im/blog/202003/ps_security_1.webp alt=显示安全信息></p>
 <p>可以与 <code>-e</code> 选项一起使用的关键字/用户定义格式为 <code>args，cmd，comm，command，fname，ucmd，ucomm，lstart，bsdstart and start</code>。</p>
 <p>现在，ps命令可以通过以下命令将 pid 映射到它们各自的systemd单元。</p>
 <pre tabindex=0><code>$ ps -e -o pid，unit，cmd
@@ -241,20 +241,20 @@ ELAPSED
 <p>而 <code>-u</code> 参数将通过有效用户ID（EUID）选择</p>
 <p>最后一个参数 <code>u</code> 将以面向用户的格式显示输出，其中包含 <code>User, PID, %CPU, %MEM, VSZ, RSS, TTY, STAT, START, TIME and COMMAND</code> 列。</p>
 <p>这是上面命令的输出。</p>
-<p><img src=http://oss.xiayuguo.com/blog/202003/ps_root_real_effective_ID.webp alt=显示真实有效的用户ID></p>
+<p><img src=http://oss.yuguo.im/blog/202003/ps_root_real_effective_ID.webp alt=显示真实有效的用户ID></p>
 <h2 id=14-在实时进程查看器中使用-ps>14. 在实时进程查看器中使用 PS</h2>
 <p>ps 将显示有关系统中发生的情况的报告。结果将是静态报告。
 假设我们要像上面第 4 点那样按CPU和内存使用情况筛选进程。我们希望报告每1秒更新一次。我们可以组合 <code>watch</code> 命令在 Linux 上做到这一点。</p>
 <p>这是命令：</p>
 <pre tabindex=0><code>$ watch -n 1 'ps -aux --sort -pmem,-pcpu'
-</code></pre><p><img src=http://oss.xiayuguo.com/blog/202003/watch-ps-1.png alt></p>
+</code></pre><p><img src=http://oss.yuguo.im/blog/202003/watch-ps-1.png alt></p>
 <p>如果您认为报告太长，我们可以将其限制为前 20 个流程，例如：我们可以添加 <code>head</code> 命令来做到这一点。</p>
 <pre tabindex=0><code>$ watch -n 1 'ps -aux --sort -pmem,-pcpu | head -n 20'
-</code></pre><p><img src=http://oss.xiayuguo.com/blog/202003/watch-ps-20.png alt></p>
+</code></pre><p><img src=http://oss.yuguo.im/blog/202003/watch-ps-20.png alt></p>
 <p>这位现场记者当然不像 top 或 htop。但是使用 ps 进行实时报告的优点是您可以自定义字段。您可以选择要查看的字段。</p>
 <p>例如，如果只需要显示 pungki 用户，则可以将命令更改为如下所示：</p>
 <pre tabindex=0><code>$ watch -n 1 'ps -aux -U pungki u --sort -pmem,-pcpu | head -n 20'
-</code></pre><p><img src=http://oss.xiayuguo.com/blog/202003/ps_watch_3.webp alt>
+</code></pre><p><img src=http://oss.yuguo.im/blog/202003/ps_watch_3.webp alt>
 对于更多文档，您可以在 Linux 控制台上键入 <code>man ps</code> 来探索更多选项。</p>
 <div>
 <p>扫描下方二维码，关注<code style=color:#1aad19;font-weight:700>Feed</code>， 定期推送最新随笔</p>
@@ -269,7 +269,7 @@ ELAPSED
 </div>
 </div>
 <div id=disqus_thread></div>
-<script>var disqus_config=function(){this.page.url="https://yuguo.im/post/2020/03/linux-ps-command-examples/"};(function(){var a=document,b=a.createElement('script');b.src='//yuguo.disqus.com/embed.js',b.setAttribute('data-timestamp',+new Date),(a.head||a.body).appendChild(b)})()</script>
+<script>var disqus_config=function(){this.page.url="https://yuguo.im/post/2020/03/linux-ps-command-examples/"};(function(){var a=document,b=a.createElement('script');b.src='//.disqus.com/embed.js',b.setAttribute('data-timestamp',+new Date),(a.head||a.body).appendChild(b)})()</script>
 <noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments
 powered by Disqus.</a></noscript>
 <div class=footer>

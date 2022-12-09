@@ -38,7 +38,7 @@
 <p>作者：Stefan Nilsson</p>
 <p>原文网址：https://yourbasic.org/golang/generate-random-string/</p>
 </blockquote>
-<p><img src=http://oss.xiayuguo.com/blog/202003/password-generator.jpg alt></p>
+<p><img src=http://oss.yuguo.im/blog/202003/password-generator.jpg alt></p>
 <h2 id=随机字符串>随机字符串</h2>
 <p>该代码从瑞典语字母（包括非 ASCII 字符 å， ä 和 ö ）中生成一个随机的数字和字符字符串。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-golang data-lang=golang><span style=color:#a6e22e>rand</span>.<span style=color:#a6e22e>Seed</span>(<span style=color:#a6e22e>time</span>.<span style=color:#a6e22e>Now</span>().<span style=color:#a6e22e>UnixNano</span>())
@@ -52,7 +52,7 @@
 }
 <span style=color:#a6e22e>str</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>b</span>.<span style=color:#a6e22e>String</span>() <span style=color:#75715e>// E.g. &#34;ExcbsVQs&#34;
 </span></code></pre></div><blockquote>
-<p>警告：要生成密码，应使用加密安全的伪随机数。请参阅 <a href=https://xiayuguo.com/post/2020/03/crypto-rand-int title="User-friendly access to crypto/rand">User-friendly access to crypto/rand</a>。</p>
+<p>警告：要生成密码，应使用加密安全的伪随机数。请参阅 <a href=https://yuguo.im/post/2020/03/crypto-rand-int title="User-friendly access to crypto/rand">User-friendly access to crypto/rand</a>。</p>
 </blockquote>
 <h2 id=有限制的随机字符串>有限制的随机字符串</h2>
 <p>此代码生成一个随机的 ASCII 字符串，该字符串至少包含一个数字和一个特殊字符。</p>
@@ -80,8 +80,8 @@
     <span style=color:#a6e22e>buf</span>[<span style=color:#a6e22e>i</span>], <span style=color:#a6e22e>buf</span>[<span style=color:#a6e22e>j</span>] = <span style=color:#a6e22e>buf</span>[<span style=color:#a6e22e>j</span>], <span style=color:#a6e22e>buf</span>[<span style=color:#a6e22e>i</span>]
 }
 </code></pre></div><h2 id=延伸阅读>延伸阅读</h2>
-<p><img src=http://oss.xiayuguo.com/blog/202003/dart.jpg alt>
-<a href=https://xiayuguo.com/post/2020/03/generate-number-random-range title="Golang 中生成随机数，字符和切片元素（译文）">Golang 中生成随机数，字符和切片元素（译文）</a></p>
+<p><img src=http://oss.yuguo.im/blog/202003/dart.jpg alt>
+<a href=https://yuguo.im/post/2020/03/generate-number-random-range title="Golang 中生成随机数，字符和切片元素（译文）">Golang 中生成随机数，字符和切片元素（译文）</a></p>
 <div>
 <p>扫描下方二维码，关注<code style=color:#1aad19;font-weight:700>Feed</code>， 定期推送最新随笔</p>
 <img src=http://oss.xiayuguo.com/wechat_qrcode.jpg style=width:215px;height:215px alt="公众号 Feed 二维码">
@@ -95,7 +95,7 @@
 </div>
 </div>
 <div id=disqus_thread></div>
-<script>var disqus_config=function(){this.page.url="https://yuguo.im/post/2020/03/generate-random-string/"};(function(){var a=document,b=a.createElement('script');b.src='//yuguo.disqus.com/embed.js',b.setAttribute('data-timestamp',+new Date),(a.head||a.body).appendChild(b)})()</script>
+<script>var disqus_config=function(){this.page.url="https://yuguo.im/post/2020/03/generate-random-string/"};(function(){var a=document,b=a.createElement('script');b.src='//.disqus.com/embed.js',b.setAttribute('data-timestamp',+new Date),(a.head||a.body).appendChild(b)})()</script>
 <noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments
 powered by Disqus.</a></noscript>
 <div class=footer>

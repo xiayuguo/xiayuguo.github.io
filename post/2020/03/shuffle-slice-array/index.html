@@ -38,7 +38,7 @@
 <p>作者：Stefan Nilsson</p>
 <p>原文网址：https://yourbasic.org/golang/shuffle-slice-array/</p>
 </blockquote>
-<p><img src=http://oss.xiayuguo.com/blog/202003/riffle-shuffle.jpg alt></p>
+<p><img src=http://oss.yuguo.im/blog/202003/riffle-shuffle.jpg alt></p>
 <p>包 <a href=https://golang.org/pkg/math/rand/ title=math/rand>math/rand</a> 中的 <a href=https://golang.org/pkg/math/rand/#Shuffle title=rand.Shuffle>rand.Shuffle</a> 函数使用给定的交换函数对输入序列进行混洗。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-golang data-lang=golang><span style=color:#a6e22e>a</span> <span style=color:#f92672>:=</span> []<span style=color:#66d9ef>int</span>{<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>2</span>, <span style=color:#ae81ff>3</span>, <span style=color:#ae81ff>4</span>, <span style=color:#ae81ff>5</span>, <span style=color:#ae81ff>6</span>, <span style=color:#ae81ff>7</span>, <span style=color:#ae81ff>8</span>}
 <span style=color:#a6e22e>rand</span>.<span style=color:#a6e22e>Seed</span>(<span style=color:#a6e22e>time</span>.<span style=color:#a6e22e>Now</span>().<span style=color:#a6e22e>UnixNano</span>())
@@ -49,8 +49,8 @@
 <p>警告：如果不调用 <code>rand.Seed</code>，则每次运行程序时，您都会获得相同的伪随机数序列。</p>
 </blockquote>
 <h4 id=延伸阅读>延伸阅读</h4>
-<p><img src=http://oss.xiayuguo.com/blog/202003/dart.jpg alt>
-<a href=https://xiayuguo.com/post/2020/03/generate-number-random-range title="Golang 中生成随机数，字符和切片元素（译文）">Golang 中生成随机数，字符和切片元素（译文）</a></p>
+<p><img src=http://oss.yuguo.im/blog/202003/dart.jpg alt>
+<a href=https://yuguo.im/post/2020/03/generate-number-random-range title="Golang 中生成随机数，字符和切片元素（译文）">Golang 中生成随机数，字符和切片元素（译文）</a></p>
 <h4 id=go-110-之前>Go 1.10 之前</h4>
 <p>在包 <code>math/rand</code> 中使用 <a href=https://golang.org/pkg/math/rand/#Seed title=rand.Seed>rand.Seed</a> 和 <a href=https://golang.org/pkg/math/rand/#Intn title=rand.Intn>rand.Intn</a> 函数。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-golang data-lang=golang><span style=color:#a6e22e>a</span> <span style=color:#f92672>:=</span> []<span style=color:#66d9ef>int</span>{<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>2</span>, <span style=color:#ae81ff>3</span>, <span style=color:#ae81ff>4</span>, <span style=color:#ae81ff>5</span>, <span style=color:#ae81ff>6</span>, <span style=color:#ae81ff>7</span>, <span style=color:#ae81ff>8</span>}
@@ -73,7 +73,7 @@
 </div>
 </div>
 <div id=disqus_thread></div>
-<script>var disqus_config=function(){this.page.url="https://yuguo.im/post/2020/03/shuffle-slice-array/"};(function(){var a=document,b=a.createElement('script');b.src='//yuguo.disqus.com/embed.js',b.setAttribute('data-timestamp',+new Date),(a.head||a.body).appendChild(b)})()</script>
+<script>var disqus_config=function(){this.page.url="https://yuguo.im/post/2020/03/shuffle-slice-array/"};(function(){var a=document,b=a.createElement('script');b.src='//.disqus.com/embed.js',b.setAttribute('data-timestamp',+new Date),(a.head||a.body).appendChild(b)})()</script>
 <noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments
 powered by Disqus.</a></noscript>
 <div class=footer>
